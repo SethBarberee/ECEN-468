@@ -19,14 +19,18 @@ SC_MODULE (RAM) {
   // ...
   int internal_memory[RAM_WIDTH, DATA_WIDTH];
   int location_row;
-  int location_col;
 
   // ----- Code Starts Here ----- 
  
   void function_decode(){
     unsigned int half = ADDR_WIDTH / 2;
+    // top 9 bits
     unsigned int top_half_addr = tAddr.range(0, half);
+    location_row = top_half_addr;
+    // bottom 9 bits
     unsigned int bottom_half_addr = tAddr.range(half + 1, ADDR_WIDTH);
+    location_row = location_row << 9;
+    location_row = location_row & bottom_half_addr;
   }
 
   // Memory Write Block 
@@ -34,7 +38,7 @@ SC_MODULE (RAM) {
   void function_write(){
       if(!(tbWE.read()) && !(tbCE.read())){
           function_decode();
-          internal_memory[location_row, location_col] = tInData.read();
+          internal_memory[location_row] = tInData.read();
       }
   }
 
@@ -43,7 +47,7 @@ SC_MODULE (RAM) {
   void function_read(){
       if((tbWE.read()) && !(tbCE.read())){
           function_decode();
-          tOutData.write(nternal_memory[location_row, location_col]);
+          tOutData.write(nternal_memory[location_row]);
       }
   }
 
