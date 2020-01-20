@@ -27,6 +27,9 @@ int sc_main (int argc, char* argv[]) {
 	// Open VCD(Value Change Dump) file
 	sc_trace_file *wf = sc_create_vcd_trace_file("VCD_RAM");
 
+        // Make sure our file can be opened
+        if (!trace_file) cout << "Error: Trace file could not be opened" << endl;
+
 	// Dump the desired signals
 	sc_trace(wf, tInData, "strInData");
         sc_trace(wf, tAddr, "strAddr");

@@ -17,18 +17,18 @@ SC_MODULE (RAM) {
 
   // ----- Internal variables -----
   // ...
-  int internal_memory[RAM_WIDTH, DATA_WIDTH];
-  int location_row;
+  sc_bv[DATA_WIDTH] internal_memory[RAM_DEPTH] // 2D bit vector of our data
+  sc_bv[RAM_DEPTH] location_row; // we'll use this to store where we are read/write from
 
   // ----- Code Starts Here ----- 
  
   void function_decode(){
-    unsigned int half = ADDR_WIDTH / 2;
+    sc_uint<ADDR_WIDTH/2> half = ADDR_WIDTH / 2;
     // top 9 bits
-    unsigned int top_half_addr = tAddr.range(0, half);
+    sc_uint<ADDR_WIDTH/2> top_half_addr = tAddr.range(0, half);
     location_row = top_half_addr;
     // bottom 9 bits
-    unsigned int bottom_half_addr = tAddr.range(half + 1, ADDR_WIDTH);
+    sc_uint<ADDR_WIDTH/2> bottom_half_addr = tAddr.range(half + 1, ADDR_WIDTH);
     location_row = location_row << 9;
     location_row = location_row & bottom_half_addr;
   }
@@ -47,7 +47,7 @@ SC_MODULE (RAM) {
   void function_read(){
       if((tbWE.read()) && !(tbCE.read())){
           function_decode();
-          tOutData.write(nternal_memory[location_row]);
+          tOutData.write(internal_memory[location_row]);
       }
   }
 
@@ -56,8 +56,12 @@ SC_MODULE (RAM) {
   // sensitivity list
   SC_CTOR(RAM) {
     SC_METHOD(function_write);
+        // recompute if tbWE/tbCE/tAddr/tInData change
+        // TODO should this just rely on tInData?
 	sensitive << tbWE << tbCE << tAddr << tInData;
     SC_METHOD(function_read);
+        // recompute if tbWE/tbCE/tAddr change
+        // TODO should this just rely on tAddr?
 	sensitive << tbWE << tbCE << tAddr;
   }
 };
