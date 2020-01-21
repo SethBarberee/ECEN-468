@@ -1,0 +1,72 @@
+cd /home/ugrads/s/seth.barberee/ECEN468/Lab1/SRC/
+gdb.shell.exe
+spawn /opt/coe/mentorgraphics/vista312/linux64/tools.64bit/bin/gdb -quiet -interp=opengdb -runtcl="/opt/coe/mentorgraphics/vista312/generic/tcl/v2/gdb/gdb.tcl" --nx
+
+(vista) BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+Vista SystemC 2.2 Runtime Kernel.
+Built September 15, 2011. License version 2011.9.
+Copyright (c) 2005-2011, Mentor Graphics Corporation.
+
+             SystemC 2.2.0 --- Sep 15 2011 00:24:25
+        Copyright (c) 1996-2006 by all Contributors
+                    ALL RIGHTS RESERVED
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_start(double) deprecated, use sc_start(sc_time) or sc_start()
+Merging /home/ugrads/s/seth.barberee/ECEN468/Lab1/SRC/Ram/build/D_PRJDIR_/test_RAM.exe ...Done.
+Saving types data file /home/ugrads/s/seth.barberee/ECEN468/Lab1/SRC/Ram/sim/test_RAM.db...Done.
+WARNING: Default time step is used for VCD tracing.
+@5 ns:: Write mode
+@10 ns:: Write mode
+@15 ns:: Write mode
+@20 ns:: Set to Idle mode
+@25 ns:: Read mode
+@30 ns:: Read mode
+@35 ns:: Read mode
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call as the
+             first statement in your sc_main() function:
+
+  sc_report_handler::set_actions("/IEEE_Std_1666/deprecated", SC_DO_NOTHING);
+
+
+Program is about to exit.
+#0  0x00000000004e3c60 in summit_sc::Runtime::atExitCallback ()
+(vista) 

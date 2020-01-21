@@ -9,45 +9,41 @@
 
 SC_MODULE (RAM) {
   // ----- Declare Input/Output ports -----
-    sc_in < sc_uint<ADDR_WIDTH> > 	tAddr ;
-    sc_in < bool > 			tbWE;
-    sc_in < bool > 			tbCE;
-    sc_in < sc_uint<DATA_WIDTH> > 	tInData;
-    sc_out < sc_uint<DATA_WIDTH> > 	tOutData;
+    sc_in < sc_uint<ADDR_WIDTH> > 	Addr ;
+    sc_in < bool > 			bWE;
+    sc_in < bool > 			bCE;
+    sc_in < sc_uint<DATA_WIDTH> > 	InData;
+    sc_out < sc_uint<DATA_WIDTH> > 	OutData;
 
   // ----- Internal variables -----
   // ...
-  sc_bv[DATA_WIDTH] internal_memory[RAM_DEPTH] // 2D bit vector of our data
-  sc_bv[RAM_DEPTH] location_row; // we'll use this to store where we are read/write from
+  sc_bv<DATA_WIDTH> internal_memory[RAM_DEPTH]; // 2D bit vector of our data
+  int location_row; // we'll use this to store where we are read/write from
 
   // ----- Code Starts Here ----- 
  
   void function_decode(){
-    sc_uint<ADDR_WIDTH/2> half = ADDR_WIDTH / 2;
-    // top 9 bits
-    sc_uint<ADDR_WIDTH/2> top_half_addr = tAddr.range(0, half);
-    location_row = top_half_addr;
-    // bottom 9 bits
-    sc_uint<ADDR_WIDTH/2> bottom_half_addr = tAddr.range(half + 1, ADDR_WIDTH);
-    location_row = location_row << 9;
-    location_row = location_row & bottom_half_addr;
+    sc_uint<ADDR_WIDTH> read_address = Addr.read();
+    location_row =  read_address;
   }
 
   // Memory Write Block 
   // Write Operation : When we_b = 0, ce_b = 0
   void function_write(){
-      if(!(tbWE.read()) && !(tbCE.read())){
+      if(!(bWE.read()) && !(bCE.read())){
           function_decode();
-          internal_memory[location_row] = tInData.read();
+          cout << "Writing " << InData.read() << " to location " << location_row << endl;
+          internal_memory[location_row] = InData.read();
       }
   }
 
   // Memory Read Block 
   // Read Operation : When we_b = 1, ce_b = 0
   void function_read(){
-      if((tbWE.read()) && !(tbCE.read())){
+      if((bWE.read()) && !(bCE.read())){
           function_decode();
-          tOutData.write(internal_memory[location_row]);
+          cout << "Reading " << internal_memory[location_row] << " from " << location_row << endl; 
+          OutData.write(internal_memory[location_row]);
       }
   }
 
@@ -56,13 +52,13 @@ SC_MODULE (RAM) {
   // sensitivity list
   SC_CTOR(RAM) {
     SC_METHOD(function_write);
-        // recompute if tbWE/tbCE/tAddr/tInData change
-        // TODO should this just rely on tInData?
-	sensitive << tbWE << tbCE << tAddr << tInData;
+        // recompute if bWE/bCE/Addr/InData change
+        // TODO should this just rely on InData?
+	sensitive << bWE << bCE << Addr << InData;
     SC_METHOD(function_read);
-        // recompute if tbWE/tbCE/tAddr change
-        // TODO should this just rely on tAddr?
-	sensitive << tbWE << tbCE << tAddr;
+        // recompute if bWE/bCE/Addr change
+        // TODO should this just rely on Addr?
+	sensitive << bWE << bCE << Addr;
   }
 };
 
