@@ -20,6 +20,14 @@ int sc_main (int argc, char* argv[]) {
 	// ...
 	// >> Connect your top module here
 	// ...
+        UART_XMTR UART_XMTR_01("SIMULATION UART");
+            UART_XMTR_01.Data_Bus(Data_Bus);
+            UART_XMTR_01.Load_XMT_datareg(Load_XMT_datareg);
+            UART_XMTR_01.Byte_ready(Byte_ready);
+            UART_XMTR_01.T_byte(T_byte);
+            UART_XMTR_01.rst_b(rst_b);
+            UART_XMTR_01.Serial_out(Serial_out);
+            UART_XMTR_01.clk(clk);
 
 	// Method 2. Positional connection
 	// ...

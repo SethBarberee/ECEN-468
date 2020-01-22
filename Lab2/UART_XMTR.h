@@ -39,9 +39,11 @@ SC_MODULE (UART_XMTR){
   	// Constructor for the SC_MODULE
   	// sensitivity list
   	SC_CTOR(UART_XMTR) {
-			// ...
-			// Insert your code here
-			// ...
+            SC_METHOD(Send_bit);
+                sensitive << Load_XMT_datareg;
+            SC_METHOD(Initialize);
+                // syncronize on positive clk and negative reset
+                sensitive << clk.pos() << rst_b.neg();
   	}
 };
 

@@ -9,24 +9,39 @@
 	switch(IntState)
 	{
 		case STATE_IDLE:
-			// ...
-			// Insert your code here
-			// ...
+                        bit_count = 0;
+                        if(Load_XMT_datareg.read())
+                            XMT_datareg = Data_Bus.read();
+                        if(Byte_ready.read()){
+                            XMT_shftreg = XMT_datareg;
+                            XMT_shftreg = XMT_shftreg << 1;
+                            NextIntState = STATE_WAITING;
+                        } else {
+                            NextIntState = STATE_IDLE; 
+                        }
 			break;
 		case STATE_WAITING:
-			// ...
-			// Insert your code here
-			// ...
+                        if(T_byte.read()){
+                            XMT_shftreg[0] = 0;
+                            NextIntState = STATE_SENDING;
+                        }
+                        else {
+                            NextIntState = STATE_WAITING;
+                        }
 			break;
 		case STATE_SENDING:
-			// ...
-			// Insert your code here
-			// ...
-            break;
-        default:{
-		NextIntState = STATE_IDLE;
-        }
+                        while(bit_count < 9){
+                            XMT_shftreg = XMT_shftreg << 1;
+                            bit_count++;
+                        }
+                        NextIntState = STATE_IDLE;
+                        XMT_shftreg = 0x1ff;
+                        break;
+                default:{
+                        NextIntState = STATE_IDLE;
+                }
 	}
+        cout << "Sending " << XMT_shftreg[0] << endl;
 	Serial_out.write(XMT_shftreg[0]);
   }
 
