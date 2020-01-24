@@ -34,6 +34,14 @@ int sc_main (int argc, char* argv[]) {
 	// >> Connect your testbench here
 	// ...
 
+        test TEST_01("TEST UART");
+            TEST_01.Data_Bus(Data_Bus);
+            TEST_01.Load_XMT_datareg(Load_XMT_datareg);
+            TEST_01.Byte_ready(Byte_ready);
+            TEST_01.T_byte(T_byte);
+            TEST_01.rst_b(rst_b);
+            TEST_01.Serial_out(Serial_out);
+            TEST_01.clk(clk);
 	// Open VCD file
 	sc_trace_file *wf = sc_create_vcd_trace_file("wave");
 
