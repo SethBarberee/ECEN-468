@@ -53,11 +53,9 @@ SC_MODULE (RAM) {
   SC_CTOR(RAM) {
     SC_METHOD(function_write);
         // recompute if bWE/bCE/Addr/InData change
-        // TODO should this just rely on InData?
 	sensitive << bWE << bCE << Addr << InData;
     SC_METHOD(function_read);
         // recompute if bWE/bCE/Addr change
-        // TODO should this just rely on Addr?
 	sensitive << bWE << bCE << Addr;
   }
 };

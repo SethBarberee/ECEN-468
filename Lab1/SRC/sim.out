@@ -49,16 +49,20 @@ Copyright (c) 2005-2011, Mentor Graphics Corporation.
                     ALL RIGHTS RESERVED
 
 Info: (I804) /IEEE_Std_1666/deprecated: sc_start(double) deprecated, use sc_start(sc_time) or sc_start()
-Merging /home/ugrads/s/seth.barberee/ECEN468/Lab1/SRC/Ram/build/D_PRJDIR_/test_RAM.exe ...Done.
-Saving types data file /home/ugrads/s/seth.barberee/ECEN468/Lab1/SRC/Ram/sim/test_RAM.db...Done.
 WARNING: Default time step is used for VCD tracing.
 @5 ns:: Write mode
+Writing 61 to location 61
 @10 ns:: Write mode
+Writing 62 to location 62
 @15 ns:: Write mode
+Writing 63 to location 63
 @20 ns:: Set to Idle mode
 @25 ns:: Read mode
+Reading 00111101 from 61
 @30 ns:: Read mode
+Reading 00111110 from 62
 @35 ns:: Read mode
+Reading 00111111 from 63
 
 Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
              IEEE 1666 deprecated features by placing this method call as the
@@ -68,5 +72,7 @@ Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
 
 
 Program is about to exit.
-#0  0x00000000004e3c60 in summit_sc::Runtime::atExitCallback ()
+#0  0x00000000004e40c0 in summit_sc::Runtime::atExitCallback ()
+(vista) 
+
 (vista) 
