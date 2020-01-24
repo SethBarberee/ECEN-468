@@ -17,9 +17,6 @@ int sc_main (int argc, char* argv[]) {
 	
 	// Connect the DUT
 	// Method 1. Named Connection
-	// ...
-	// >> Connect your top module here
-	// ...
         UART_XMTR UART_XMTR_01("SIMULATION UART");
             UART_XMTR_01.Data_Bus(Data_Bus);
             UART_XMTR_01.Load_XMT_datareg(Load_XMT_datareg);
@@ -30,18 +27,10 @@ int sc_main (int argc, char* argv[]) {
             UART_XMTR_01.clk(clk);
 
 	// Method 2. Positional connection
-	// ...
-	// >> Connect your testbench here
-	// ...
-
         test TEST_01("TEST UART");
-            TEST_01.Data_Bus(Data_Bus);
-            TEST_01.Load_XMT_datareg(Load_XMT_datareg);
-            TEST_01.Byte_ready(Byte_ready);
-            TEST_01.T_byte(T_byte);
-            TEST_01.rst_b(rst_b);
-            TEST_01.Serial_out(Serial_out);
-            TEST_01.clk(clk);
+        TEST_01(Load_XMT_datareg,
+                Byte_ready, T_byte,
+                rst_b, Data_Bus, Serial_out, clk);
 	// Open VCD file
 	sc_trace_file *wf = sc_create_vcd_trace_file("wave");
 
