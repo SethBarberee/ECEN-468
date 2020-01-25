@@ -1,0 +1,4 @@
+1) When UART transmitter sends data to UART receiver, which information does
+UART receiver need to receive data correctly?
+
+The receiver needs the start and stop bit to receive the data correctly.
