@@ -1,0 +1,6 @@
+1) What are the differences between asynchronous SRAM and synchronous SRAM?
+
+Synchronous relies on a clock source as it will read/write when the clock
+changes
+
+Asynchronous doesn't rely on the clock.
