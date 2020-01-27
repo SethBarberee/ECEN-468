@@ -30,12 +30,7 @@ void SRAM_WRAP::Bus_Control() {
 }
 
 void SRAM_WRAP::Function_SRAM_WRAP() {
-	AddrDecoded = AddressBus.read().to_uint() >> 28;
-
-	// Insert your code here.
-	// ...
-	// ...
-	// ...
+	AddrDecoded = AddressBus.read().to_uint() >> 28; 
 
 	if(!bReset.read()){
 		IntEnable = 0;
@@ -44,8 +39,12 @@ void SRAM_WRAP::Function_SRAM_WRAP() {
 	else if(IntEnable){
 		if(AddrDecoded == 0x1) {// Address Decoding Matching
                         // Bit 19 is CE_b
+                        CE_b.write(AddressBus.read() );
                         // Bit 18 is WE_b
+                        WE_b.write(AddressBus.read() );
                         // Bits [17:0] is Addr
+                        Addr.write(AddressBus.read() );
+                        Data.write(DataBus.read());
 		}
 		else {
 			IntEnable = 0;

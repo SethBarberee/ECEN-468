@@ -65,7 +65,7 @@ int sc_main (int argc, char* argv[]) {
 
 	// Connect your Test-Bench module
         test TEST_01("TESTBENCH");
-        TEST_01(clk, rst_b, Serial_out, BREQ0, BGNT0, DataBus,
+        TEST_01(clk, rst_b, Serial_out, BREQ2, BGNT2, DataBus,
                 AddressBus, ControlBus);
 
 	// Open VCD file

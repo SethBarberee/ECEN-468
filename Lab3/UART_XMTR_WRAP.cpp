@@ -17,10 +17,6 @@ void UART_XMTR_WRAP::Bus_Control() {
 void UART_XMTR_WRAP::Function_UART_XMTR_WRAP() {
 	AddrDecoded = AddressBus.read().to_uint() >> 28;
 
-	// Insert your code here.
-	// ...
-	// ...
-	// ...
  
 	if(!bReset.read()){
 		IntEnable = 0;
@@ -28,8 +24,12 @@ void UART_XMTR_WRAP::Function_UART_XMTR_WRAP() {
 	}else if(IntEnable){
 		if(AddrDecoded == 0x2) {// Address Decoding Matching
                         // Bit 2 is T_byte
+                        T_byte.write(AddressBus.read() & 0x000d);
                         // Bit 1 is Byte_ready
+                        Byte_ready.write(AddressBus.read() & 0x000e);
                         // Bit 0 is Load_XMT_datareg
+                        Load_XMT_datareg.write(AddressBus.read() & 0x000f);
+                        DataToUART.write(DataBus.read());
 		}else {
 			IntEnable = 0;
 			Breq.write(0);
