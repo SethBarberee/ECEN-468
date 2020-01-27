@@ -41,7 +41,6 @@
                             // Continue to shift right and shift 1 in
                             // Since 1 is our stop bit
                             cout << "Sending " << XMT_shftreg[0] << endl;
-                            Serial_out.write(XMT_shftreg[0]);
                             XMT_shftreg = XMT_shftreg >> 1;
                             XMT_shftreg[WORD_SIZE - 1] = 1;
                             bit_count++;
@@ -54,6 +53,7 @@
                     NextIntState = STATE_IDLE;
                 }
 	}
+        Serial_out.write(XMT_shftreg[0]);
   }
 
   void UART_XMTR::Initialize() {
