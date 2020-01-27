@@ -9,31 +9,26 @@
 
 SC_MODULE (SRAM) {
   // ----- Declare Input/Output ports -----
-    sc_in < sc_uint<ADDR_WIDTH> > 	Addr ;
+    sc_in_rv < ADDR_WIDTH > 	Addr ;
     sc_in < bool > 			bWE;
     sc_in < bool > 			bCE;
-    sc_in < sc_uint<DATA_WIDTH> > 	InData;
-    sc_out < sc_uint<DATA_WIDTH> > 	OutData;
+    sc_in_rv < DATA_WIDTH  > 	InData;
+    sc_out_rv < DATA_WIDTH  >	OutData;
 
   // ----- Internal variables -----
   // ...
-  sc_bv<DATA_WIDTH> internal_memory[SRAM_DEPTH]; // 2D bit vector of our data
-  int location_row; // we'll use this to store where we are read/write from
+  sc_uint <DATA_WIDTH> internal_memory[SRAM_DEPTH]; // 2D bit vector of our data
+  uint data, adr; // we'll use this to store where we are read/write from
 
   // ----- Code Starts Here ----- 
- 
-  void function_decode(){
-    sc_uint<ADDR_WIDTH> read_address = Addr.read();
-    location_row =  read_address;
-  }
-
   // Memory Write Block 
   // Write Operation : When we_b = 0, ce_b = 0
   void function_write(){
       if(!(bWE.read()) && !(bCE.read())){
-          function_decode();
-          cout << "Writing " << InData.read() << " to location " << location_row << endl;
-          internal_memory[location_row] = InData.read();
+          data = InData.read().to_uint();
+          adr = Addr.read().to_uint();
+          cout << "Writing " << InData.read() << " to location " << adr << endl;
+          internal_memory[adr] = data;
       }
   }
 
@@ -41,9 +36,9 @@ SC_MODULE (SRAM) {
   // Read Operation : When we_b = 1, ce_b = 0
   void function_read(){
       if((bWE.read()) && !(bCE.read())){
-          function_decode();
-          cout << "Reading " << internal_memory[location_row] << " from " << location_row << endl; 
-          OutData.write(internal_memory[location_row]);
+          adr = Addr.read().to_uint();
+          cout << "Reading " << internal_memory[adr] << " from " << adr << endl; 
+          OutData.write(internal_memory[adr]);
       }
   }
 

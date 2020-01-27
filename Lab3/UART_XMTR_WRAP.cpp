@@ -23,12 +23,13 @@ void UART_XMTR_WRAP::Function_UART_XMTR_WRAP() {
 		Breq.write(0);
 	}else if(IntEnable){
 		if(AddrDecoded == 0x2) {// Address Decoding Matching
+                        sc_bv<3> logic = AddressBus.read() << 12;
                         // Bit 2 is T_byte
-                        T_byte.write(AddressBus.read() & 0x000d);
+                        T_byte.write(logic.get_bit(2));
                         // Bit 1 is Byte_ready
-                        Byte_ready.write(AddressBus.read() & 0x000e);
+                        Byte_ready.write(logic.get_bit(1));
                         // Bit 0 is Load_XMT_datareg
-                        Load_XMT_datareg.write(AddressBus.read() & 0x000f);
+                        Byte_ready.write(logic.get_bit(0));
                         DataToUART.write(DataBus.read());
 		}else {
 			IntEnable = 0;

@@ -7,10 +7,10 @@
 
 SC_MODULE (UART_XMTR_WRAP){
 	// Signals to UART_XMTR
-        sc_out <1> T_byte;
-        sc_out <1> Byte_ready;
-        sc_out <1> Load_XMT_datareg;
-        sc_out <WORD_SIZE> DataToUART;
+        sc_out <bool> T_byte;
+        sc_out <bool> Byte_ready;
+        sc_out <bool> Load_XMT_datareg;
+        sc_inout_rv < WORD_SIZE > DataToUART;
 
 	// Signals to System Bus
   	sc_inout_rv <1> ControlBus;

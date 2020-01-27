@@ -20,7 +20,7 @@ SC_MODULE (UART_XMTR){
   	sc_in < bool >			Byte_ready;
   	sc_in < bool >			T_byte;
   	sc_in < bool >			rst_b;
-  	sc_in <sc_uint<WORD_SIZE> > Data_Bus;
+  	sc_in_rv <WORD_SIZE>  Data_Bus;
 
   	sc_out < bool >			Serial_out;
 

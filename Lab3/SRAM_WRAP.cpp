@@ -38,13 +38,15 @@ void SRAM_WRAP::Function_SRAM_WRAP() {
 	}
 	else if(IntEnable){
 		if(AddrDecoded == 0x1) {// Address Decoding Matching
+                        sc_bv<20> logic = AddressBus.read() << 12;
                         // Bit 19 is CE_b
-                        CE_b.write(AddressBus.read() );
+                        CE_b.write(logic.get_bit(19));
                         // Bit 18 is WE_b
-                        WE_b.write(AddressBus.read() );
+                        WE_b.write(logic.get_bit(18));
                         // Bits [17:0] is Addr
-                        Addr.write(AddressBus.read() );
-                        Data.write(DataBus.read());
+                        sc_uint<18> data_to_write = logic.to_uint() << 2;
+                        Addr.write(data_to_write);
+                        OutData.write(DataBus.read().to_uint());
 		}
 		else {
 			IntEnable = 0;

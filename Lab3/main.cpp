@@ -46,7 +46,7 @@ int sc_main (int argc, char* argv[]) {
                 DataToUART, Serial_out, clk);
 
 	// Connect your UART_XMTR_WRAP module
-        UART_XMTR_WRAP uart_wrap_01("TEST UART");
+        UART_XMTR_WRAP uart_wrap_01("UART_WRAP");
         uart_wrap_01(T_byte, Byte_ready, Load_XMT_datareg, DataToUART, 
                 ControlBus, DataBus, AddressBus, BREQ1, BGNT1, rst_b, clk);
 

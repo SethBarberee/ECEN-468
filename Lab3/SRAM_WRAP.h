@@ -10,10 +10,10 @@
 
 SC_MODULE (SRAM_WRAP){
 	// Signals to SRAM
-  	sc_out <ADDR_SIZE> Addr;
+  	sc_out_rv < ADDR_SIZE > Addr;
   	sc_out <bool> WE_b;
   	sc_out <bool> CE_b;
-  	sc_out <WORD_SIZE> Data;
+  	sc_inout_rv < WORD_SIZE > OutData;
 
 	// Signals to System Bus
   	sc_inout_rv <1>  ControlBus;
