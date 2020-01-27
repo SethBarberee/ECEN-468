@@ -38,15 +38,22 @@ void SRAM_WRAP::Function_SRAM_WRAP() {
 	}
 	else if(IntEnable){
 		if(AddrDecoded == 0x1) {// Address Decoding Matching
-                        sc_bv<20> logic = AddressBus.read() << 12;
+                        sc_bv <32> full_address = AddressBus.read();
+                        sc_logic logic = full_address[19] & "0x1";
                         // Bit 19 is CE_b
-                        CE_b.write(logic.get_bit(19));
+                        cout << "CE_b: " << logic.to_bool() << endl;
+                        CE_b.write(logic.to_bool());
                         // Bit 18 is WE_b
-                        WE_b.write(logic.get_bit(18));
+                        logic = full_address[18] & "0x1";
+                        cout << "WE_b: " << logic.to_bool() << endl;
+                        WE_b.write(logic.to_bool());
                         // Bits [17:0] is Addr
-                        sc_uint<18> data_to_write = logic.to_uint() << 2;
+                        sc_uint<18> data_to_write = AddressBus.read().range(18,0).to_uint();
+                        cout << "Addr: " << data_to_write << endl;
                         Addr.write(data_to_write);
+                        cout << "Data: " << DataBus.read().to_uint() << endl;
                         OutData.write(DataBus.read().to_uint());
+                        cout << endl;
 		}
 		else {
 			IntEnable = 0;
