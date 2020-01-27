@@ -13,6 +13,7 @@
                             // Get data register ready
                             bit_count = 0;
                             XMT_datareg = Data_Bus.read();
+                            NextIntState = STATE_IDLE;
                         if(Byte_ready.read()){
                             // Set shift register equal to data
                             XMT_shftreg = XMT_datareg;
@@ -37,17 +38,19 @@
                         }
 			break;
 		case STATE_SENDING:
-                        while(bit_count < WORD_SIZE + 1){
+                        if(bit_count < WORD_SIZE + 1){
                             // Continue to shift right and shift 1 in
                             // Since 1 is our stop bit
                             cout << "Sending " << XMT_shftreg[0] << endl;
+                            Serial_out.write(XMT_shftreg[0]);
                             XMT_shftreg = XMT_shftreg >> 1;
                             XMT_shftreg[WORD_SIZE - 1] = 1;
                             bit_count++;
+                        } else {
+                            // Reset back to idle when done
+                            NextIntState = STATE_IDLE;
+                            XMT_shftreg = 0x1ff;
                         }
-                        // Reset back to idle when done
-                        NextIntState = STATE_IDLE;
-                        XMT_shftreg = 0x1ff;
                         break;
         default:{
                     NextIntState = STATE_IDLE;
