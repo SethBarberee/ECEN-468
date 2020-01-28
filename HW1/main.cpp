@@ -33,7 +33,6 @@ void gas_station::customer2(){
        wait(SC_ZERO_TIME); tank2 = 0;
        do {
            request2.notify(SC_ZERO_TIME);
-           wait(tank_full);
        } while (tank2 == 0);
    } 
 }
@@ -57,6 +56,13 @@ SC_MODULE(gas_station){
 void gas_station::attendant(){
     while(true){
         wait(request1 | request2); // listen for request1 or request2
-        tank_full.notify(SC_ZERO_TIME); // notify tank full when done
+        // Detect which tank to fill
+        if(customer1){
+            tank1++;
+            tank_full.notify(SC_ZERO_TIME); // notify tank full when done
+        }
+        else {
+            tank2++;
+        }
     }
 }
