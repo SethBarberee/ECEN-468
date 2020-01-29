@@ -73,12 +73,12 @@ void Canny_Edge::Apply_Operation(){
 			int c,d;	
 			float sum = 0;
 			// CONVOLUTION
-			for(c=-2; c<=2; c++){
-				for(d=-2; d<=2; d++){
-					sum = sum + (float) regX[c+2][d+2] * gf[c+2][d+2];
-				}
-       		}
-			Out_gf = char(sum/159);
+                        for(c=-2; c<=2; c++){
+                            for(d=-2; d<=2; d++){
+                                sum = sum + (float) regX[c+2][d+2] * gf[c+2][d+2];
+                            }
+                        }
+                        Out_gf = char(sum/159);
 	    	}
 		else if(OPMode.read() == MODE_SOBEL){
 			int c,d;
@@ -87,20 +87,56 @@ void Canny_Edge::Apply_Operation(){
 	
 			// 1. input : Sobeldx, Sobeldy, regX(Gaussian Filtered Image)
 			// 2. Output : Out_gradient(0~255), Out_direction(0, 45, 90, 135)
-			// Insert Your Code here //
-			// ...
-			// ...
-			// ...
-
+			for(c=-1; c<=1; c++){
+				for(d=-1; d<=1; d++){
+                                    Gx = Gx + Sobeldx[c][d];
+                                    Gy = Gy + Sobeldy[c][d];
+				}
+                        }
+                        // Calculate out_gradient
+                        Out_gradient = abs((abs(Gx) + abs(Gy)) / regX[Gx][Gy]);
+                        // Calculate theta
+                        if(Gy < 0) {
+                            Gx = Gx * -1;
+                            Gy = Gy * -1;
+                        }
+                        if(Gx >= 0){
+                            if(Gy <= (0.4 * Gx)){
+                                Out_direction = 0;
+                            } 
+                            else if(Gy <= (2.4 * Gx)){
+                                Out_direction = 45;
+                            }
+                            else {
+                                Out_direction = 90;
+                            }
+                        }
+                        else {
+                            if(Gy <= (-0.4 * Gx)){
+                                Out_direction = 0;
+                            } 
+                            else if(Gy <= (-2.4 * Gx)){
+                                Out_direction = 135;
+                            }
+                            else {
+                                Out_direction = 90;
+                            }
+                        }
 		}
 		else if(OPMode.read() == MODE_NMS){
 			// 1. input : regX(Gradient Image), regY(Direction Image)
 			// 2. Output : regX(Gradient Image)
-			// Insert Your Code here //
-			// ...
-			// ...
-			// ...
-
+                    for(int i = 0; i < REG_ROW; i++){
+                        for(int j = 0; j < REG_COL; j++){
+                            if(regX[i][j] >= regY[i][j]){
+                                regX = 0;
+                                regY = 0;
+                            }
+                            else {
+                                regX = 0;
+                            }
+                        }
+                    }
 		}
 		else if(OPMode.read() == MODE_HYSTERESIS){
 			// You should use these two threshold values.
@@ -111,9 +147,6 @@ void Canny_Edge::Apply_Operation(){
 			//            regZ[][]==1: On / regZ[][]==0: Off
 			// 2. Output : Out_bThres (0(Off) or 1(On))
 			// Insert Your Code here //
-			// ...
-			// ...
-			// ...
 
 		}
 	}
