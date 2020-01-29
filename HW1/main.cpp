@@ -1,5 +1,5 @@
 // A)
-If wait(SC_ZERO_TIME) is not used, customer2 will most likely always be first based on the later questions in simulation.
+If wait(SC_ZERO_TIME) is not used, customer2 will most likely always be first based on the later questions in simulation. One customer would be always served while the other might not even be filled.
 
 If wait(SC_ZERO_TIME) is used, the ordering of customer1 and customer2 running could vary each simulation.
 
@@ -33,6 +33,7 @@ void gas_station::customer2(){
        wait(SC_ZERO_TIME); tank2 = 0;
        do {
            request2.notify(SC_ZERO_TIME);
+           wait(tank_full);
        } while (tank2 == 0);
    } 
 }
@@ -56,13 +57,6 @@ SC_MODULE(gas_station){
 void gas_station::attendant(){
     while(true){
         wait(request1 | request2); // listen for request1 or request2
-        // Detect which tank to fill
-        if(customer1){
-            tank1++;
-            tank_full.notify(SC_ZERO_TIME); // notify tank full when done
-        }
-        else {
-            tank2++;
-        }
+        tank_full.notify(SC_ZERO_TIME); // notify tank full when done
     }
 }
