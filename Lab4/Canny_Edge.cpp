@@ -9,11 +9,10 @@ void Canny_Edge::Write_Data() {
 	if (!bCE.read() && !bWE.read()) {
 		if(dWriteReg.read() == WRITE_REGX)
 			regX[AddrRegRow.read()][AddrRegCol.read()] = InData.read();
-		// Insert Your Code here //
-		// ...
-		// ...
-		// ...
-		
+                else if (dWriteReg.read() == WRITE_REGY)
+                        regY[AddrRegRow.read()][AddrRegCol.read()] = InData.read();
+                else
+                        regZ[AddrRegRow.read()][AddrRegCol.read()] = InData.read();		
 		// For debug	
 		#if defined (_DEBUG_)
 		cout << "@" << sc_time_stamp() << ":: Write: " << InData.read() << endl;
@@ -25,12 +24,13 @@ void Canny_Edge::Read_Data() {
 	if (!bCE.read() && bWE.read()) {
 		unsigned int dData;
 		if(dReadReg.read() ==  REG_GAUSSIAN) 		dData = Out_gf;
-		// Insert Your Code here //
-		// ...
-		// ...
-		// ...
-
-		OutData.write(dData);
+                else if(dReadReg.read() == REG_GRADIENT)        dData = Out_gradient;
+                else if(dReadReg.read() == REG_DIRECTION)       dData = Out_direction;
+                // TODO fix this case
+                else if(dReadReg.read() == REG_NMS)             dData = Out_gr;
+                else if(dReadReg.read() == REG_HYSTERESIS)      dData = Out_bThres;
+		
+                OutData.write(dData);
 		
 		// For debug	
 		#if defined (_DEBUG_)
