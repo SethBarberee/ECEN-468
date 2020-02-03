@@ -5,22 +5,20 @@ Consider the shift register example on page 11 of Lecture 6. Please write System
 // 1) Write your code without using sc_signal.
 SC_MODULE(shift_register){
     
-    sc_bit Q1;
-    sc_bit Q2;
-    sc_bit Q3;
-    sc_bit Q4;
+    sc_fifo<sc_bit> Q1(1);
+    sc_fifo<sc_bit> Q2(1);
+    sc_fifo<sc_bit> Q3(1);
+    sc_fifo<sc_bit> Q4(1);
     sc_in<sc_bit> Data;
 
     void update(){
-        // TODO no gurantee on order... how to fix this
-        // Slides suggest a 2-deep FIFO
-        Q4 = Q3;
-        Q3 = Q2;
-        Q2 = Q1;
-        Q1 = Data.read();
+        Q4.write(Q3.read());
+        Q3.write(Q2.read());
+        Q2.write(Q1.read());
+        Q1.write(Data.read());
     }
 
-    SC_CTOR(gas_station){
+    SC_CTOR(shift_register){
         SC_METHOD(update); sensitive << Data;
     }
     void update;
@@ -42,7 +40,7 @@ SC_MODULE(shift_register){
         Q4.write(Q3.read()); // Q2 will be what Q1 was previously 
     }
 
-    SC_CTOR(gas_station){
+    SC_CTOR(shift_regsiter){
         SC_METHOD(update); sensitive << Data;
     }
     void update;
