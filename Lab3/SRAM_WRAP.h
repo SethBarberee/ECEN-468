@@ -13,6 +13,7 @@ SC_MODULE (SRAM_WRAP){
   	sc_out_rv < ADDR_SIZE > Addr;
   	sc_out <bool> WE_b;
   	sc_out <bool> CE_b;
+        sc_inout_rv <WORD_SIZE> InData;
   	sc_inout_rv < WORD_SIZE > OutData;
 
 	// Signals to System Bus

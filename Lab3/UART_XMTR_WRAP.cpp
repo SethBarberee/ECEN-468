@@ -24,19 +24,19 @@ void UART_XMTR_WRAP::Function_UART_XMTR_WRAP() {
 	}else if(IntEnable){
 		if(AddrDecoded == 0x2) {// Address Decoding Matching
                         sc_bv <32> full_address = AddressBus.read();
-                        sc_logic logic = full_address[2] & "0x1";
-                        // Bit 2 is T_byte
-                        cout << "T_Byte: " << logic.to_bool() << endl;
-                        T_byte.write(logic.to_bool());
+                        DataToUART.write(DataBus.read());
+                        sc_logic logic = full_address[0] & "0x1";
+                        // Bit 0 is Load_XMT_datareg
+                        cout << "Load_XMT_datareg: " << logic.to_bool() << endl;
+                        Load_XMT_datareg.write(logic.to_bool());
                         // Bit 1 is Byte_ready
                         logic = full_address[1] & "0x1";
                         cout << "Byte_ready: " << logic.to_bool() << endl;
                         Byte_ready.write(logic.to_bool());
-                        // Bit 0 is Load_XMT_datareg
-                        logic = full_address[0] & "0x1";
-                        cout << "Load_XMT_datareg: " << logic.to_bool() << endl;
-                        Load_XMT_datareg.write(logic.to_bool());
-                        DataToUART.write(DataBus.read());
+                        // Bit 2 is T_byte
+                        logic = full_address[2] & "0x1";
+                        cout << "T_Byte: " << logic.to_bool() << endl;
+                        T_byte.write(logic.to_bool());
                         cout << endl;
 		}else {
 			IntEnable = 0;

@@ -11,7 +11,6 @@
 		case STATE_IDLE:
                         if(Load_XMT_datareg.read())
                             // Get data register ready
-                            bit_count = 0;
                             XMT_datareg = Data_Bus.read();
                             NextIntState = STATE_IDLE;
                         if(Byte_ready.read()){
@@ -31,6 +30,7 @@
                             // We're ready to send so set lower bit to 0 for start
                             XMT_shftreg[0] = 0;
                             NextIntState = STATE_SENDING;
+                            bit_count = 0;
                         }
                         else {
                             // Loop until T_byte is good
@@ -50,6 +50,7 @@
                             // Reset back to idle when done
                             NextIntState = STATE_IDLE;
                             XMT_shftreg = 0x1ff;
+                            bit_count = 0;
                         }
                         break;
         default:{

@@ -52,8 +52,9 @@ void SRAM_WRAP::Function_SRAM_WRAP() {
                         cout << "Addr: " << data_to_write << endl;
                         Addr.write(data_to_write);
                         cout << "Data: " << DataBus.read().to_uint() << endl;
-                        OutData.write(DataBus.read().to_uint());
-                        cout << endl;
+                        // TODO write data to SRAM
+                        InData.write(DataBus.read().to_uint());
+ 
 		}
 		else {
 			IntEnable = 0;

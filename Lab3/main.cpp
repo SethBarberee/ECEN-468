@@ -56,7 +56,7 @@ int sc_main (int argc, char* argv[]) {
 	
 	// Connect your SRAM_WRAP module
         SRAM_WRAP sram_wrap_01("SRAM WRAP");
-        sram_wrap_01(AddrToSRAM, bWE, bCE, DataToSRAM, ControlBus, DataBus, AddressBus,
+        sram_wrap_01(AddrToSRAM, bWE, bCE, DataToSRAM, DataFromSRAM, ControlBus, DataBus, AddressBus,
                 BREQ0, BGNT0, rst_b, clk);
     
 	// Connect your Arbiter module
