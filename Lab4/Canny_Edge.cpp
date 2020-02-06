@@ -129,9 +129,12 @@ void Canny_Edge::Apply_Operation(){
 			// 2. Output : regX(Gradient Image)
                     for(int i = 0; i < REG_ROW; i++){
                         for(int j = 0; j < REG_COL; j++){
-                            if(regX[i][j] >= regY[i][j]){
-                                regX[i][j] = 0;
-                                regY[i][j]= 0;
+                          // TODO fix this... 12.9841% percent
+                          if((regX[i][j] >= regY[i][j + 1]) && (regX[i][j] >= regY[i][j - 1])){
+                                if(i < REG_ROW)
+                                    regX[i + 1][j] = 0;
+                                if(i > 1)
+                                    regX[i - 1][j]= 0;
                             }
                             else {
                                 regX[i][j] = 0;
