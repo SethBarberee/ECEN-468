@@ -27,7 +27,7 @@ void Canny_Edge::Read_Data() {
                 else if(dReadReg.read() == REG_GRADIENT)        dData = Out_gradient;
                 else if(dReadReg.read() == REG_DIRECTION)       dData = Out_direction;
                 // TODO fix this case
-                else if(dReadReg.read() == REG_NMS)             dData = regX[0];
+                else if(dReadReg.read() == REG_NMS)             dData = Out_direction;
                 else if(dReadReg.read() == REG_HYSTERESIS)      dData = Out_bThres;
 		
                 OutData.write(dData);
@@ -90,8 +90,8 @@ void Canny_Edge::Apply_Operation(){
 			// 2. Output : Out_gradient(0~255), Out_direction(0, 45, 90, 135)
 			for(c=-1; c<=1; c++){
 				for(d=-1; d<=1; d++){
-                                    Gx = Gx + Sobeldx[c][d];
-                                    Gy = Gy + Sobeldy[c][d];
+                                  Gx = Gx + (regX[c + 1][d + 1] * Sobeldx[c + 1][d+1]);
+                                  Gy = Gy + (regX[c + 1][d + 1] * Sobeldy[c + 1][d+1]);
 				}
                         }
                         // Calculate out_gradient
