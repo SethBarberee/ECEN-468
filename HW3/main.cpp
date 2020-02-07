@@ -24,27 +24,32 @@ void signals::sig_ctrl(){
     while(true){ cin >> dir;
         switch(dir){
             case RED: 
-              // TODO wait on the spawn
-              // TODO maybe add an arg
+              // Spawn and wait for it
               sc_proess_handle h = sc_spawn( sc_bind(&red_sig, true));
               wait(h.terminated_event());
+              did_red = true;
               break;
             case OFF: 
+              // Spawn an wait for it
               sc_proess_handle h = sc_spawn( sc_bind(&red_sig, false));
               wait(h.terminated_event());
+              did_red = false;
               break;
 
         }
     }
 }
 
-// TODO maybe take an argument
+// We'll use an argument to determine if we need to turn off the light
 int signals::red_sig(bool on){
+    // On or off?
     if(on){
+        wait(3, SC_MS);
         cout << "Red light is turned on!" << endl;
         return 1;
     }
     else {
+        wait(10, SC_MS);
         cout << "Red light is turned off." << endl;
         return 0;
     }
