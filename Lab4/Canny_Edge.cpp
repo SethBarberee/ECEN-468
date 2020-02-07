@@ -130,7 +130,7 @@ void Canny_Edge::Apply_Operation(){
                     for(int i = 0; i < REG_ROW; i++){
                         for(int j = 0; j < REG_COL; j++){
                           // TODO fix this... 12.9841% percent
-                          if((regX[i][j] >= regY[i + 1][j]) && (regX[i][j] >= regY[i - 1][j])){
+                          if((regY[i][j] >= regY[i + 1][j]) && (regY[i][j] >= regY[i - 1][j])){
                                 if(i < REG_ROW)
                                     regX[i + 1][j] = 0;
                                 if(i >= 1)
