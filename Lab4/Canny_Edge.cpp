@@ -146,6 +146,7 @@ void Canny_Edge::Apply_Operation(){
 			// You should use these two threshold values.
 			unsigned short dThresHigh = 20;
 			unsigned short dThresLow = 5;
+                        Out_bThres = 0; // Default to off
 
 			// 1. input : regX(Gradient Image), regY(Direction Image), regZ(On/Off Image)
 			//            regZ[][]==1: On / regZ[][]==0: Off
@@ -155,6 +156,7 @@ void Canny_Edge::Apply_Operation(){
                             for(int j = 0; j < REG_COL; j++){
                                 if(regX[i][j] >= dThresHigh){
                                     // Strong pixel
+                                    Out_bThres = 1;
                                     regZ[i][j] = 1;
                                 }
                                 else if(regX[i][j] <= dThresLow){
@@ -168,6 +170,7 @@ void Canny_Edge::Apply_Operation(){
                                         // Check pixels next to it
                                         if(regZ[i][j + 1] == 1 || regZ[i][j - 1] == 1){
                                             regZ[i][j] = 1;
+                                            Out_bThres = 1;
                                         }
                                     }
                                 }
