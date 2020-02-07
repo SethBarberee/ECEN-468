@@ -8,43 +8,44 @@ SC_MODULE(signals){
     SC_CTOR(signals){
         SC_THREAD(run);
     }
-    sc_event sigs_off, red_on;
-    sc_event red_is_on, red_is_off;
     void sig_ctrl();
     void reg_sig();
 }
 
 void signals::run(){
     sc_spawn( sc_bind(&sig_ctrl));
-    sc_spawn( sc_bind(&red_sig));
 }
 
 
 void signals::sig_ctrl(){
     enum directions {RED=‘R’, OFF=‘F’}; char dir;
     bool did_red = false;
-    wait(SC_ZERO_TIME);
+    //wait(SC_ZERO_TIME);
     while(true){ cin >> dir;
         switch(dir){
-            case RED: sigs_off.notify(); red_on.notify();
-              wait(red_is_on); did_red = true;
+            case RED: 
+              // TODO wait on the spawn
+              // TODO maybe add an arg
+              sc_proess_handle h = sc_spawn( sc_bind(&red_sig, true));
+              wait(h.terminated_event());
               break;
-            case OFF: sigs_off.notify();
-              if(did_red) wait(red_is_off);
-                did_red = false;
+            case OFF: 
+              sc_proess_handle h = sc_spawn( sc_bind(&red_sig, false));
+              wait(h.terminated_event());
               break;
 
         }
     }
 }
 
-void signals::red_sig(){
-    while(true){
-        wait(red_on); wait(3, SC_MS);
+// TODO maybe take an argument
+int signals::red_sig(bool on){
+    if(on){
         cout << "Red light is turned on!" << endl;
-        red_is_on.notify();
-        wait(sigs_off); wait(10, SC_MS);
+        return 1;
+    }
+    else {
         cout << "Red light is turned off." << endl;
-        red_is_off.notify();
+        return 0;
     }
 }
