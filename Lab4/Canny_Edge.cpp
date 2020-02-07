@@ -27,7 +27,7 @@ void Canny_Edge::Read_Data() {
                 else if(dReadReg.read() == REG_GRADIENT)        dData = Out_gradient;
                 else if(dReadReg.read() == REG_DIRECTION)       dData = Out_direction;
                 // TODO fix this case
-                else if(dReadReg.read() == REG_NMS)             dData = Out_gr;
+                else if(dReadReg.read() == REG_NMS)             dData = Out_direction;
                 else if(dReadReg.read() == REG_HYSTERESIS)      dData = Out_bThres;
 		
                 OutData.write(dData);
@@ -84,17 +84,18 @@ void Canny_Edge::Apply_Operation(){
 			int c,d;
 			short Gx=0;		// X direction Component
 			short Gy=0;		// Y direction Component
+                        int alpha = 2;
 	
 			// 1. input : Sobeldx, Sobeldy, regX(Gaussian Filtered Image)
 			// 2. Output : Out_gradient(0~255), Out_direction(0, 45, 90, 135)
 			for(c=-1; c<=1; c++){
 				for(d=-1; d<=1; d++){
-                                    Gx = Gx + Sobeldx[c][d];
-                                    Gy = Gy + Sobeldy[c][d];
+                                  Gx = Gx + (regX[c + 1][d + 1] * Sobeldx[c + 1][d+1]);
+                                  Gy = Gy + (regX[c + 1][d + 1] * Sobeldy[c + 1][d+1]);
 				}
                         }
                         // Calculate out_gradient
-                        Out_gradient = abs((abs(Gx) + abs(Gy)) / regX[Gx][Gy]);
+                        Out_gradient = abs((abs(Gx) + abs(Gy)) / alpha);
                         // Calculate theta
                         if(Gy < 0) {
                             Gx = Gx * -1;
@@ -128,12 +129,15 @@ void Canny_Edge::Apply_Operation(){
 			// 2. Output : regX(Gradient Image)
                     for(int i = 0; i < REG_ROW; i++){
                         for(int j = 0; j < REG_COL; j++){
-                            if(regX[i][j] >= regY[i][j]){
-                                regX = 0;
-                                regY = 0;
+                          // TODO fix this... 12.9841% percent
+                          if((regX[i][j] >= regY[i][j + 1]) && (regX[i][j] >= regY[i][j - 1])){
+                                if(i < REG_ROW)
+                                    regX[i + 1][j] = 0;
+                                if(i > 1)
+                                    regX[i - 1][j]= 0;
                             }
                             else {
-                                regX = 0;
+                                regX[i][j] = 0;
                             }
                         }
                     }
@@ -147,7 +151,28 @@ void Canny_Edge::Apply_Operation(){
 			//            regZ[][]==1: On / regZ[][]==0: Off
 			// 2. Output : Out_bThres (0(Off) or 1(On))
 			// Insert Your Code here //
-
+                        for(int i = 0; i < REG_ROW; i++){
+                            for(int j = 0; j < REG_COL; j++){
+                                if(regX[i][j] >= dThresHigh){
+                                    // Strong pixel
+                                    regZ[i][j] = 1;
+                                }
+                                else if(regX[i][j] <= dThresLow){
+                                    // Weak pixel
+                                    regZ[i][j] = 0;
+                                }
+                                else {
+                                    // Candidate pixel
+                                    // Check to see if it's already drawn
+                                    if(regZ[i][j] != 1){
+                                        // Check pixels next to it
+                                        if(regZ[i][j + 1] == 1 || regZ[i][j - 1] == 1){
+                                            regZ[i][j] = 1;
+                                        }
+                                    }
+                                }
+                            }
+                        }
 		}
 	}
 }
