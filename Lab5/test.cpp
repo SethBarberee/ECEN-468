@@ -471,17 +471,44 @@ void test::Do_3x3_Hysteresis(int posRow, int posCol)
 		// Insert here // ---------------------------------------------------------
 		// a. Set the variable dWriteReg to WRITE_REGX
 		// b. Send dBlockA3x3 to Canny
-
+                dWriteReg = WRITE_REGX;
+		for(tRow=0; tRow<3; tRow++){
+			for(tCol=0; tCol<3; tCol++){
+				DataBus.write(dBlockA3x3[tRow][tCol]);
+				AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+				AddressBus.write(AddressOut);
+				wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
+				wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
+			}
+		}
 		// Send 3x3 block to Canny
 		// Insert here // ---------------------------------------------------------
 		// a. Set the variable dWriteReg to WRITE_REGY
 		// b. Send dBlockB3x3 to Canny
-
+                dWriteReg = WRITE_REGY;
+		for(tRow=0; tRow<3; tRow++){
+			for(tCol=0; tCol<3; tCol++){
+				DataBus.write(dBlockB3x3[tRow][tCol]);
+				AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+				AddressBus.write(AddressOut);
+				wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
+				wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
+			}
+		}
 		// Send 3x3 block to Canny
 		// Insert here // ---------------------------------------------------------
 		// a. Set the variable dWriteReg to WRITE_REGZ
 		// b. Send dBlockBCx3 to Canny
-
+                dWriteReg = WRITE_REGZ;
+		for(tRow=0; tRow<3; tRow++){
+			for(tCol=0; tCol<3; tCol++){
+				DataBus.write(dBlockC3x3[tRow][tCol]);
+				AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+				AddressBus.write(AddressOut);
+				wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
+				wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
+			}
+		}
 		// Operation Enable
 		// Insert here // ---------------------------------------------------------
 		// refer to Do_5x5_Gaussian or Do_3x3_Sobel
@@ -493,6 +520,9 @@ void test::Do_3x3_Hysteresis(int posRow, int posCol)
 		// Send pixel to Memory	
 		// Insert here // ---------------------------------------------------------
 		// a. Send pixel(tValue) to Memory(dOffsetBlock*4)
+		Init_to_Mem();
+		Send_Pixel_to_Mem(posRow, posCol, tValue, dOffsetBlock*4);	// IMAGE_GRADIENT
+		DataBus.write("ZZZZZZZZ");            
 	}
 }
 
@@ -527,6 +557,7 @@ void test::Do_3x3_NMS(int posRow, int posCol)
 			for(tCol=-1; tCol<=1; tCol++){
 				// Insert here // ---------------------------------------------------------
 				// ( dBlockB3x3 <= dOffsetBlock*3(IMAGE_DIRECTION) in memory )
+                            dBlockB3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*3);	//IMAGE_GAUSSIAN                                
 			}
 		}
 		wait(1);
@@ -535,33 +566,44 @@ void test::Do_3x3_NMS(int posRow, int posCol)
 		Init_to_Canny();
 		// Insert here // ---------------------------------------------------------
 		// (Setting Control variables)
-
+                UINT IDCANNY = 4;
+                bool bWE = 0;
+                bool BCE = 1;
+                bOPEnable = 1;
+                dWriteReg = WRITE_REGX;
 		// Send 3x3 block to Canny
 		// Insert here // ---------------------------------------------------------
 		// a. Set the variable dWriteReg to WRITE_REGX
 		// b. Send dBlockA3x3 to Canny
-
+		for(tRow=0; tRow<3; tRow++){
+			for(tCol=0; tCol<3; tCol++){
+				DataBus.write(dBlockA3x3[tRow][tCol]);
+				AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+				AddressBus.write(AddressOut);
+			}
+		}                
 		// Send 3x3 block to Canny
 		// Insert here // ---------------------------------------------------------
 		// a. Set the variable dWriteReg to WRITE_REGY
 		// b. Send dBlockB3x3 to Canny
-
+                dWriteReg = WRITE_REGY;
+		for(tRow=0; tRow<3; tRow++){
+			for(tCol=0; tCol<3; tCol++){
+				DataBus.write(dBlockB3x3[tRow][tCol]);
+				AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+				AddressBus.write(AddressOut);
+			}
+		}                
 		// Operation Enable
 		// Insert here // ---------------------------------------------------------
 		// refer to Do_5x5_Gaussian or Do_3x3_Sobel
-		
+		wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bOPEnable));		
+		wait(10);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bOPEnable));   	
 		// Read 3x3 block from Canny to dBlockC3x3[tRow][tCol] 
 		UINT dBlockC3x3[3][3];
 		dReadReg = REG_NMS;
 		bWE = 1;	bCE = 1;
 		// Read NMS
-		for(tRow=0; tRow<3; tRow++){
-			for(tCol=0; tCol<3; tCol++){
-				// Read pixel from Canny
-				// Insert here // ---------------------------------------------------------
-				// refer to Do_5x5_Gaussian or Do_3x3_Sobel
-			}
-		}
 
 		// Send 3x3 block to Memory	
 		Init_to_Mem();
@@ -629,16 +671,6 @@ void test::Do_3x3_Sobel(int posRow, int posCol)
 		DataBus.write("ZZZZZZZZ");
 		wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
 		wait(4);	tGradient = DataBus.read().to_uint();
-		wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
-		wait(1);	
-		// Read Direction
-		dReadReg = REG_DIRECTION;
-		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
-		AddressBus.write(AddressOut);
-		DataBus.write("ZZZZZZZZ");
-		wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
-		wait(4);	tDirection = DataBus.read().to_uint();
-		wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
 		wait(1);	
 	
 		// Send pixel to Memory	
