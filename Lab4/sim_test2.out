@@ -90,4 +90,182 @@ Saving types data file /home/ugrads/s/seth.barberee/ECEN468/Lab4/Lab4v2p/sim/mai
 SystemC: simulation stopped by user.
 Program is about to exit.
 #0  0x00000000004ed760 in summit_sc::Runtime::atExitCallback ()
+(vista) spawn /opt/coe/mentorgraphics/vista312/linux64/tools.64bit/bin/gdb -quiet -interp=opengdb -runtcl="/opt/coe/mentorgraphics/vista312/generic/tcl/v2/gdb/gdb.tcl" --nx
+
+(vista) BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+Vista SystemC 2.2 Runtime Kernel.
+Built September 15, 2011. License version 2011.9.
+Copyright (c) 2005-2011, Mentor Graphics Corporation.
+
+             SystemC 2.2.0 --- Sep 15 2011 00:24:25
+        Copyright (c) 1996-2006 by all Contributors
+                    ALL RIGHTS RESERVED
+> SUCCESS: The file was read successfully.
+
+ ----- BMP HEADER -----
+> MAGIC NUMBER : BM
+> FILE SIZE : 120056 bytes
+> OFFSET OF BMP DATA : 0x36
+
+ ----- DIB HEADER -----
+ > NUMBER OF DIB HEADER : 0d40 bytes
+ > WIDTH : 200 Pixels
+ > HEIGHT : 200 Pixels
+ > COLOR PLANE : 1 Plane
+ > BITS/PIXEL : 24 bpp
+ > COMPRESSION : 0
+ > SIZE OF DATA : 120400 bytes
+ > H-RESOLUTION : 2834 Pixels/Meter
+ > V-RESOLUTION : 2834 Pixels/Meter
+ > NUMBER OF PALETTE :	0
+ > IMPORTANCE : 0
+
+ ----- BMP DATA -----
+ > Create memX[][] Array
+ > Create memXG[][] Array
+ > Create Gxy[][] Array
+ > Create Theta[][] Array
+ > Create bGxy[][] Array
+ >> OUT: ORIGIN >>
+ >> OUT: GAUSSIAN >>
+ >> OUT: GRADIENT >>
+ >> OUT: ANGLE >>
+ >> OUT: NMS >>
+ >> OUT: HYSTERESIS >>
+ > 0th Matching Ratio : 23.3524percent
+ > 1th Matching Ratio : 22.1635percent
+ > 2th Matching Ratio : 62.9716percent
+ > 3th Matching Ratio : 99.5302percent
+ > 4th Matching Ratio : 82.7247percent
+ > 5th Matching Ratio : 99.7792percent
+SystemC: simulation stopped by user.
+Program is about to exit.
+#0  0x00000000004ed760 in summit_sc::Runtime::atExitCallback ()
+(vista) spawn /opt/coe/mentorgraphics/vista312/linux64/tools.64bit/bin/gdb -quiet -interp=opengdb -runtcl="/opt/coe/mentorgraphics/vista312/generic/tcl/v2/gdb/gdb.tcl" --nx
+
+(vista) BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+Vista SystemC 2.2 Runtime Kernel.
+Built September 15, 2011. License version 2011.9.
+Copyright (c) 2005-2011, Mentor Graphics Corporation.
+
+             SystemC 2.2.0 --- Sep 15 2011 00:24:25
+        Copyright (c) 1996-2006 by all Contributors
+                    ALL RIGHTS RESERVED
+> SUCCESS: The file was read successfully.
+
+ ----- BMP HEADER -----
+> MAGIC NUMBER : BM
+> FILE SIZE : 120056 bytes
+> OFFSET OF BMP DATA : 0x36
+
+ ----- DIB HEADER -----
+ > NUMBER OF DIB HEADER : 0d40 bytes
+ > WIDTH : 200 Pixels
+ > HEIGHT : 200 Pixels
+ > COLOR PLANE : 1 Plane
+ > BITS/PIXEL : 24 bpp
+ > COMPRESSION : 0
+ > SIZE OF DATA : 120400 bytes
+ > H-RESOLUTION : 2834 Pixels/Meter
+ > V-RESOLUTION : 2834 Pixels/Meter
+ > NUMBER OF PALETTE :	0
+ > IMPORTANCE : 0
+
+ ----- BMP DATA -----
+ > Create memX[][] Array
+ > Create memXG[][] Array
+ > Create Gxy[][] Array
+ > Create Theta[][] Array
+ > Create bGxy[][] Array
+ >> OUT: ORIGIN >>
+ >> OUT: GAUSSIAN >>
+ >> OUT: GRADIENT >>
+ >> OUT: ANGLE >>
+ >> OUT: NMS >>
+ >> OUT: HYSTERESIS >>
+ > 0th Matching Ratio : 100percent
+ > 1th Matching Ratio : 100percent
+ > 2th Matching Ratio : 99.9967percent
+ > 3th Matching Ratio : 100percent
+ > 4th Matching Ratio : 94.6983percent
+ > 5th Matching Ratio : 99.9281percent
+SystemC: simulation stopped by user.
+Program is about to exit.
+#0  0x00000000004ed760 in summit_sc::Runtime::atExitCallback ()
+(vista)
+
 (vista) 
