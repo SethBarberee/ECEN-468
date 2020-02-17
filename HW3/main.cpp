@@ -1,8 +1,4 @@
 // 1) Rewrite the SystemC code to use dynamic processes for sig_ctrl and reg_sig
-// TODO use sc_spawn for each of them
-//
-// Random ideas for this homework:
-// TODO maybe I have to spawn back and forth instead of waits?
 
 #define SC_INCLUDE_DYNAMIC_PROCESSES
 
