@@ -442,22 +442,23 @@ void test::Do_3x3_Hysteresis(int posRow, int posCol)
 		// Read 3x3 block from Memory
 		for(tRow=-1; tRow<=1; tRow++){
 			for(tCol=-1; tCol<=1; tCol++){
-				// Insert here // ---------------------------------------------------------
 				// ( dBlockA3x3 <= dOffsetBlock*2(IMAGE_NMS) in memory )
+                            dBlockA3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*2);	//IMAGE_DIRECTION
 			}
 		}
 		// Read 3x3 block from Memory
 		for(tRow=-1; tRow<=1; tRow++){
 			for(tCol=-1; tCol<=1; tCol++){
-				// Insert here // ---------------------------------------------------------
-				// ( dBlockB3x3<= dOffsetBlock*3(IMAGE_DIRECTION) in memory )
+                                // ( dBlockB3x3<= dOffsetBlock*3(IMAGE_DIRECTION) in memory )
+                            dBlockB3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*3);	//IMAGE_DIRECTION
+
 			}
 		}
 		// Read 3x3 block from Memory
 		for(tRow=-1; tRow<=1; tRow++){
 			for(tCol=-1; tCol<=1; tCol++){
-				// Insert here // ---------------------------------------------------------
 				// ( dBlockC3x3<= dOffsetBlock*4(IMAGE_HYSTERESIS) in memory )
+                            dBlockC3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*4);	//IMAGE_HYSTERESIS
 			}
 		}
 		wait(1);
@@ -512,10 +513,22 @@ void test::Do_3x3_Hysteresis(int posRow, int posCol)
 		// Operation Enable
 		// Insert here // ---------------------------------------------------------
 		// refer to Do_5x5_Gaussian or Do_3x3_Sobel
-		
+		wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bOPEnable));		
+		wait(4);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bOPEnable));   
+
 		// Read pixel from Canny
 		// Insert here // ---------------------------------------------------------
 		// refer to Do_5x5_Gaussian or Do_3x3_Sobel
+                // TODO check this
+		tRow = 2; 	tCol = 2;	
+		bWE = 1;	bCE = 1;
+		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(tRow<<5)+(tCol<<2)+(bWE<<1)+bCE;
+		AddressBus.write(AddressOut);
+		DataBus.write("ZZZZZZZZ");
+		wait(1);	AddressBus.write(BITOFF(AddressOut, IDX_CANNY_bCE));
+		wait(4);	UINT tValue = DataBus.read().to_uint();
+		wait(1);	AddressBus.write(BITON(AddressOut, IDX_CANNY_bCE));
+		wait(1);	//ReleaseBus();
 	
 		// Send pixel to Memory	
 		// Insert here // ---------------------------------------------------------
@@ -548,16 +561,16 @@ void test::Do_3x3_NMS(int posRow, int posCol)
 		// Read 3x3 block from Memory 
 		for(tRow=-1; tRow<=1; tRow++){
 			for(tCol=-1; tCol<=1; tCol++){
-				// Insert here // ---------------------------------------------------------
 				// ( dBlockA3x3 <= dOffsetBlock*2(IMAGE_GRADIENT) in memory )
+				dBlockA3x3[tRow+2][tCol+2]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol, dOffsetBlock * 2);	//IMAGE_GRADIENT
 			}
 		}
+
 		// Read 3x3 block from Memory
 		for(tRow=-1; tRow<=1; tRow++){
 			for(tCol=-1; tCol<=1; tCol++){
-				// Insert here // ---------------------------------------------------------
 				// ( dBlockB3x3 <= dOffsetBlock*3(IMAGE_DIRECTION) in memory )
-                            dBlockB3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*3);	//IMAGE_GAUSSIAN                                
+                            dBlockB3x3[tRow+1][tCol+1]=Read_Pixel_from_Mem(posRow+tRow,posCol+tCol,dOffsetBlock*3);	//IMAGE_DIRECTION
 			}
 		}
 		wait(1);

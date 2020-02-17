@@ -38,11 +38,17 @@ void Canny_Edge_WRAP::Bus_Control() {
 		if(AddrDecoded == 0x4) {// Address Decoding Matching
 			// Insert your code here
 			// for AddrRegRow, AddrRegCol, bWE, bCE, OPMode, bOPEnable, dReadReg, dWriteReg
+                        // TODO verify this
                         // Bit [24 - 26 is OPMode
+                        OPMode.write(AddressBus.read().range(27,24).to_uint());
                         // Bit [20 - 23] is dWriteReg
+                        dWriteReg.write(AddressBus.read().range(24,20).to_uint());
                         // Bit [16 - 19] is dReadReg
+                        dReadReg.write(AddressBus.read().range(20,16).to_uint());
                         // Bit [5 - 7] is AddrRegRow
+                        AddrRegRow.write(AddressBus.read().range(8,5).to_uint());
                         // Bit [2 - 4] is AddrRegCol
+                        AddrRegCol.write(AddressBus.read().range(5,2).to_uint());
                         bOpEnable.write(Canny_bOpEnable);
                         bWE.write(Canny_bWE);
                         bCE.write(Canny_bCE);
