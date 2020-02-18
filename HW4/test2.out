@@ -1,0 +1,63 @@
+cd /home/ugrads/s/seth.barberee/ECEN468/HW4/
+gdb.shell.exe
+spawn /opt/coe/mentorgraphics/vista312/linux64/tools.64bit/bin/gdb -quiet -interp=opengdb -runtcl="/opt/coe/mentorgraphics/vista312/generic/tcl/v2/gdb/gdb.tcl" --nx
+
+(vista) BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+Vista SystemC 2.2 Runtime Kernel.
+Built September 15, 2011. License version 2011.9.
+Copyright (c) 2005-2011, Mentor Graphics Corporation.
+
+             SystemC 2.2.0 --- Sep 15 2011 00:24:25
+        Copyright (c) 1996-2006 by all Contributors
+                    ALL RIGHTS RESERVED
+Merging /home/ugrads/s/seth.barberee/ECEN468/HW4/HW_1/build/D_PRJDIR_/main.exe ...Done.
+Saving types data file /home/ugrads/s/seth.barberee/ECEN468/HW4/HW_1/sim/main.db...Done.
+A at 1 cnt 0
+A occurs 1
+A at 2 cnt 1
+A occurs 2
+A at 3 cnt 2
+A occurs 3
+A at 4 cnt 3
+A occurs 4
+A at 5 cnt 4
+Program is about to exit.
+#0  0x0000000000464400 in summit_sc::Runtime::atExitCallback ()
+(vista) 
