@@ -60,7 +60,7 @@ int sc_main (int argc, char* argv[]) {
 		UART_XMTR_WRAP_01.DataBus(DataBus);
 		UART_XMTR_WRAP_01.AddressBus(AddressBus);
 		UART_XMTR_WRAP_01.ControlBus(ControlBus);
-		UART_XMTR_WRAP_01.InData(DataToUART);
+		UART_XMTR_WRAP_01.DataToUART(DataToUART);
 		UART_XMTR_WRAP_01.Load_XMT_datareg(Load_XMT_datareg);
 		UART_XMTR_WRAP_01.Byte_ready(Byte_ready);
 		UART_XMTR_WRAP_01.T_byte(T_byte);
@@ -82,9 +82,9 @@ int sc_main (int argc, char* argv[]) {
 		SRAM_WRAP_01.ControlBus(ControlBus);
 		SRAM_WRAP_01.InData(DataToSRAM);
 		SRAM_WRAP_01.OutData(DataFromSRAM);
-		SRAM_WRAP_01.Address(AddrToSRAM);
-		SRAM_WRAP_01.bCE(bCE);
-		SRAM_WRAP_01.bWE(bWE);
+		SRAM_WRAP_01.Addr(AddrToSRAM);
+		SRAM_WRAP_01.CE_b(bCE);
+		SRAM_WRAP_01.WE_b(bWE);
 		SRAM_WRAP_01.Breq(BREQ0);
 		SRAM_WRAP_01.Bgnt(BGNT0);
 		SRAM_WRAP_01.clk(clk);

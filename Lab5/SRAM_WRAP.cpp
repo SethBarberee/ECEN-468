@@ -41,17 +41,17 @@ void SRAM_WRAP::Function_SRAM_WRAP() {
                         sc_bv <32> full_address = AddressBus.read();
                         sc_logic logic = full_address[19] & "0x1";
                         // Bit 19 is CE_b
-                        cout << "CE_b: " << logic.to_bool() << endl;
+                        //cout << "CE_b: " << logic.to_bool() << endl;
                         CE_b.write(logic.to_bool());
                         // Bit 18 is WE_b
                         logic = full_address[18] & "0x1";
-                        cout << "WE_b: " << logic.to_bool() << endl;
+                        //cout << "WE_b: " << logic.to_bool() << endl;
                         WE_b.write(logic.to_bool());
                         // Bits [17:0] is Addr
                         sc_uint<18> data_to_write = AddressBus.read().range(18,0).to_uint();
-                        cout << "Addr: " << data_to_write << endl;
+                        //cout << "Addr: " << data_to_write << endl;
                         Addr.write(data_to_write);
-                        cout << "Data: " << DataBus.read().to_uint() << endl;
+                        //cout << "Data: " << DataBus.read().to_uint() << endl;
                         // TODO write data to SRAM
                         InData.write(DataBus.read().to_uint());
  

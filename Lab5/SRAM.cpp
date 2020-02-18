@@ -27,7 +27,7 @@ SC_MODULE (SRAM) {
       if(!(bWE.read()) && !(bCE.read())){
           data = InData.read().to_uint();
           adr = Addr.read().to_uint();
-          cout << "Writing " << InData.read() << " to location " << adr << endl;
+          //cout << "Writing " << InData.read() << " to location " << adr << endl;
           internal_memory[adr] = data;
       }
   }
@@ -37,7 +37,7 @@ SC_MODULE (SRAM) {
   void function_read(){
       if((bWE.read()) && !(bCE.read())){
           adr = Addr.read().to_uint();
-          cout << "Reading " << internal_memory[adr] << " from " << adr << endl; 
+          //cout << "Reading " << internal_memory[adr] << " from " << adr << endl; 
           OutData.write(internal_memory[adr]);
       }
   }

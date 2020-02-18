@@ -49,7 +49,7 @@ void Canny_Edge_WRAP::Bus_Control() {
                         AddrRegRow.write(AddressBus.read().range(8,5).to_uint());
                         // Bit [2 - 4] is AddrRegCol
                         AddrRegCol.write(AddressBus.read().range(5,2).to_uint());
-                        bOpEnable.write(Canny_bOpEnable);
+                        bOPEnable.write(Canny_bOpEnable);
                         bWE.write(Canny_bWE);
                         bCE.write(Canny_bCE);
 	

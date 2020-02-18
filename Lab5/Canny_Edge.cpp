@@ -27,7 +27,7 @@ void Canny_Edge::Read_Data() {
                 else if(dReadReg.read() == REG_GRADIENT)        dData = Out_gradient;
                 else if(dReadReg.read() == REG_DIRECTION)       dData = Out_direction;
                 // TODO fix this case
-                else if(dReadReg.read() == REG_NMS)             dData = Out_direction;
+                else if(dReadReg.read() == REG_NMS)             dData = regX[AddrRegRow.read()][AddrRegCol.read()];
                 else if(dReadReg.read() == REG_HYSTERESIS)      dData = Out_bThres;
 		
                 OutData.write(dData);
@@ -127,54 +127,114 @@ void Canny_Edge::Apply_Operation(){
 		else if(OPMode.read() == MODE_NMS){
 			// 1. input : regX(Gradient Image), regY(Direction Image)
 			// 2. Output : regX(Gradient Image)
-                    for(int i = 0; i < REG_ROW; i++){
-                        for(int j = 0; j < REG_COL; j++){
-                          // TODO fix this... 12.9841% percent
-                          if((regY[i][j] >= regY[i][j + 1]) && (regY[i][j] >= regY[i][j - 1])){
-                                if(i < REG_ROW)
-                                    regX[i][j + 1] = 0;
-                                if(i >= 1)
-                                    regX[i][j + 1]= 0;
-                            }
-                            else {
-                                regX[i][j] = 0;
-                            }
-                        }
-                    }
+                      unsigned short pixelC_magnitude = regX[1][1];
+                      unsigned short direction = regY[1][1];
+                      unsigned short pixelA_magnitude = 0;
+                      unsigned short pixelB_magnitude = 0;
+                         if(direction == 0){
+                           // direction is 0
+                           // check left and right pixel
+                           pixelA_magnitude = regX[1][0];
+                           pixelB_magnitude = regX[1][2];
+                           if((pixelC_magnitude >= pixelA_magnitude) && pixelC_magnitude >= pixelB_magnitude){
+                             regX[1][0] = 0;
+                             regX[1][2] = 0;
+                           } else {
+                             regX[1][1] = 0;
+                           }
+                         } else if (direction == 45){
+                           // direction is 45
+                           // check up 1, right 1 and down 1, left 1
+                           pixelA_magnitude = regX[2][2];
+                           pixelB_magnitude = regX[0][0];
+                           if((pixelC_magnitude >= pixelA_magnitude) && pixelC_magnitude >= pixelB_magnitude){
+                             regX[2][2] = 0;
+                             regX[0][0] = 0;
+                           } else {
+                             regX[1][1] = 0;
+                           }
+                         }else if (direction == 90){
+                           // direction is 90
+                           // check above and below
+                           pixelA_magnitude = regX[2][1];
+                           pixelB_magnitude = regX[0][1];
+                           if((pixelC_magnitude >= pixelA_magnitude) && pixelC_magnitude >= pixelB_magnitude){
+                             regX[2][1] = 0;
+                             regX[0][1] = 0;
+                           } else {
+                             regX[1][1] = 0;
+                           }
+                         }else {
+                           // direction is 135
+                           // check up 1, left 1 and down 1, right 1
+                           pixelA_magnitude = regX[0][2];
+                           pixelB_magnitude = regX[2][0];
+                           if((pixelC_magnitude >= pixelA_magnitude) && pixelC_magnitude >= pixelB_magnitude){
+                             regX[0][2] = 0;
+                             regX[2][0] = 0;
+                           } else {
+                             regX[1][1] = 0;
+                           }
+                         }
 		}
 		else if(OPMode.read() == MODE_HYSTERESIS){
 			// You should use these two threshold values.
-			unsigned short dThresHigh = 20;
-			unsigned short dThresLow = 5;
+			unsigned short dThresHigh = 35;
+			unsigned short dThresLow = 1;
+                        unsigned direction = regY[1][1];
                         Out_bThres = 0; // Default to off
 
 			// 1. input : regX(Gradient Image), regY(Direction Image), regZ(On/Off Image)
 			//            regZ[][]==1: On / regZ[][]==0: Off
 			// 2. Output : Out_bThres (0(Off) or 1(On))
 			// Insert Your Code here //
-                        for(int i = 0; i < REG_ROW; i++){
-                            for(int j = 0; j < REG_COL; j++){
-                                if(regY[i][j] >= dThresHigh){
-                                    // Strong pixel
-                                    Out_bThres = 1;
-                                    regZ[i][j] = 1;
-                                }
-                                else if(regY[i][j] <= dThresLow){
-                                    // Weak pixel
-                                    regZ[i][j] = 0;
-                                }
-                                else {
-                                    // Candidate pixel
-                                    // Check to see if it's already drawn
-                                    if(regZ[i][j] != 1){
-                                        // Check pixels next to it
-                                        if(regZ[i][j + 1] == 1 || regZ[i][j - 1] == 1){
-                                            regZ[i][j] = 1;
-                                            Out_bThres = 1;
-                                        }
-                                    }
-                                }
-                            }
+                        if(regX[1][1] >= dThresHigh){
+                           // Strong pixel
+                           Out_bThres = 1;
+                           regZ[1][1] = 1;
+                        }
+                        else if(regX[1][1] <= dThresLow){
+                           // Weak pixel
+                           regZ[1][1] = 0;
+                           Out_bThres = 0;
+                        }
+                        else {
+                           // Candidate pixel
+                           // Check to see if it's already drawn
+                           if(regZ[1][1] != 1){
+                             unsigned short pixelA = 0;
+                             unsigned short pixelB = 0;
+                             // Check pixels next to it
+                             if(direction == 0){
+                               // direction is 0
+                               // check left and right pixel
+                               pixelA = regZ[1][2];
+                               pixelB = regZ[1][0];
+                             } else if (direction == 45){
+                               // direction is 45
+                               // check up 1, right 1 and down 1, left 1
+                               pixelA = regZ[2][2];
+                               pixelB = regZ[0][0];
+                             }else if (direction == 90){
+                               // direction is 90
+                               // check above and below
+                               pixelA = regZ[2][1];
+                               pixelB = regZ[0][1];
+                           
+                             }else {
+                               // direction is 135
+                               // check up 1, left 1 and down 1, right 1
+                               pixelA = regZ[0][2];
+                               pixelB = regZ[2][0];
+                             }
+                             if(pixelA == 1 || pixelB == 1){
+                               Out_bThres = 1;
+                               regZ[1][1] = 1;
+                             }
+                           } else {
+                             // don't output the candidate
+                             Out_bThres = 0;
+                           }
                         }
 		}
 	}
