@@ -70,8 +70,6 @@ Copyright (c) 2005-2011, Mentor Graphics Corporation.
  ----- BMP DATA -----
  > Create memX[][] Array
  > Create memY[][] Array
-Merging /home/ugrads/s/seth.barberee/ECEN468/Lab5/Lab5_1v2p/build/D_PRJDIR_/main.exe ...Done.
-Saving types data file /home/ugrads/s/seth.barberee/ECEN468/Lab5/Lab5_1v2p/sim/main.db...Done.
 WARNING: Default time step is used for VCD tracing.
  >> OUT: INPUT >>
  >> OUT: ORIGIN >>
@@ -118,10 +116,10 @@ Sending 1
  >> OUT: HYSTERESIS >>
  > 0th Matching Ratio : 100percent
  > 1th Matching Ratio : 100percent
- > 2th Matching Ratio : 99.9683percent
+ > 2th Matching Ratio : 99.865percent
  > 3th Matching Ratio : 100percent
- > 4th Matching Ratio : 94.6815percent
- > 5th Matching Ratio : 99.9152percent
+ > 4th Matching Ratio : 93.5159percent
+ > 5th Matching Ratio : 99.8978percent
 SystemC: simulation stopped by user.
 Program is about to exit.
 #0  0x000000000051ca70 in summit_sc::Runtime::atExitCallback ()
