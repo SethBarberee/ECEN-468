@@ -50,33 +50,36 @@ int sc_main (int argc, char* argv[]) {
 	tbWE.write(1);
 	sc_start(5);
 
-	Pkt_constraint cPkt("Pkt_Test");	
+	Pkt_constraint cPkt("Pkt_Test");
+        cPkt.sOutData->disable_randomization();
+        
 
         // Verification I
         cout << "------------------- Beginning of Verification I" << endl;
         for(i=0; i<5; i++){
           // Set writing mode
 	  // ...
-            tBCE.write(0);
-            tBWE.write(0);
+            tbCE.write(0);
+            tbWE.write(0);
           
           // Generate values of tInData & tAddr using "cPkt"
 	  // ...
-            cPkt->next();
+            cPkt.next();
             tInData.write(cPkt.sInData);
-            tAddr.write(cPkt.sAddr)
+            tAddr.write(*cPkt.sAddr);
           // Set reading mode
 	  // ...
-            tBCE.write(0);
-            tBWE.write(1);
+            tbCE.write(0);
+            tbWE.write(1);
           // Data read from tOutData to sOutData
-            cPkt.sOutData = tOutData.read();
+            *cPkt.sOutData = tOutData.read();
           // Print statistics
 	  // ...
             cout << "Statistics" << endl;
-            cout << "InData: " << cPkt.sInData << endl; 
-            cout << "Addr: " << cPkt.sAddr << endl; 
-            cout << "OutData: " << cPkt.sOutData << endl; 
+            cPkt.print();
+            //cout << "InData: " << cPkt.sInData << endl; 
+            //cout << "Addr: " << cPkt.sAddr << endl; 
+            //cout << "OutData: " << cPkt.sOutData << endl; 
         }
         cout << "------------------- End of Verification I" << endl << endl;
         
@@ -85,30 +88,33 @@ int sc_main (int argc, char* argv[]) {
         for(i=0; i<5; i++){
           // Set writing mode
 	  // ...
-            tBCE.write(0);
-            tBWE.write(0);
+            tbCE.write(0);
+            tbWE.write(0);
 
           // Set range distribution
           // InData with 5% from 80 to 99 and 95% from 100 to 120
-          scv_bag<sc_uint<DATA_WIDTH>> intBag;
+          typedef sc_uint<DATA_WIDTH> data_range;
+          scv_bag<data_range> intBag;
+          // TODO add to the bag
           
 	  // Generate values of tInData  using "cPkt"
 	  // ...
           cPkt.sInData->next();
           tInData.write(cPkt.sInData);
-          tAddr.write(cPkt.sAddr)          
+          tAddr.write(cPkt.sAddr);          
           // Set reading mode
-          tBCE.write(0);
-          tBWE.write(1);
+          tbCE.write(0);
+          tbWE.write(1);
 
           // Data read
-            sOutData = tOutData.read();
+            *cPkt.sOutData = tOutData.read();
           // Print statistics
 	  // ...
             cout << "Statistics" << endl;
-            cout << "InData: " << cPkt.sInData << endl; 
-            cout << "Addr: " << cPkt.sAddr << endl; 
-            cout << "OutData: " << cPkt.sOutData << endl; 
+            cPkt.print();
+            //cout << "InData: " << cPkt.sInData << endl; 
+            //cout << "Addr: " << cPkt.sAddr << endl; 
+            //cout << "OutData: " << cPkt.sOutData << endl; 
         }
         cout << "------------------- End of Verification II" << endl;
         
