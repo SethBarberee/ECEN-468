@@ -1,0 +1,162 @@
+cd /home/ugrads/s/seth.barberee/ECEN468/Lab6/
+gdb.shell.exe
+spawn /opt/coe/mentorgraphics/vista312/linux64/tools.64bit/bin/gdb -quiet -interp=opengdb -runtcl="/opt/coe/mentorgraphics/vista312/generic/tcl/v2/gdb/gdb.tcl" --nx
+
+(vista) BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libm.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+BFD: /usr/lib64/libc.so.6: invalid relocation type 37
+BFD: BFD 2.17.50 20061115 assertion fail elf64-x86-64.c:259
+Vista SystemC 2.2 Runtime Kernel.
+Built September 15, 2011. License version 2011.9.
+Copyright (c) 2005-2011, Mentor Graphics Corporation.
+
+             SystemC 2.2.0 --- Sep 15 2011 00:24:25
+        Copyright (c) 1996-2006 by all Contributors
+                    ALL RIGHTS RESERVED
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_start(double) deprecated, use sc_start(sc_time) or sc_start()
+Merging /home/ugrads/s/seth.barberee/ECEN468/Lab6/Lab6/build/D_PRJDIR_/test_RAM.exe ...Done.
+Saving types data file /home/ugrads/s/seth.barberee/ECEN468/Lab6/Lab6/sim/test_RAM.db...Done.
+WARNING: Default time step is used for VCD tracing.
+
+Info: (I804) /IEEE_Std_1666/deprecated: sc_get_curr_process_handle deprecated use sc_get_current_process_handle
+------------------- Beginning of Verification I
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  2
+    :  122
+    :  122
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  182
+    :  182
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  2
+    :  221
+    :  221
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  7
+    :  243
+    :  243
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  198
+    :  198
+------------------- End of Verification I
+
+------------------- Beginning of Verification II
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  120
+    :  120
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  112
+    :  112
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  115
+    :  115
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  101
+    :  101
+Statistics
+Pkt_constraint Name: Pkt_Test
+  Hard constraints: (1&&1)
+  Soft constraints: (((1&&(default<10))&&(default>80))&&1)
+  Number of elements: 3
+  Current value of elements: 
+    :  9
+    :  117
+    :  117
+------------------- End of Verification II
+
+Info: (I804) /IEEE_Std_1666/deprecated: You can turn off warnings about
+             IEEE 1666 deprecated features by placing this method call as the
+             first statement in your sc_main() function:
+
+  sc_report_handler::set_actions("/IEEE_Std_1666/deprecated", SC_DO_NOTHING);
+
+
+Program is about to exit.
+#0  0x000000000062b260 in summit_sc::Runtime::atExitCallback ()
+(vista) 

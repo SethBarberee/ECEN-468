@@ -65,12 +65,14 @@ int sc_main (int argc, char* argv[]) {
           // Generate values of tInData & tAddr using "cPkt"
 	  // ...
             cPkt.next();
-            tInData.write(cPkt.sInData);
-            tAddr.write(*cPkt.sAddr);
+            tInData.write( cPkt.sInData->read());
+            tAddr.write(cPkt.sAddr->read());
+	        sc_start(5);
           // Set reading mode
 	  // ...
             tbCE.write(0);
             tbWE.write(1);
+	sc_start(5);
           // Data read from tOutData to sOutData
             *cPkt.sOutData = tOutData.read();
           // Print statistics
@@ -93,19 +95,24 @@ int sc_main (int argc, char* argv[]) {
 
           // Set range distribution
           // InData with 5% from 80 to 99 and 95% from 100 to 120
-          typedef sc_uint<DATA_WIDTH> data_range;
-          scv_bag<data_range> intBag;
-          // TODO add to the bag
+            typedef pair <sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> > field_dist;
+            scv_bag<field_dist> intBag;
+          // add to the bag
+          intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(80, 99), 5);
+          intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(100, 120), 95);
+          
+          cPkt.sInData->set_mode(intBag);
           
 	  // Generate values of tInData  using "cPkt"
 	  // ...
           cPkt.sInData->next();
-          tInData.write(cPkt.sInData);
-          tAddr.write(cPkt.sAddr);          
+          tInData.write(cPkt.sInData->read());
+          tAddr.write(cPkt.sAddr->read());
+	        sc_start(5);
           // Set reading mode
           tbCE.write(0);
           tbWE.write(1);
-
+	        sc_start(5);
           // Data read
             *cPkt.sOutData = tOutData.read();
           // Print statistics

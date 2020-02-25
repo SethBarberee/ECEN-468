@@ -1,0 +1,119 @@
+$date
+     Feb 25, 2020       11:45:56
+$end
+
+$version
+              SystemC 2.2.0 --- Sep 15 2011 00:24:25
+$end
+
+$timescale
+     1 ps
+$end
+
+$scope module SystemC $end
+$var wire    8  aaa  strInData [7:0]  $end
+$var wire   18  aab  strAddr [17:0]  $end
+$var wire    1  aac  strbCE       $end
+$var wire    1  aad  strbWE       $end
+$var wire    8  aae  strOutData [7:0]  $end
+$upscope $end
+$enddefinitions  $end
+
+$comment
+All initial values are dumped below at time 0 sec = 0 timescale units.
+$end
+
+$dumpvars
+b0 aaa
+b0 aab
+1aac
+1aad
+b0 aae
+$end
+
+#5000
+b1111010 aaa
+b10 aab
+0aac
+0aad
+
+#10000
+1aad
+b1111010 aae
+
+#15000
+b10110110 aaa
+b1001 aab
+0aad
+
+#20000
+1aad
+b10110110 aae
+
+#25000
+b11011101 aaa
+b10 aab
+0aad
+
+#30000
+1aad
+b11011101 aae
+
+#35000
+b11110011 aaa
+b111 aab
+0aad
+
+#40000
+1aad
+b11110011 aae
+
+#45000
+b11000110 aaa
+b1001 aab
+0aad
+
+#50000
+1aad
+b11000110 aae
+
+#55000
+b1111000 aaa
+0aad
+
+#60000
+1aad
+b1111000 aae
+
+#65000
+b1110000 aaa
+0aad
+
+#70000
+1aad
+b1110000 aae
+
+#75000
+b1110011 aaa
+0aad
+
+#80000
+1aad
+b1110011 aae
+
+#85000
+b1100101 aaa
+0aad
+
+#90000
+1aad
+b1100101 aae
+
+#95000
+b1110101 aaa
+0aad
+
+#100000
+1aad
+b1110101 aae
+

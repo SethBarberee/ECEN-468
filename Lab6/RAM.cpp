@@ -9,11 +9,11 @@
 
 SC_MODULE (RAM) {
   // ----- Declare Input/Output ports -----
-    sc_in_rv < ADDR_WIDTH > 	Addr ;
+    sc_in <sc_uint< ADDR_WIDTH > > 	Addr ;
     sc_in < bool > 			bWE;
     sc_in < bool > 			bCE;
-    sc_in_rv < DATA_WIDTH  > 	InData;
-    sc_out_rv < DATA_WIDTH  >	OutData;
+    sc_in <sc_uint< DATA_WIDTH  > > 	InData;
+    sc_out <sc_uint< DATA_WIDTH > >	OutData;
 
   // ----- Internal variables -----
   // ...
