@@ -6,12 +6,13 @@ parameter WordSize = 8;			// 8 bits
 // Port Declaration
 input [AddressSize - 1: 0] Address;
 input [WordSize - 1: 0] InData;
+output [WordSize - 1: 0] OutData;
 input bCE;
 input bWE;
-output [WordSize - 1: 0] OutData;
 
 // Internal Variable
-reg [WordSize - 1: 0] internal_memory [AddressSize << 1];
+reg [WordSize - 1: 0] internal_memory [(AddressSize << 1) - 1 : 0];
+reg [WordSize - 1: 0] OutData;
 
 // Function Read
 always @(bCE or bWE or Address)
