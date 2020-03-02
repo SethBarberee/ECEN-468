@@ -67,12 +67,12 @@ int sc_main (int argc, char* argv[]) {
             cPkt.next();
             tInData.write( cPkt.sInData->read());
             tAddr.write(cPkt.sAddr->read());
-	        sc_start(5);
+            sc_start(5);
           // Set reading mode
 	  // ...
             tbCE.write(0);
             tbWE.write(1);
-	sc_start(5);
+            sc_start(5);
           // Data read from tOutData to sOutData
             *cPkt.sOutData = tOutData.read();
           // Print statistics
@@ -98,21 +98,21 @@ int sc_main (int argc, char* argv[]) {
             typedef pair <sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> > field_dist;
             scv_bag<field_dist> intBag;
           // add to the bag
-          intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(80, 99), 5);
-          intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(100, 120), 95);
+            intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(80, 99), 5);
+            intBag.add( pair<sc_uint<DATA_WIDTH>, sc_uint<DATA_WIDTH> >(100, 120), 95);
           
-          cPkt.sInData->set_mode(intBag);
+            cPkt.sInData->set_mode(intBag);
           
 	  // Generate values of tInData  using "cPkt"
 	  // ...
-          cPkt.sInData->next();
-          tInData.write(cPkt.sInData->read());
-          tAddr.write(cPkt.sAddr->read());
-	        sc_start(5);
+            cPkt.sInData->next();
+            tInData.write(cPkt.sInData->read());
+            tAddr.write(cPkt.sAddr->read());
+            sc_start(5);
           // Set reading mode
-          tbCE.write(0);
-          tbWE.write(1);
-	        sc_start(5);
+            tbCE.write(0);
+            tbWE.write(1);
+            sc_start(5);
           // Data read
             *cPkt.sOutData = tOutData.read();
           // Print statistics
