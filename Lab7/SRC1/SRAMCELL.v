@@ -8,11 +8,12 @@ input bWE;
 
 // Internal register/wire
 reg d;
+reg OutData;
 
 
 
 // Functional Module Description
-always @(InData or bCS)	// Sensitivity
+always @(InData or bCS or bWE)	// Sensitivity
 begin
         if (!bCS && !bWE)
             d <= InData;
