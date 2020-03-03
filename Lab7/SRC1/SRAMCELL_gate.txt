@@ -1,0 +1,22 @@
+Chronologic VCS simulator copyright 1991-2016
+Contains Synopsys proprietary information.
+Compiler version L-2016.06_Full64; Runtime version L-2016.06_Full64;  Mar  2 22:45 2020
+Doing SDF annotation ...... Done
+                   0InData:x / OutData:x / bCS[1] / bWE[1]
+                   5InData:1 / OutData:x / bCS[1] / bWE[1]
+                  10InData:1 / OutData:x / bCS[0] / bWE[0]
+                  15InData:1 / OutData:x / bCS[1] / bWE[0]
+                  20InData:1 / OutData:x / bCS[0] / bWE[1]
+                  20InData:1 / OutData:1 / bCS[0] / bWE[1]
+                  25InData:0 / OutData:1 / bCS[0] / bWE[1]
+                  30InData:0 / OutData:1 / bCS[0] / bWE[0]
+                  35InData:0 / OutData:1 / bCS[1] / bWE[0]
+                  40InData:0 / OutData:1 / bCS[0] / bWE[1]
+                  40InData:0 / OutData:0 / bCS[0] / bWE[1]
+                  45InData:0 / OutData:0 / bCS[1] / bWE[1]
+$finish called from file "SRAMCELL_gate_tb.v", line 42.
+$finish at simulation time                 9500
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 95000 ps
+CPU Time:      0.360 seconds;       Data structure size:   0.0Mb
+Mon Mar  2 22:45:30 2020
