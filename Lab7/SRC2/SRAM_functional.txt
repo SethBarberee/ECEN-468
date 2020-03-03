@@ -1,0 +1,21 @@
+Chronologic VCS simulator copyright 1991-2016
+Contains Synopsys proprietary information.
+Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar  3 11:28 2020
+                   0 READ[1] WRITE[0] ENABLE[0] / ADDR[     x] = InData:  x / OutData:  x
+                  10 READ[1] WRITE[0] ENABLE[0] / ADDR[    61] = InData: 61 / OutData:  x
+                  20 READ[0] WRITE[1] ENABLE[0] / ADDR[    61] = InData: 61 / OutData:  x
+                  22 READ[0] WRITE[1] ENABLE[1] / ADDR[    61] = InData: 61 / OutData:  x
+                  32 READ[0] WRITE[1] ENABLE[1] / ADDR[    62] = InData: 62 / OutData:  x
+                  54 READ[0] WRITE[1] ENABLE[1] / ADDR[    63] = InData: 63 / OutData:  x
+                  68 READ[0] WRITE[1] ENABLE[0] / ADDR[    63] = InData: 63 / OutData:  x
+                  78 READ[0] WRITE[1] ENABLE[0] / ADDR[    61] = InData:  x / OutData:  x
+                  88 READ[1] WRITE[0] ENABLE[0] / ADDR[    61] = InData:  x / OutData:  x
+                  90 READ[1] WRITE[0] ENABLE[1] / ADDR[    61] = InData:  x / OutData: 61
+                 100 READ[1] WRITE[0] ENABLE[1] / ADDR[    62] = InData:  x / OutData: 62
+                 122 READ[1] WRITE[0] ENABLE[1] / ADDR[    63] = InData:  x / OutData: 63
+$finish called from file "SRAM_tb.v", line 41.
+$finish at simulation time                43400
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 434000 ps
+CPU Time:      0.210 seconds;       Data structure size:   0.0Mb
+Tue Mar  3 11:28:58 2020

@@ -11,23 +11,23 @@ input bCE;
 input bWE;
 
 // Internal Variable
-reg [WordSize - 1: 0] internal_memory [(AddressSize << 1) - 1 : 0];
+reg [WordSize - 1: 0] internal_memory [(1 << AddressSize) - 1 : 0];
 reg [WordSize - 1: 0] OutData;
 
 // Function Read
 always @(bCE or bWE or Address)
 begin
 	if(bWE && !bCE)
-            // read from storage
-            OutData <= internal_memory[Address];
+        // read from storage
+        OutData <= internal_memory[Address];
 end
 
 // Function Write
 always @(bCE or bWE or Address or InData)
 begin
 	if(!bWE && !bCE)
-            // write to storage
-            internal_memory[Address] <= InData;
+        // write to storage
+        internal_memory[Address] <= InData;
 end
 
 endmodule
