@@ -47,48 +47,56 @@ module Control_Unit (
 		// -----------------------------------
 		// Insert your code here
 		// -----------------------------------
-
-                // do a switch case based on state
-                case(state)
-                    idle:
-                    begin
-                        clear <= 0; // reset from when we finished
-                        if(Load_XMT_datareg)
-                            Load_XMT_DR <= 1; // load data in datapath
-
-                        if(Byte_ready)
+                if(rst_b)
+                    // do a switch case based on state
+                    case(state)
+                        idle:
                         begin
-                            // Ready to go so change state and assert
-                            next_state <= waiting;
-                            Load_XMT_shftreg <= 1;
-                        end
-                    end
+                            clear <= 0; // reset from when we finished
+                            if(Load_XMT_datareg)
+                                Load_XMT_DR <= 1; // load data in datapath
 
-                    waiting:
-                    begin
-                        if(T_byte)
-                        begin 
+                            if(Byte_ready)
+                            begin
+                                // Ready to go so change state and assert
+                                next_state <= waiting;
+                                Load_XMT_shftreg <= 1;
+                            end
+                        end
+
+                        waiting:
+                        begin
+                            if(T_byte)
+                            begin 
                             // Byte is good so time to send
                             start <= 1;
                             next_state <= sending;
+                            end
                         end
-                    end
 
-                    sending;
-                    begin
-                        start <= 0; // We already started so pull it down
-                        if(!BC_lt_BCmax)
+                        sending;
                         begin
-                            // We finished transmitting so reset
-                            shift <= 0;
-                            clear <= 1;
-                            next_state = idle;
-                        end
-                        else
-                            // Still transmitting
+                            start <= 0; // We already started so pull it down
+                            if(!BC_lt_BCmax)
+                            begin
+                                // We finished transmitting so reset
+                                shift <= 0;
+                                clear <= 1;
+                                next_state = idle;
+                            end
+                            else
+                                // Still transmitting
                             shift <= 1;
-                    end
-                endcase
+                        end
+                    endcase
+                else
+                begin
+                    start <= 0;
+                    shift <= 0;
+                    clear <= 0;
+                    Load_XMT_DR <= 0;
+                    Load_XMT_shftreg <= 0;
+                end
 	end
 
 	// Sequential Block

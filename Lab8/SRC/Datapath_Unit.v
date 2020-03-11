@@ -42,21 +42,28 @@ module Datapath_Unit (
 	// Data Path for UART Transmitter
 	always @(posedge Clock or negedge rst_b)
 	begin
-            if(Load_XMT_DR)
-                XMT_datareg <= Data_Bus;
-            if(Load_XMT_shftreg)
-                XMT_shftreg <= XMT_datareg;
-            if(start)
-                XMT_shftreg[0] <= 0;
-            if(shift)
-                // TODO shift here
+            if(rst_b)
+                if(Load_XMT_DR)
+                    XMT_datareg <= Data_Bus;
+                if(Load_XMT_shftreg)
+                    XMT_shftreg <= XMT_datareg;
+                if(start)
+                    XMT_shftreg[0] <= 0;
+                if(shift)
+                    // TODO shift here
                 begin
                     XMT_shftreg[8:1] <= XMT_shftreg[7:0]
                     XMT_shftreg[0] <= 1;
                     bit_count <= bit_count + 1;
                 end
-            if(clear)
+                if(clear)
+                    bit_count <= 0;
+            else
+            begin
                 bit_count <= 0;
+                XMT_shftreg <= 0;
+                XMT_datareg <= 0;
+            end
 	end
 endmodule
 
