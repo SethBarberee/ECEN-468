@@ -38,7 +38,8 @@ module Datapath_Unit (
 
 	// Connect your UDP (User Defined Primitive)
 	// Insert your code here.
-        BC_lt_BCmax_primitive(BC_lt_BC_max, bit_count);
+        //BC_lt_BCmax_primitive(BC_lt_BC_max, bit_count);
+        assign BC_lt_BCmax = (bit_count < word_size + 1);
 
 	// Data Path for UART Transmitter
 	always @(posedge Clock or negedge rst_b)

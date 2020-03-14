@@ -82,7 +82,7 @@ module Control_Unit (
                                 // We finished transmitting so reset
                                 shift <= 0;
                                 clear <= 1;
-                                next_state = idle;
+                                next_state <= idle;
                             end
                             else
                                 // Still transmitting
