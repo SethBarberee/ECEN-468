@@ -38,28 +38,29 @@ module Datapath_Unit (
 
 	// Connect your UDP (User Defined Primitive)
 	// Insert your code here.
-        //BC_lt_BCmax_primitive(BC_lt_BC_max, bit_count);
         assign BC_lt_BCmax = (bit_count < word_size + 1);
+        //BC_lt_BCmax_primitive(BC_lt_BCmax, bit_count[size_bit_count], bit_count[size_bit_count - 1], bit_count[size_bit_count - 2], bit_count[size_bit_count - 3]);
 
 	// Data Path for UART Transmitter
 	always @(posedge Clock or negedge rst_b)
 	begin
             if(rst_b)
+                begin
                 if(Load_XMT_DR)
                     XMT_datareg <= Data_Bus;
                 if(Load_XMT_shftreg)
-                    XMT_shftreg <= XMT_datareg;
+                    XMT_shftreg <= {XMT_datareg, 1'b1};
                 if(start)
                     XMT_shftreg[0] <= 0;
                 if(shift)
                     // shift here
                     begin
-                        XMT_shftreg[word_size-1:0] <= XMT_shftreg[word_size:1]
-                        XMT_shftreg[word_size] <= 1;
+                        XMT_shftreg <= {1'b1, XMT_shftreg[word_size:1]};
                         bit_count <= bit_count + 1;
                     end
                 if(clear)
                     bit_count <= 4'b0;
+                end
             else
             begin
                 bit_count <= 4'b0;
@@ -75,22 +76,27 @@ endmodule
 // -----------------------------------
 primitive BC_lt_BCmax_primitive (
     BC_lt_BCmax,
-    bit_count,
+    bit_count_3,
+    bit_count_2,
+    bit_count_1,
+    bit_count_0
 );
 output BC_lt_BCmax;
-input bit_count;
+input bit_count_3;
+input bit_count_2;
+input bit_count_1;
+input bit_count_0;
 table
     // bit_count | BC_lt_BCmax
-    0 : 1;
-    1 : 1;
-    2 : 1;
-    3 : 1;
-    4 : 1;
-    5 : 1;
-    6 : 1;
-    7 : 1;
-    8 : 1;
-    9 : 0;
-    10 : 0;
+    0   0   0   0 : 1;
+    0   0   0   1 : 1;
+    0   0   1   0 : 1;
+    0   0   1   1 : 1;
+    0   1   0   0 : 1;
+    0   1   0   1 : 1;
+    0   1   1   0 : 1;
+    0   1   1   1 : 1;
+    1   0   0   0 : 1;
+    1   0   0   1 : 0;
 endtable
 endprimitive

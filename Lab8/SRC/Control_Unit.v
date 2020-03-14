@@ -55,7 +55,8 @@ module Control_Unit (
                             clear <= 0; // reset from when we finished
                             if(Load_XMT_datareg)
                                 Load_XMT_DR <= 1; // load data in datapath
-
+                            else
+                                Load_XMT_DR <= 0;
                             if(Byte_ready)
                             begin
                                 // Ready to go so change state and assert
@@ -66,6 +67,7 @@ module Control_Unit (
 
                         waiting:
                         begin
+                            Load_XMT_shftreg <= 0;
                             if(T_byte)
                             begin 
                             // Byte is good so time to send
@@ -74,7 +76,7 @@ module Control_Unit (
                             end
                         end
 
-                        sending;
+                        sending:
                         begin
                             start <= 0; // We already started so pull it down
                             if(!BC_lt_BCmax)
@@ -86,7 +88,10 @@ module Control_Unit (
                             end
                             else
                                 // Still transmitting
+                            begin
                             shift <= 1;
+                            next_state <= sending;
+                            end
                         end
                     endcase
                 else
@@ -96,6 +101,7 @@ module Control_Unit (
                     clear <= 0;
                     Load_XMT_DR <= 0;
                     Load_XMT_shftreg <= 0;
+                    next_state <= idle;
                 end
 	end
 
