@@ -18,19 +18,19 @@ module UART_XMTR(Serial_out, Data_Bus, Load_XMT_datareg, Byte_ready, T_byte, Clo
         input rst_b;
 
 	// Declare internal wires
-        reg Load_XMT_DR;
-        reg Load_XMT_shftreg;
-        reg start;
-        reg shift;
-        reg clear;
-        reg BC_lt_BCmax;
+        wire Load_XMT_DR;
+        wire Load_XMT_shftreg;
+        wire start;
+        wire shift;
+        wire clear;
+        wire BC_lt_BCmax;
 	
 	// Connect Sub modules
 	// a. Connect Control_Unit
-        Control_Unit(Load_XMT_DR, Load_XMT_shftreg, start, shift, clear, Load_XMT_datareg, Byte_ready, T_byte, BC_lt_BCmax, Clock, rst_b);
+        Control_Unit control(Load_XMT_DR, Load_XMT_shftreg, start, shift, clear, Load_XMT_datareg, Byte_ready, T_byte, BC_lt_BCmax, Clock, rst_b);
 
 	// b. Connect Datapath_Unit
-        Datapath_Unit(Serial_out, BC_lt_BCmax, Data_Bus, Load_XMT_DR, Load_XMT_shftreg, start, shift, clear, Clock, rst_b);
+        Datapath_Unit datapath(Serial_out, BC_lt_BCmax, Data_Bus, Load_XMT_DR, Load_XMT_shftreg, start, shift, clear, Clock, rst_b);
 
 endmodule
 
