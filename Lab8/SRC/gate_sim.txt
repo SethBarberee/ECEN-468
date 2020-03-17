@@ -1,8 +1,10 @@
 Chronologic VCS simulator copyright 1991-2016
 Contains Synopsys proprietary information.
-Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 11:39 2020
+Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 11:58 2020
+Doing SDF annotation ...... Done
                    0Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                    1Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                   2Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
                    2Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
                    3Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:0
                    4Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
@@ -19,17 +21,18 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                   15Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   16Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:0, rst_b:1
                   17Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
-                  18Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  19Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  20Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  21Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  22Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  23Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  24Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
+                  17Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
+                  18Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  19Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  20Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  21Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  22Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  23Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  24Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
                   25Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:1, rst_b:1
                   26Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  27Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  28Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  27Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  28Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   29Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   30Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   31Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
@@ -40,13 +43,18 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                   36Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   37Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   38Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  39Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  40Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  39Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  40Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   41Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   42Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  43Out:0 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   43Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   44Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   45Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+
+"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
+    $setup( negedge D:4555, negedge CLK:4570, limit: 19 );
+
                   46Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   47Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   48Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -67,19 +75,20 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                   63Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   64Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:0, rst_b:1
                   65Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
-                  66Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  67Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  68Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  69Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  70Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  71Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  72Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
+                  65Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
+                  66Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  67Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  68Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  69Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  70Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  71Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  72Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
                   73Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:1, rst_b:1
                   74Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   75Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   76Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  77Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  78Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  77Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  78Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   79Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   80Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   81Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
@@ -88,13 +97,18 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                   84Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   85Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   86Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                  87Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                  88Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  87Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                  88Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   89Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   90Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                  91Out:0 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   91Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   92Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   93Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+
+"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
+    $setup( negedge D:9355, negedge CLK:9370, limit: 19 );
+
                   94Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   95Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   96Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -115,19 +129,20 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                  111Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  112Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:0, rst_b:1
                  113Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
-                 114Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 115Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 116Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 117Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 118Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 119Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 120Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
+                 113Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:1 / T_byte:0, Clock:1, rst_b:1
+                 114Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 115Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 116Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 117Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 118Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 119Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 120Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:0, rst_b:1
                  121Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:1, Clock:1, rst_b:1
                  122Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 123Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 124Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 125Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 126Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 123Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 124Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 125Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 126Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  127Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  128Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  129Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
@@ -136,13 +151,18 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                  132Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  133Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  134Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
-                 135Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-                 136Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 135Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+                 136Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  137Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  138Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
+                 139Out:0 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  139Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  140Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  141Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
+
+"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
+    $setup( negedge D:14155, negedge CLK:14170, limit: 19 );
+
                  142Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  143Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  144Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -153,9 +173,9 @@ Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;
                  149Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  150Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  151Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-$finish called from file "UART_tb.v", line 53.
+$finish called from file "UART_gate_tb.v", line 54.
 $finish at simulation time                15200
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 152000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.0Mb
-Tue Mar 17 11:39:52 2020
+CPU Time:      0.320 seconds;       Data structure size:   0.1Mb
+Tue Mar 17 11:58:01 2020

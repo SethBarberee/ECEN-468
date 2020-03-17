@@ -44,29 +44,29 @@ module Datapath_Unit (
 	// Data Path for UART Transmitter
 	always @(posedge Clock or negedge rst_b)
 	begin
-            if(rst_b)
-                begin
-                if(Load_XMT_DR)
-                    XMT_datareg <= Data_Bus;
-                if(Load_XMT_shftreg)
-                    XMT_shftreg <= {XMT_datareg, 1'b1};
-                if(start)
-                    XMT_shftreg[0] <= 0;
-                if(shift)
-                    // shift here
-                    begin
-                        XMT_shftreg <= {1'b1, XMT_shftreg[word_size:1]};
-                        bit_count <= bit_count + 1;
-                    end
-                if(clear)
-                    bit_count <= 4'b0;
-                end
-            else
+            if(!rst_b)
             begin
                 bit_count <= 4'b0;
-                XMT_shftreg <= 0;
+                XMT_shftreg <= all_ones;
                 XMT_datareg <= 0;
             end
+            else
+                begin
+                    if(Load_XMT_DR)
+                        XMT_datareg <= Data_Bus;
+                    if(Load_XMT_shftreg)
+                        XMT_shftreg <= {XMT_datareg, 1'b1};
+                    if(start)
+                        XMT_shftreg[0] <= 0;
+                    if(shift)
+                        // shift here
+                        begin
+                            XMT_shftreg <= {1'b1, XMT_shftreg[word_size:1]};
+                            bit_count <= bit_count + 1;
+                        end
+                    if(clear)
+                        bit_count <= 4'b0;
+                end
 	end
 endmodule
 
@@ -74,6 +74,7 @@ endmodule
 // -----------------------------------
 // Insert your UDP here.
 // -----------------------------------
+/*
 primitive BC_lt_BCmax_primitive (
     BC_lt_BCmax,
     bit_count_3,
@@ -100,3 +101,4 @@ table
     1   0   0   1 : 0;
 endtable
 endprimitive
+*/
