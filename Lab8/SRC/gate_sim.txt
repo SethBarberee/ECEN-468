@@ -1,11 +1,18 @@
 Chronologic VCS simulator copyright 1991-2016
 Contains Synopsys proprietary information.
-Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 11:58 2020
+Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 23:13 2020
 Doing SDF annotation ...... Done
                    0Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                    1Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                    2Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
                    2Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
+
+"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[2] 
+    $setup( negedge D:236, negedge CLK:239, limit: 20 );
+
+"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[1] 
+    $setup( negedge D:236, negedge CLK:239, limit: 19 );
+
                    3Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:0
                    4Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
                    5Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:0
@@ -51,10 +58,6 @@ Doing SDF annotation ...... Done
                   43Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   44Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   45Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-
-"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
-    $setup( negedge D:4555, negedge CLK:4570, limit: 19 );
-
                   46Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   47Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   48Out:1 <= Data_Bus:01000001 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -105,10 +108,6 @@ Doing SDF annotation ...... Done
                   91Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   92Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   93Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-
-"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
-    $setup( negedge D:9355, negedge CLK:9370, limit: 19 );
-
                   94Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                   95Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                   96Out:1 <= Data_Bus:01000010 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -159,10 +158,6 @@ Doing SDF annotation ...... Done
                  139Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  140Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  141Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
-
-"osu018_stdcells.v", 572: Timing violation in stimulus.UART_XMTR_01.control.\next_state_reg[0] 
-    $setup( negedge D:14155, negedge CLK:14170, limit: 19 );
-
                  142Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                  143Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                  144Out:1 <= Data_Bus:01000011 / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
@@ -177,5 +172,5 @@ $finish called from file "UART_gate_tb.v", line 54.
 $finish at simulation time                15200
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 152000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.1Mb
-Tue Mar 17 11:58:01 2020
+CPU Time:      0.310 seconds;       Data structure size:   0.1Mb
+Tue Mar 17 23:13:42 2020

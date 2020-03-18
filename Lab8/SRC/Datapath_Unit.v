@@ -54,18 +54,24 @@ module Datapath_Unit (
                 begin
                     if(Load_XMT_DR)
                         XMT_datareg <= Data_Bus;
-                    if(Load_XMT_shftreg)
+                    else if (Load_XMT_shftreg)
                         XMT_shftreg <= {XMT_datareg, 1'b1};
-                    if(start)
+                    else if(start)
                         XMT_shftreg[0] <= 0;
-                    if(shift)
+                    else if(shift)
                         // shift here
                         begin
                             XMT_shftreg <= {1'b1, XMT_shftreg[word_size:1]};
                             bit_count <= bit_count + 1;
                         end
-                    if(clear)
+                    else if(clear)
                         bit_count <= 4'b0;
+                    else
+                        begin
+                            bit_count <= bit_count;
+                            XMT_datareg <= XMT_datareg;
+                            XMT_shftreg <= XMT_shftreg;
+                        end
                 end
 	end
 endmodule

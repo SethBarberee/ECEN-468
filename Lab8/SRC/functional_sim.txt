@@ -1,6 +1,6 @@
 Chronologic VCS simulator copyright 1991-2016
 Contains Synopsys proprietary information.
-Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 11:39 2020
+Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 17 23:15 2020
                    0Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:1
                    1Out:x <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:1, rst_b:1
                    2Out:1 <= Data_Bus:xxxxxxxx / Load_XMT_datareg:0 / Byte_ready:0 / T_byte:0, Clock:0, rst_b:0
@@ -157,5 +157,5 @@ $finish called from file "UART_tb.v", line 53.
 $finish at simulation time                15200
            V C S   S i m u l a t i o n   R e p o r t 
 Time: 152000 ps
-CPU Time:      0.320 seconds;       Data structure size:   0.0Mb
-Tue Mar 17 11:39:52 2020
+CPU Time:      0.300 seconds;       Data structure size:   0.0Mb
+Tue Mar 17 23:15:15 2020
