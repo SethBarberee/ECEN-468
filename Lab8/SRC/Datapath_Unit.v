@@ -55,7 +55,7 @@ module Datapath_Unit (
                     if(Load_XMT_DR)
                         XMT_datareg <= Data_Bus;
                     else if (Load_XMT_shftreg)
-                        XMT_shftreg <= {XMT_datareg, 1'b1};
+                        XMT_shftreg <= {XMT_datareg[word_size-1:0], 1'b1};
                     else if(start)
                         XMT_shftreg[0] <= 0;
                     else if(shift)

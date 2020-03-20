@@ -1,4 +1,4 @@
-`timescale 1ns/10ps
+`timescale 1ns / 10ps
 `include "UART_gate.v"
 `include "osu018_stdcells.v"
 
@@ -29,26 +29,26 @@ module stimulus;
 
 	// Clock generation
 	always begin
-		#1 Clock = !Clock;
+		#2 Clock = !Clock;
 	end
 	
 	// Main test bench
 	initial
 	begin
-		#2	rst_b = 1'b0;
-		#6	rst_b = 1'b1;
+		#4	rst_b = 1'b0;
+		#12	rst_b = 1'b1;
 
 		for(i=8'h41; i<=8'h43; i=i+1) begin
-			#2 	Data_Bus = i;
-			#2	Load_XMT_datareg = 1;
-			#2	Load_XMT_datareg = 0;
+			#4 	Data_Bus = i;
+			#4	Load_XMT_datareg = 1;
+			#4	Load_XMT_datareg = 0;
 
-			#2	Byte_ready = 1;
-			#2	Byte_ready = 0;
+			#4	Byte_ready = 1;
+			#4	Byte_ready = 0;
 
-			#6	T_byte = 1;
-			#2	T_byte = 0;
-			#30;
+			#12	T_byte = 1;
+			#4	T_byte = 0;
+			#60;
 		end
 
 		$finish;//$stop;

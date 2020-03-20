@@ -54,6 +54,7 @@ module Control_Unit (
                     clear <= 0;
                     Load_XMT_DR <= 0;
                     Load_XMT_shftreg <= 0;
+                    next_state <= idle;
                     end
                 else
                     // do a switch case based on state
