@@ -1,4 +1,4 @@
-module SRAM (Address, InData, OutData, bCE, bWE);
+module SRAM (InData, OutData, Address, bCE, bWE);
 
 parameter AddressSize = 18;		// 2^18 = 256K
 parameter WordSize = 8;			// 8 bits

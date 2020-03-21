@@ -39,10 +39,10 @@ begin
 			// Insert your code here
 			// ..
 			// ..
-                        Address => AddressBus[17:0];
-                        InData => DataBus;
-                        bCE => AddressBus[19];
-                        bWE => AddressBus[18];
+                        Address <= AddressBus[17:0];
+                        InData <= DataBus;
+                        bCE <= AddressBus[19];
+                        bWE <= AddressBus[18];
 		   end
 	   end
 end
