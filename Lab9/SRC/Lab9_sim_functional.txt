@@ -1,0 +1,59 @@
+Chronologic VCS simulator copyright 1991-2016
+Contains Synopsys proprietary information.
+Compiler version L-2016.06-SP2-4_Full64; Runtime version L-2016.06-SP2-4_Full64;  Mar 21 16:42 2020
+>> 1. Writing 0x35 to SRAM.
+                   0dRcvData:0hxx
+>> 1a. Writing Complete
+>> 2. Reading from SRAM.
+                1100dRcvData:0h35
+>> 3. Sending through UART.
+                1600CLK[0->1] SerialOut: 1
+                1610CLK[1->0] SerialOut: 1
+                1620CLK[0->1] SerialOut: 1
+                1630CLK[1->0] SerialOut: 1
+                1640CLK[0->1] SerialOut: 1
+                1650CLK[1->0] SerialOut: 1
+                1660CLK[0->1] SerialOut: 1
+                1670CLK[1->0] SerialOut: 1
+                1680CLK[0->1] SerialOut: 1
+                1690CLK[1->0] SerialOut: 1
+                1700CLK[0->1] SerialOut: 1
+                1710CLK[1->0] SerialOut: 0
+                1720CLK[0->1] SerialOut: 0
+                1730CLK[1->0] SerialOut: 0
+                1740CLK[0->1] SerialOut: 0
+                1750CLK[1->0] SerialOut: 0
+                1760CLK[0->1] SerialOut: 0
+                1770CLK[1->0] SerialOut: 1
+                1780CLK[0->1] SerialOut: 1
+                1790CLK[1->0] SerialOut: 0
+                1800CLK[0->1] SerialOut: 0
+                1810CLK[1->0] SerialOut: 1
+                1820CLK[0->1] SerialOut: 1
+                1830CLK[1->0] SerialOut: 0
+                1840CLK[0->1] SerialOut: 0
+                1850CLK[1->0] SerialOut: 1
+                1860CLK[0->1] SerialOut: 1
+                1870CLK[1->0] SerialOut: 1
+                1880CLK[0->1] SerialOut: 1
+                1890CLK[1->0] SerialOut: 0
+                1900CLK[0->1] SerialOut: 0
+                1910CLK[1->0] SerialOut: 0
+                1920CLK[0->1] SerialOut: 0
+                1930CLK[1->0] SerialOut: 1
+                1940CLK[0->1] SerialOut: 1
+                1950CLK[1->0] SerialOut: 1
+                1960CLK[0->1] SerialOut: 1
+                1970CLK[1->0] SerialOut: 1
+                1980CLK[0->1] SerialOut: 1
+                1990CLK[1->0] SerialOut: 1
+                2000CLK[0->1] SerialOut: 1
+                2010CLK[1->0] SerialOut: 1
+                2020CLK[0->1] SerialOut: 1
+                2030CLK[1->0] SerialOut: 1
+$stop at time 204000 Scope: stimulus File: tb.v Line: 68
+ucli% quit
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 2040000 ps
+CPU Time:      0.330 seconds;       Data structure size:   0.0Mb
+Sat Mar 21 16:42:55 2020

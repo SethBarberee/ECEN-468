@@ -1,5 +1,7 @@
 `timescale 1ns/10ps
-`include "Mainsystem.v"
+`include "osu018_stdcells.v"
+`include "Mainsystem_gate.v"
+`include "SRAM.v"
 
 module stimulus;
 
@@ -61,7 +63,6 @@ module stimulus;
 	   #60 force DataBus = dRcvData;	force AddrBus = 32'h2000_0001;   // Load_XMT_datareg = 1;
 	   #60   		        	force AddrBus = 32'h2000_0002;   // Byte_ready = 1;
 	   #60                           	force AddrBus = 32'h2000_0004;   // T_byte = 1;
-	   #60                           	force AddrBus = 32'h2000_0000;   // T_byte = 0;
 	   // RESET
            #200 release DataBus;         	force AddrBus = 32'h0000_0000;
 
@@ -70,7 +71,7 @@ module stimulus;
 
 	initial
 	begin
-		$dumpfile ("wave.dump");
+		$dumpfile ("wave_gate.dump");
 		$dumpvars (0, stimulus);
 	end
 	
@@ -81,6 +82,6 @@ module stimulus;
 	begin 
 		#1600 $monitor($time, "CLK[%b->%b] SerialOut: %b", clk, !clk, Serial_out);
 	end
-	//initial
-	//	$sdf_annotate("Mainsystem.sdf", MAINSYSTEM_01);
+	initial
+		$sdf_annotate("Mainsystem.sdf", MAINSYSTEM_01);
 endmodule
