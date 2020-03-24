@@ -23,8 +23,5 @@ module wave;
 		$dumpfile ("wave.dump");
 		$dumpvars (0, wave);
 	end
-	
 
-	//initial
-	//	$sdf_annotate("SRAMCELL.sdf", SRAMCELL_01);
 endmodule

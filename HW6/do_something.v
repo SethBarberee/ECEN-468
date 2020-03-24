@@ -6,12 +6,9 @@ module do_something;
 	reg clock;
 
 	initial
-	begin
-            clock = 0;
-            #300;
-            $finish
-	end
-
+    begin 
+    clock = 0;
+    end
 
 	// Dump signals to make waveform
 	initial
@@ -20,6 +17,6 @@ module do_something;
 		$dumpvars (0, do_something);
 	end
 
-        always@(clock) #40 clock = ~clock;
-	
+    always@(clock) #40 clock = ~clock;
+
 endmodule
