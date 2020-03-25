@@ -188,27 +188,27 @@ begin
 				// Edge Normal which is perpendicular to Edge Orientation
 				if(fGx >=0)
 				begin
-                    if((0.5 * fGx) <= fGy)
-                        // degree 0
-                        regY[6] <= 0;
-                    else if(fGy <= (2.5 * fGx))
-                        // degree 45
-                        regY[6] <= 45;
-                    else
-                        // degree 90
-                        regY[6] <= 90;
-				end
-				else // if(fGx<0)
-				begin
-                    if((-0.5 * fGx) <= fGy)
-                        // degree 0
-                        regY[6] <= 0;
-                    else if(fGy <= (-2.5 * fGx))
-                        // degree 135
-                        regY[6] <= 135;
-                    else
-                        // degree 90
-                        regY[6] <= 90;
+                                    if((0.5 * fGx) <= fGy)
+                                        // degree 0
+                                    regY[6] <= 0;
+                                    else if(fGy <= (2.5 * fGx))
+                                        // degree 45
+                                    regY[6] <= 45;
+                                    else
+                                        // degree 90
+                                    regY[6] <= 90;
+                                end
+                                else // if(fGx<0)
+                                begin
+                                    if((-0.5 * fGx) <= fGy)
+                                        // degree 0
+                                    regY[6] <= 0;
+                                    else if(fGy <= (-2.5 * fGx))
+                                        // degree 135
+                                    regY[6] <= 135;
+                                    else
+                                        // degree 90
+                                    regY[6] <= 90;
 				end
 				IntSignal <= IntSignal;
 			end

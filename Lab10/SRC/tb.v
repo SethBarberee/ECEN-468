@@ -170,7 +170,7 @@ module stimulus;
        	begin
            	for(j=0; j<dWidth; j=j+1)
            	begin
-            	//$display("pixel[%d][%d] ...",i,j);
+            	$display("pixel[%d][%d] ...",i,j);
              	if(i<2 || j<2 || i>=dHeight-2 || j>=dWidth-2)
                	begin
                   	memXG[i*dWidth+j] = memX[i*dWidth+j];
@@ -240,7 +240,7 @@ module stimulus;
       begin
       	for(j=0; j<dWidth; j=j+1)
      		begin
-			//$display("pixel[%d][%d] ...",i,j);
+			$display("pixel[%d][%d] ...",i,j);
       		//send_3x3(i,j);
       		bWE = 1'b0;      // WRITE MODE
       		bCE = 1'b1;      // Disable Canny Memory Operation
