@@ -127,7 +127,7 @@ begin
                                 for(i = 0; i < 5; i = i + 1) begin
                                     for(j = 0; j < 5; j = j + 1) begin
                                         // TODO I think this is right
-                                        tpSum <= tpSum + (regX[i*5+j] * gf[i*5+j]);
+                                        tpSum = tpSum + (regX[i*5+j] * gf[i*5+j]);
                                     end
                                 end
 				IntSignal <= 2'b01;
@@ -158,14 +158,14 @@ begin
 			else if(IntSignal == 2'b01) begin
                             //|G| = (|Gx|+|Gy|)/8
                             // Check the top bit of both Gx and Gy
-                                if(Gx[31] == 1)
-                                    fGx <= -Gx;
+                                if(Gx[31] == 1'b1)
+                                    fGx = -Gx;
                                 else
-                                    fGx <= Gx;
-                                if(Gy[31] == 1)
-                                    fGy <= -Gy;
+                                    fGx = Gx;
+                                if(Gy[31] == 1'b1)
+                                    fGy = -Gy;
                                 else
-                                    fGy <= Gy;
+                                    fGy = Gy;
                                 // Add them and shift right 3 (divide by 8)
                                 Out_gradient <= ((fGx + fGy) >> 3);
 				IntSignal <= 2'b10;
@@ -188,11 +188,27 @@ begin
 				// Edge Normal which is perpendicular to Edge Orientation
 				if(fGx >=0)
 				begin
-
+                    if((0.5 * fGx) <= fGy)
+                        // degree 0
+                        regY[6] <= 0;
+                    else if(fGy <= (2.5 * fGx))
+                        // degree 45
+                        regY[6] <= 45;
+                    else
+                        // degree 90
+                        regY[6] <= 90;
 				end
 				else // if(fGx<0)
 				begin
-
+                    if((-0.5 * fGx) <= fGy)
+                        // degree 0
+                        regY[6] <= 0;
+                    else if(fGy <= (-2.5 * fGx))
+                        // degree 135
+                        regY[6] <= 135;
+                    else
+                        // degree 90
+                        regY[6] <= 90;
 				end
 				IntSignal <= IntSignal;
 			end
