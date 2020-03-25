@@ -26,9 +26,6 @@ void Canny_Edge_WRAP::Bus_Control() {
 	bool		Canny_bWE = AddressBus.read()[1].to_bool();
 	bool		Canny_bCE = AddressBus.read()[0].to_bool();
 
-	// You can add something if you need.
-	// ...
-	// ...
 	
 	if(!bReset.read()){
 		IntEnable = 0;
@@ -38,7 +35,6 @@ void Canny_Edge_WRAP::Bus_Control() {
 		if(AddrDecoded == 0x4) {// Address Decoding Matching
 			// Insert your code here
 			// for AddrRegRow, AddrRegCol, bWE, bCE, OPMode, bOPEnable, dReadReg, dWriteReg
-                        // TODO verify this
                         // Bit [24 - 26 is OPMode
                         OPMode.write(AddressBus.read().range(27,24).to_uint());
                         // Bit [20 - 23] is dWriteReg

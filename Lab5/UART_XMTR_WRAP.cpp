@@ -37,7 +37,7 @@ void UART_XMTR_WRAP::Function_UART_XMTR_WRAP() {
                         logic = full_address[2] & "0x1";
                         //cout << "T_Byte: " << logic.to_bool() << endl;
                         T_byte.write(logic.to_bool());
-                        cout << endl;
+                        //cout << endl;
 		}else {
 			IntEnable = 0;
 			Breq.write(0);

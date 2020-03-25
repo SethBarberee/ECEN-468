@@ -143,6 +143,7 @@ int sc_main (int argc, char* argv[]) {
 	// Dump the desired signals
 	// Add only signals you want to trace
 	sc_trace(wf, rst_b, "rst_b");
+    sc_trace(wf, Serial_out, "Serial_out");
 
 	// Time to simulate
 	TST.LoadBMPFile();

@@ -115,6 +115,7 @@ int sc_main (int argc, char* argv[]) {
             sc_start(5);
           // Data read
             *cPkt.sOutData = tOutData.read();
+            sc_start(5);
           // Print statistics
 	  // ...
             cout << "Statistics" << endl;

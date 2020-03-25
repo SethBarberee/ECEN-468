@@ -179,8 +179,8 @@ void Canny_Edge::Apply_Operation(){
 		}
 		else if(OPMode.read() == MODE_HYSTERESIS){
 			// You should use these two threshold values.
-			unsigned short dThresHigh = 35;
-			unsigned short dThresLow = 1;
+			unsigned short dThresHigh = 20;
+			unsigned short dThresLow = 5;
                         unsigned direction = regY[1][1];
                         Out_bThres = 0; // Default to off
 

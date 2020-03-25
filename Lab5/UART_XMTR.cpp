@@ -41,7 +41,7 @@
                         if(bit_count < WORD_SIZE + 1){
                             // Continue to shift right and shift 1 in
                             // Since 1 is our stop bit
-                            //cout << "Sending " << XMT_shftreg[0] << endl;
+                            cout << "Sending " << XMT_shftreg[0] << endl;
                             Serial_out.write(XMT_shftreg[0]);
                             XMT_shftreg = XMT_shftreg >> 1;
                             XMT_shftreg[WORD_SIZE - 1] = 1;
