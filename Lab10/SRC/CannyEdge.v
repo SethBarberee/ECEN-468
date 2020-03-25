@@ -157,6 +157,17 @@ begin
 			end
 			else if(IntSignal == 2'b01) begin
                             //|G| = (|Gx|+|Gy|)/8
+                            // Check the top bit of both Gx and Gy
+                                if(Gx[31] == 1)
+                                    fGx <= -Gx;
+                                else
+                                    fGx <= Gx;
+                                if(Gy[31] == 1)
+                                    fGy <= -Gy;
+                                else
+                                    fGy <= Gy;
+                                // Add them and shift right 3 (divide by 8)
+                                Out_gradient <= ((fGx + fGy) >> 3);
 				IntSignal <= 2'b10;
 			end	
 			else if(IntSignal == 2'b10) begin
