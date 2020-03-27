@@ -112,7 +112,7 @@ begin
 		else
 			regZ[dAddrRegRow*5+dAddrRegCol] <= InData;
 
-		$display("Load Data from InData to Reg => Mode:%d\n",dWriteReg);	
+		//$display("Load Data from InData to Reg => Mode:%d\n",dWriteReg);	
 	end
 
 	// Read Data from Canny Edge Detector
@@ -129,7 +129,7 @@ begin
 		else if(dReadReg == `REG_HYSTERESIS)
 			OutData <= Out_bThres;
 
-		$display("Read Data from Register or Array to OutData => Mode:%d\n", dReadReg);
+		//$display("Read Data from Register or Array to OutData => Mode:%d\n", dReadReg);
 	end
 
 	else
@@ -211,25 +211,25 @@ begin
                             begin
                                 if((0.5 * fGx) <= fGy)
                                     // degree 0
-                                regY[6] <= 0;
+                                    Out_direction <= 0;
                                 else if(fGy <= (2.5 * fGx))
                                     // degree 45
-                                regY[6] <= 45;
+                                    Out_direction <= 45;
                                 else
                                     // degree 90
-                                regY[6] <= 90;
+                                    Out_direction <= 90;
                             end
                             else // if(fGx<0)
                             begin
                                 if((-0.5 * fGx) <= fGy)
                                     // degree 0
-                                regY[6] <= 0;
+                                    Out_direction <= 0;
                                 else if(fGy <= (-2.5 * fGx))
                                     // degree 135
-                                regY[6] <= 135;
+                                    Out_direction <= 135;
                                 else
                                     // degree 90
-                                regY[6] <= 90;
+                                    Out_direction <= 90;
                             end
                             IntSignal <= 2'b00;
 			end
