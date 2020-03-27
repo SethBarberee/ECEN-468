@@ -55,6 +55,7 @@ reg signed 	[31:0] 		Gx, Gy, fGx, fGy;
 reg signed	[1:0]		dx, dy;
 
 integer signed i, j;
+integer index1, index2;
 
 always @(clk or rst_b)
 begin
@@ -97,6 +98,8 @@ begin
             Out_bThres <= 0;
             i <= 0;
             j <= 0;
+            index1 <= 0;
+            index2 <= 0;
 	end
 
 	// Load data from Test Bench
@@ -233,7 +236,6 @@ begin
 		end
 		else if(OPMode == `MODE_NMS)
 		begin
-                    integer index1, index2;
 			// regX = Gradient Image
 			// regY = Theta Image
 			if(IntSignal == 2'b00) begin
