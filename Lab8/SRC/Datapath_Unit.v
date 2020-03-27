@@ -95,14 +95,7 @@ input bit_count_1;
 input bit_count_0;
 table
     // bit_count | BC_lt_BCmax
-    0   0   0   0 : 1;
-    0   0   0   1 : 1;
-    0   0   1   0 : 1;
-    0   0   1   1 : 1;
-    0   1   0   0 : 1;
-    0   1   0   1 : 1;
-    0   1   1   0 : 1;
-    0   1   1   1 : 1;
+    0   x   x   x : 1;
     1   0   0   0 : 1;
     1   0   0   1 : 0;
 endtable
