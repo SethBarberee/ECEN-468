@@ -83,18 +83,20 @@ end
 always @(posedge clk or negedge rst_b)
 begin
 	if(!rst_b) begin
-		IntSignal <= 2'b00;
-        tpSum <= 0;
-        Gx <= 0;
-        Gy <= 0;
-        fGx <= 0;
-        fGy <= 0;
-        dx <= 0;
-        dy <= 0;
-        Out_gf <= 0;
-        Out_gradient <= 0;
-        Out_direction <= 0;
-        Out_bThres <= 0;
+            IntSignal <= 2'b00;
+            tpSum <= 0;
+            Gx <= 0;
+            Gy <= 0;
+            fGx <= 0;
+            fGy <= 0;
+            dx <= 0;
+            dy <= 0;
+            Out_gf <= 0;
+            Out_gradient <= 0;
+            Out_direction <= 0;
+            Out_bThres <= 0;
+            i <= 0;
+            j <= 0;
 	end
 
 	// Load data from Test Bench
@@ -134,19 +136,21 @@ begin
 		if(OPMode == `MODE_GAUSSIAN)
 		begin
 			if(IntSignal == 2'b00)	begin
-				//tpSum <= (5x5 Guassian Filter) convolution (5x5 Pixels);
-                                for(i = 0; i < 5; i = i + 1) begin
-                                    for(j = 0; j < 5; j = j + 1) begin
-                                        // TODO I think this is right
-                                        tpSum = tpSum + (regX[i*5+j] * gf[i*5+j]);
-                                    end
+                            //tpSum <= (5x5 Guassian Filter) convolution (5x5 Pixels);
+                            for(i = 0; i < 5; i = i + 1) begin
+                                for(j = 0; j < 5; j = j + 1) begin
+                                    // TODO I think this is right
+                                    tpSum = tpSum + (regX[i*5+j] * gf[i*5+j]);
                                 end
-				IntSignal <= 2'b01;
+                            end
+                            IntSignal <= 2'b01;
 			end
 			else if(IntSignal == 2'b01) begin
-                                // tpSum/128
-                                Out_gf <= (tpSum >> 7); // tpSum / 128
-                                IntSignal <= 2'b00;
+                            // tpSum/128
+                            Out_gf <= (tpSum >> 7); // tpSum / 128
+                            IntSignal <= 2'b00;
+                            i <= 0;
+                            j <= 0;
 			end
 			else begin
 				Out_gf <= Out_gf;
@@ -158,75 +162,78 @@ begin
 			// Gradient
 			if(IntSignal == 2'b00)	begin
                             // Calculate Gradient for X and Y
-                                for(i = 0; i < 5; i = i + 1) begin
-                                    for(j = 0; j < 5; j = j + 1) begin
-                                        // TODO I think this is right
-                                        Gx = Gx + (regX[i*5+j] * gf[i*5+j]);
-                                        Gy = Gy + (regX[i*5+j] * gf[i*5+j]);
-                                    end
+                            for(i = 0; i < 5; i = i + 1) begin
+                                for(j = 0; j < 5; j = j + 1) begin
+                                    // TODO I think this is right
+                                    Gx = Gx + (regX[i*5+j] * gf[i*5+j]);
+                                    Gy = Gy + (regX[i*5+j] * gf[i*5+j]);
                                 end
-				IntSignal <= 2'b01;
+                            end
+                            IntSignal <= 2'b01;
 			end
 			else if(IntSignal == 2'b01) begin
+                            i <= 0;
+                            j <= 0;
                             //|G| = (|Gx|+|Gy|)/8
                             // Check the top bit of both Gx and Gy
-                                if(Gx[31] == 1'b1)
-                                    fGx = -Gx;
-                                else
-                                    fGx = Gx;
-                                if(Gy[31] == 1'b1)
-                                    fGy = -Gy;
-                                else
-                                    fGy = Gy;
-                                // Add them and shift right 3 (divide by 8)
-                                Out_gradient <= ((fGx + fGy) >> 3);
-				IntSignal <= 2'b10;
+                            if(Gx[31] == 1'b1)
+                                fGx = -Gx;
+                            else
+                                fGx = Gx;
+                            if(Gy[31] == 1'b1)
+                                fGy = -Gy;
+                            else
+                                fGy = Gy;
+                            // Add them and shift right 3 (divide by 8)
+                            Out_gradient <= ((fGx + fGy) >> 3);
+                            IntSignal <= 2'b10;
 			end	
 			else if(IntSignal == 2'b10) begin
                             // Direction (Theta)
-				if(Gy < 0)
-				begin
-					fGx <= -Gx;
-					fGy <= -Gy;
-				end
-				else
-				begin
-					fGx <= Gx;
-					fGy <= Gy;
-				end
-				IntSignal <= 2'b11;
+                            if(Gy < 0)
+                            begin
+                                fGx <= -Gx;
+                                fGy <= -Gy;
+                            end
+                            else
+                            begin
+                                fGx <= Gx;
+                                fGy <= Gy;
+                            end
+                            IntSignal <= 2'b11;
 			end
 			else if(IntSignal == 2'b11) begin
-				// Edge Normal which is perpendicular to Edge Orientation
-				if(fGx >=0)
-				begin
-                                    if((0.5 * fGx) <= fGy)
-                                        // degree 0
-                                    regY[6] <= 0;
-                                    else if(fGy <= (2.5 * fGx))
-                                        // degree 45
-                                    regY[6] <= 45;
-                                    else
-                                        // degree 90
-                                    regY[6] <= 90;
-                                end
-                                else // if(fGx<0)
-                                begin
-                                    if((-0.5 * fGx) <= fGy)
-                                        // degree 0
-                                    regY[6] <= 0;
-                                    else if(fGy <= (-2.5 * fGx))
-                                        // degree 135
-                                    regY[6] <= 135;
-                                    else
-                                        // degree 90
-                                    regY[6] <= 90;
-				end
-				IntSignal <= 2'b00;
+                            // Edge Normal which is perpendicular to Edge Orientation
+                            if(fGx >=0)
+                            begin
+                                if((0.5 * fGx) <= fGy)
+                                    // degree 0
+                                regY[6] <= 0;
+                                else if(fGy <= (2.5 * fGx))
+                                    // degree 45
+                                regY[6] <= 45;
+                                else
+                                    // degree 90
+                                regY[6] <= 90;
+                            end
+                            else // if(fGx<0)
+                            begin
+                                if((-0.5 * fGx) <= fGy)
+                                    // degree 0
+                                regY[6] <= 0;
+                                else if(fGy <= (-2.5 * fGx))
+                                    // degree 135
+                                regY[6] <= 135;
+                                else
+                                    // degree 90
+                                regY[6] <= 90;
+                            end
+                            IntSignal <= 2'b00;
 			end
 		end
 		else if(OPMode == `MODE_NMS)
 		begin
+                    integer index1, index2;
 			// regX = Gradient Image
 			// regY = Theta Image
 			if(IntSignal == 2'b00) begin
@@ -236,12 +243,34 @@ begin
                             // Edge Normal : 45
                             // Edge Normal : 90
                             // Edge Normal : 135
-
-				IntSignal <= 2'b01;
+                            if(regY[6] == 0) begin
+                                index1 <= 5;
+                                index2 <= 7;
+                            end
+                            else if(regY[6] == 45) begin
+                                index1 <= 12;
+                                index2 <= 0;
+                            end
+                            else if(regY[6] == 90) begin
+                                index1 <= 11;
+                                index2 <= 1;
+                            end
+                            else begin
+                                index1 <= 2;
+                                index2 <= 10;
+                            end
+                            IntSignal <= 2'b01;
 			end
 			else if(IntSignal == 2'b01) begin
                             // Non-maximum suppression
-
+                            // check two pixels against pixel A (regX[6])
+                            if((regX[6] >= regX[index1]) && (regX[6] >= regX[index2])) begin
+                                regX[index1] <= 0;
+                                regX[index2] <= 0;
+                            end
+                            else begin
+                                regX[6] <= 0;
+                            end
 				IntSignal <= 2'b00;
 			end
 		end
@@ -256,24 +285,27 @@ begin
                             // Edge Normal:45 -> Direction : 135
                             // Edge Normal:90 -> Direction : 0
                             // Edge Normal:135 -> Direction : 45
+                                //if(regY[6] == 0)
+                                //else if(regY[6] == 45)
+                                //else if(regY[6] == 45)
+                                //else
 				
 				IntSignal <= 2'b01;
 			end	
 			else if(IntSignal == 2'b01) begin
+                            if(regX[6] >= dThresHigh)		// Keep Edge Info
+                                Out_bThres <= 1;
+                            else if(regX[6] <= dThresLow)		// Discard Pixel
+                                Out_bThres <= 0;
+                            else					// Follow Edge Trace
+                            begin
+                                if(regX[6-5*dy-dx] >= dThresHigh || regX[6+5*dy+dx] >= dThresHigh)
+                                    Out_bThres <= 1;
+                                else
+                                    Out_bThres <= 0;
+                            end
 
-				if(regX[6] >= dThresHigh)		// Keep Edge Info
-					Out_bThres <= 1;
-				else if(regX[6] <= dThresLow)		// Discard Pixel
-					Out_bThres <= 0;
-				else					// Follow Edge Trace
-				begin
-					if(regX[6-5*dy-dx] >= dThresHigh || regX[6+5*dy+dx] >= dThresHigh)
-						Out_bThres <= 1;
-					else
-						Out_bThres <= 0;
-				end
-
-				IntSignal <= IntSignal;
+                            IntSignal <= IntSignal;
 			end
 		end
 	end	
