@@ -265,7 +265,7 @@ begin
 			end
 			else if(IntSignal == 2'b01) begin
                             // Non-maximum suppression
-                            // check two pixels against pixel A (regX[6])
+                            // check two pixels against pixel C (regX[6])
                             if((regX[6] >= regX[index1]) && (regX[6] >= regX[index2])) begin
                                 regX[index1] <= 0;
                                 regX[index2] <= 0;
@@ -283,31 +283,57 @@ begin
 			// regZ = bGxy Image (On/Off)
 			if(IntSignal == 2'b00) begin
 
-                            // Edge Normal:0 -> Direction:90
-                            // Edge Normal:45 -> Direction : 135
-                            // Edge Normal:90 -> Direction : 0
-                            // Edge Normal:135 -> Direction : 45
-                                //if(regY[6] == 0)
-                                //else if(regY[6] == 45)
-                                //else if(regY[6] == 45)
-                                //else
-				
+                // Edge Normal:0 -> Direction:90
+                // Edge Normal:45 -> Direction : 135
+                // Edge Normal:90 -> Direction : 0
+                // Edge Normal:135 -> Direction : 45
+    
+                if(regY[6] == 0) begin
+                    index1 <= 5;
+                    index2 <= 7;
+                end
+                else if(regY[6] == 45) begin
+                    index1 <= 12;
+                    index2 <= 0;
+                end
+                else if(regY[6] == 90) begin
+                    index1 <= 11;
+                    index2 <= 1;
+                end
+                else begin
+                    index1 <= 2;
+                    index2 <= 10;
+                end
 				IntSignal <= 2'b01;
 			end	
 			else if(IntSignal == 2'b01) begin
-                            if(regX[6] >= dThresHigh)		// Keep Edge Info
-                                Out_bThres <= 1;
-                            else if(regX[6] <= dThresLow)		// Discard Pixel
-                                Out_bThres <= 0;
-                            else					// Follow Edge Trace
-                            begin
-                                if(regX[6-5*dy-dx] >= dThresHigh || regX[6+5*dy+dx] >= dThresHigh)
-                                    Out_bThres <= 1;
-                                else
-                                    Out_bThres <= 0;
-                            end
+                if(regZ[6] != 1)begin
+                    if(regX[6] >= dThresHigh)begin		// Keep Edge Info
+                        Out_bThres <= 1;
+                        regZ[6] <= 1;
+                    end
+                    else if(regX[6] <= dThresLow) begin		// Discard Pixel
+                        Out_bThres <= 0;
+                        regZ[6] <= 0;
+                    end
+                    else					// Follow Edge Trace
+                    begin
+                        if(regX[6-5*dy-dx] >= dThresHigh || regX[6+5*dy+dx] >= dThresHigh)
+                            Out_bThres <= 1;
+                        else
+                            Out_bThres <= 0;
+                        if(regZ[index1] == 1 || regZ[index2] == 1)
+                        begin
+                            Out_bThres <= 1;
+                            regZ[6] <= 1;
+                        end
+                    end
+                end
+                else begin
+                    Out_bThres <= 0;
+                end
 
-                            IntSignal <= IntSignal;
+                IntSignal <= IntSignal;
 			end
 		end
 	end	
