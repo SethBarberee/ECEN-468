@@ -84,6 +84,17 @@ always @(posedge clk or negedge rst_b)
 begin
 	if(!rst_b) begin
 		IntSignal <= 2'b00;
+        tpSum <= 0;
+        Gx <= 0;
+        Gy <= 0;
+        fGx <= 0;
+        fGy <= 0;
+        dx <= 0;
+        dy <= 0;
+        Out_gf <= 0;
+        Out_gradient <= 0;
+        Out_direction <= 0;
+        Out_bThres <= 0;
 	end
 
 	// Load data from Test Bench
@@ -135,6 +146,7 @@ begin
 			else if(IntSignal == 2'b01) begin
                                 // tpSum/128
                                 Out_gf <= (tpSum >> 7); // tpSum / 128
+                                IntSignal <= 2'b00;
 			end
 			else begin
 				Out_gf <= Out_gf;
@@ -210,7 +222,7 @@ begin
                                         // degree 90
                                     regY[6] <= 90;
 				end
-				IntSignal <= IntSignal;
+				IntSignal <= 2'b00;
 			end
 		end
 		else if(OPMode == `MODE_NMS)
@@ -230,7 +242,7 @@ begin
 			else if(IntSignal == 2'b01) begin
                             // Non-maximum suppression
 
-				IntSignal <= IntSignal;
+				IntSignal <= 2'b00;
 			end
 		end
 		else if(OPMode == `MODE_HYSTERESIS)
