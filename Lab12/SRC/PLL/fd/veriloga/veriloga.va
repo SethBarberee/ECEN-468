@@ -1,0 +1,27 @@
+// VerilogA for PLL, fd, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module fd(out, in);
+
+	output out; voltage out;// output
+	input in; voltage in;// input (edge triggered)
+	parameter real vh=+1;
+	parameter real vl=-1;
+	parameter real vth=(vh+vl)/2;
+	parameter integer ratio=10 from [2:inf);
+	parameter integer dir=1 from [-1:1] exclude 0;// dir=1 for positive edge trigger// dir=-1 for negative edge trigger
+	parameter real tt=1n from (0:inf);
+	parameter real td=0 from [0:inf);
+	integer count, n;
+	analog begin
+		@(cross(V(in) -vth, dir)) begin
+			count = count + 1;
+		if (count >= ratio)
+			count = 0;
+		n = (2*count >= ratio);
+		end
+	V(out) <+ transition(n ? vh : vl, td, tt);
+	end
+endmodule

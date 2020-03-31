@@ -1,0 +1,28 @@
+// VerilogA for PLL, vco, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+`define PI  3.14159265358979323846264338327950288419716939937511
+
+module vco(in, out);
+
+input in;
+output out;
+voltage in, out;
+parameter real amp = 1;
+parameter real center_freq = 100M;
+parameter real vco_gain = 50M;
+parameter integer steps_per_period = 32; 
+real phase;
+real inst_freq;
+real real_vout;
+analog begin
+	inst_freq = center_freq + vco_gain * V(in);
+	$bound_step (1.0 / (steps_per_period*inst_freq));
+
+	phase = idtmod(inst_freq,0,1);
+	V(out) <+ amp * sin (2 * `PI * phase);
+end
+
+endmodule

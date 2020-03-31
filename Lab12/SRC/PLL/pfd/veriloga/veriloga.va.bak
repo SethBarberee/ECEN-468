@@ -1,0 +1,30 @@
+// VerilogA for PLL, pfd, veriloga
+
+`include "constants.vams"
+`include "disciplines.vams"
+
+module pfd(out, ref, fb);
+
+output out; electrical out;// current output
+input ref; voltage ref;// positive input (edge triggered)
+input fb; voltage fb;// inverting input (edge triggered)
+parameter real iout=100u;
+parameter real vh=1;
+parameter real vl=-1;
+parameter real vth=(vh+vl)/2;
+parameter integer dir=1 from [-1:1] exclude 0;
+									// dir=1 for positive edge trigger
+									// dir=-1 for negative edge trigger
+parameter real tt=1n from (0:inf);
+parameter real td=0 from [0:inf);
+integer state;
+analog begin
+	// Implement phase detector
+	@(cross(V(ref)-vth, dir))
+		if (state > -1) state = state -1;
+	@(cross(V(fb)-vth, dir))
+		if (state < 1) state = state + 1;// Implement charge pump
+	I(out) <+ transition(iout*state, td, tt);
+end
+
+endmodule
