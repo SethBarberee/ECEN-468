@@ -40,6 +40,8 @@ reg 	[`DATA_WIDTH-1:0]	regX[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	regY[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	regZ[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	gf[0:24];	// 5x5 Gaussian Filter
+reg 	[`DATA_WIDTH-1:0]	Sobeldx[0:8];	// 3x3 Sobel dx
+reg 	[`DATA_WIDTH-1:0]	Sobeldy[0:8];	// 3x3 Sobel dy
 
 // reg signed type can be used here to avoid warning while synthesis, also option +v2k should be used for simulation.
 
@@ -77,7 +79,15 @@ begin
 		gf[10]=4;  gf[11]=10; gf[12]=16; gf[13]=10; gf[14]=4;
 		gf[15]=3;  gf[16]=7;  gf[17]=10; gf[18]=7;  gf[19]=3;
 		gf[20]=1;  gf[21]=3;  gf[22]=4;  gf[23]=3;  gf[24]=1;
-	end
+
+        Sobeldx[0]=-1; Sobeldx[1]=0; Sobeldx[2]=1;
+        Sobeldx[3]=-2; Sobeldx[4]=0; Sobeldx[5]=2;
+        Sobeldx[6]=-1; Sobeldx[7]=0; Sobeldx[8]=1;
+	
+        Sobeldy[0]=1; Sobeldy[1]=2; Sobeldy[2]=1;
+        Sobeldy[3]=0; Sobeldy[4]=0; Sobeldy[5]=0;
+        Sobeldy[6]=-1; Sobeldy[7]=-2; Sobeldy[8]=-1;
+    end
 end
 
 // Apply operations for Edge Detection
@@ -171,8 +181,8 @@ begin
                             for(i = -1; i <= 1; i = i + 1) begin
                                 for(j = -1; j <= 1; j = j + 1) begin
                                     // TODO I think this is right
-                                    Gx = Gx + (regX[(i+1)*5+(j+1)] * gf[(i+1)*5+(j+1)]);
-                                    Gy = Gy + (regX[(i+1)*5+(j+1)] * gf[(i+1)*5+(j+1)]);
+                                    Gx = Gx + (regX[(i+1)*3+(j+1)] * Sobeldx[(i+1)*3+(j+1)]);
+                                    Gy = Gy + (regX[(i+1)*3+(j+1)] * Sobeldy[(i+1)*3+(j+1)]);
                                 end
                             end
                             IntSignal <= 2'b01;
