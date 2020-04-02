@@ -139,10 +139,12 @@ begin
 		if(OPMode == `MODE_GAUSSIAN)
 		begin
 			if(IntSignal == 2'b00)	begin
+                            tpSum = 0;
                             //tpSum <= (5x5 Guassian Filter) convolution (5x5 Pixels);
-                            for(i = 0; i < 5; i = i + 1) begin
-                                for(j = 0; j < 5; j = j + 1) begin
+                            for(i = 0; i <= 4; i = i + 1) begin
+                                for(j = 0; j <= 4; j = j + 1) begin
                                     // TODO I think this is right
+                                    //tpSum = tpSum + (regX[i*5+j] * gf[i*5+j]);
                                     tpSum = tpSum + (regX[i*5+j] * gf[i*5+j]);
                                 end
                             end
@@ -151,7 +153,6 @@ begin
 			else if(IntSignal == 2'b01) begin
                             // tpSum/128
                             Out_gf <= (tpSum >> 7); // tpSum / 128
-                            IntSignal <= 2'b00;
                             i <= 0;
                             j <= 0;
 			end
@@ -164,12 +165,14 @@ begin
 		begin
 			// Gradient
 			if(IntSignal == 2'b00)	begin
+                            Gx = 0;
+                            Gy = 0;
                             // Calculate Gradient for X and Y
-                            for(i = 0; i < 5; i = i + 1) begin
-                                for(j = 0; j < 5; j = j + 1) begin
+                            for(i = -1; i <= 1; i = i + 1) begin
+                                for(j = -1; j <= 1; j = j + 1) begin
                                     // TODO I think this is right
-                                    Gx = Gx + (regX[i*5+j] * gf[i*5+j]);
-                                    Gy = Gy + (regX[i*5+j] * gf[i*5+j]);
+                                    Gx = Gx + (regX[(i+1)*5+(j+1)] * gf[(i+1)*5+(j+1)]);
+                                    Gy = Gy + (regX[(i+1)*5+(j+1)] * gf[(i+1)*5+(j+1)]);
                                 end
                             end
                             IntSignal <= 2'b01;
@@ -231,7 +234,7 @@ begin
                                     // degree 90
                                     Out_direction <= 90;
                             end
-                            IntSignal <= 2'b00;
+                            IntSignal <= IntSignal;
 			end
 		end
 		else if(OPMode == `MODE_NMS)
@@ -273,7 +276,7 @@ begin
                             else begin
                                 regX[6] <= 0;
                             end
-				IntSignal <= 2'b00;
+				IntSignal <= IntSignal;
 			end
 		end
 		else if(OPMode == `MODE_HYSTERESIS)
@@ -337,7 +340,7 @@ begin
                         IntSignal <= IntSignal;
                     end
                 end
-	end	
+             end	
         else
             IntSignal <= 2'b00;
     end // of 'else' of '!rst_b'
