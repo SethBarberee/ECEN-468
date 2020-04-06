@@ -28,7 +28,7 @@ reg [3:0]   		cnt;
 assign ControlBus = IntEnable? 1'b0 : 1'bz;
 // You need to assign DataBus here using continuous assign statement.
 //..
-assign DataBus = IntEnable? OutData : 7'bz;
+assign DataBus = IntEnable? OutData : 8'bz;
 
 always @(posedge clk)
 begin
