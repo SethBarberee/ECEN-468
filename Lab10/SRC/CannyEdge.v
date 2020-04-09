@@ -179,11 +179,11 @@ begin
 		end
 		else if(OPMode == `MODE_SOBEL)
 		begin
-                    Gx = 0;
-                    Gy = 0;
                     // Gradient
                     if(IntSignal == 2'b00)	
                     begin
+                        Gx = 0;
+                        Gy = 0;
                         // Calculate Gradient for X and Y
                         for(i = -1; i <= 1; i = i + 1) 
                         begin
@@ -201,11 +201,15 @@ begin
                         //|G| = (|Gx|+|Gy|)/8
                         // Check the top bit of both Gx and Gy
                         if(Gx < 0)
-                            Gx = -Gx;
+                            fGx = -Gx;
+                        else
+                            fGx = Gx;
                         if(Gy < 0)
-                            Gy = -Gy;
+                            fGy = -Gy;
+                        else
+                            fGy = Gy;
                         // Add them and shift right 3 (divide by 8)
-                        Out_gradient <= ((Gx + Gy) >> 3);
+                        Out_gradient <= ((fGx + fGy) >> 3);
                         IntSignal <= 2'b10;
                     end	
                     else if(IntSignal == 2'b10) 
