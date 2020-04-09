@@ -232,7 +232,7 @@ begin
                         // Edge Normal which is perpendicular to Edge Orientation
                         if(fGx >=0)
                         begin
-                            if((0.5 * fGx) <= fGy)
+                            if(fGy <= (0.5 * fGx))
                                 // degree 0
                                 Out_direction <= 0;
                             else if(fGy <= (2.5 * fGx))
@@ -244,7 +244,7 @@ begin
                         end
                         else // if(fGx<0)
                         begin
-                            if((-0.5 * fGx) <= fGy)
+                            if(fGy <= (-0.5 * fGx))
                                 // degree 0
                                 Out_direction <= 0;
                             else if(fGy <= (-2.5 * fGx))
@@ -276,8 +276,10 @@ begin
                         end
                         else if(regY[6] == 45) 
                         begin
-                            index1 <= 12;
-                            index2 <= 0;
+                            //index1 <= 12;
+                            //index2 <= 0;
+                            index1 <= 2;
+                            index2 <= 10;
                         end
                         else if(regY[6] == 90) 
                         begin
@@ -286,8 +288,10 @@ begin
                         end
                         else 
                         begin
-                            index1 <= 2;
-                            index2 <= 10;
+                            //index1 <= 2;
+                            //index2 <= 10;
+                            index1 <= 12;
+                            index2 <= 0;
                         end
                         IntSignal <= 2'b01;
                     end
@@ -339,6 +343,8 @@ begin
                             index1 <= 2;
                             index2 <= 10;
                         end
+                        dx <= index1;
+                        dy <= index2;
                         IntSignal <= 2'b01;
                     end	
                     else if(IntSignal == 2'b01) 
