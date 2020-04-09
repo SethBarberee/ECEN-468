@@ -192,16 +192,16 @@ begin
                             j <= 0;
                             //|G| = (|Gx|+|Gy|)/8
                             // Check the top bit of both Gx and Gy
-                            if(Gx < 0)
-                                Gx = -Gx;
+                            if(Gx[31] == 1'b1)
+                                fGx = -Gx;
                             else
-                                Gx = Gx;
-                            if(Gy <  0)
-                                Gy = -Gy;
+                                fGx = Gx;
+                            if(Gy[31] == 1'b1)
+                                fGy = -Gy;
                             else
-                                Gy = Gy;
+                                fGy = Gy;
                             // Add them and shift right 3 (divide by 8)
-                            Out_gradient <= ((Gx + Gy) >> 3);
+                            Out_gradient <= ((fGx + fGy) >> 3);
                             IntSignal <= 2'b10;
 			end	
 			else if(IntSignal == 2'b10) begin
@@ -245,6 +245,7 @@ begin
                                     Out_direction <= 90;
                             end
                             IntSignal <= IntSignal;
+			end
 		end
 		else if(OPMode == `MODE_NMS)
 		begin
@@ -257,15 +258,15 @@ begin
                             // Edge Normal : 45
                             // Edge Normal : 90
                             // Edge Normal : 135
-                            if(regY[6] == 8'd0) begin
+                            if(regY[6] == 0) begin
                                 index1 <= 5;
                                 index2 <= 7;
                             end
-                            else if(regY[6] == 8'd45) begin
+                            else if(regY[6] == 45) begin
                                 index1 <= 12;
                                 index2 <= 0;
                             end
-                            else if(regY[6] == 8'd90) begin
+                            else if(regY[6] == 90) begin
                                 index1 <= 11;
                                 index2 <= 1;
                             end
@@ -300,15 +301,15 @@ begin
                         // Edge Normal:90 -> Direction : 0
                         // Edge Normal:135 -> Direction : 45
 
-                        if(regY[6] == 8'd0) begin
+                        if(regY[6] == 0) begin
                             index1 <= 5;
                             index2 <= 7;
                         end
-                        else if(regY[6] == 8'd45) begin
+                        else if(regY[6] == 45) begin
                             index1 <= 12;
                             index2 <= 0;
                         end
-                        else if(regY[6] == 8'd90) begin
+                        else if(regY[6] == 90) begin
                             index1 <= 11;
                             index2 <= 1;
                         end
@@ -349,7 +350,7 @@ begin
                         IntSignal <= IntSignal;
                     end
                 end
-        end	
+             end	
         else
             IntSignal <= 2'b00;
     end // of 'else' of '!rst_b'
