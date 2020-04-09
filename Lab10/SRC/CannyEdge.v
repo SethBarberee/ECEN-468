@@ -330,8 +330,10 @@ begin
                         end
                         else if(regY[6] == 45) 
                         begin
-                            index1 <= 12;
-                            index2 <= 0;
+                            //index1 <= 12;
+                            //index2 <= 0;
+                            index1 <= 2;
+                            index2 <= 10;
                         end
                         else if(regY[6] == 90) 
                         begin
@@ -340,8 +342,10 @@ begin
                         end
                         else 
                         begin
-                            index1 <= 2;
-                            index2 <= 10;
+                            //index1 <= 2;
+                            //index2 <= 10;
+                            index1 <= 12;
+                            index2 <= 0;
                         end
                         dx <= index1;
                         dy <= index2;
@@ -349,33 +353,19 @@ begin
                     end	
                     else if(IntSignal == 2'b01) 
                     begin
-                        if(regZ[6] != 1) begin
-                            if(regX[6] >= dThresHigh) begin		// Keep Edge Info
+                            if(regX[6] >= dThresHigh)		// Keep Edge Info
                                 Out_bThres <= 1;
-                                regZ[6] <= 1;
-                            end
-                            else if(regX[6] <= dThresLow) begin		// Discard Pixel
+                            else if(regX[6] <= dThresLow)		// Discard Pixel
                                 Out_bThres <= 0;
-                                regZ[6] <= 0;
-                            end
                             else					// Follow Edge Trace
                             begin
                                 if(regX[6-5*dy-dx] >= dThresHigh || regX[6+5*dy+dx] >= dThresHigh)
                                     Out_bThres <= 1;
+                                else if(regZ[6-5*dy-dx] == 1 || regZ[6+5*dy+dx] == 1)
+                                    Out_bThres <= 1;
                                 else
                                     Out_bThres <= 0;
-                                if(regZ[index1] == 1 || regZ[index2] == 1)
-                                begin
-                                    Out_bThres <= 1;
-                                    regZ[6] <= 1;
-                                end
                             end
-                        end
-                        else begin
-                            Out_bThres <= 0;
-                        end
-                    end
-                    else begin
                         IntSignal <= IntSignal;
                     end
                 end
