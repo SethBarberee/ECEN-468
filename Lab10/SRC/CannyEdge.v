@@ -190,8 +190,8 @@ begin
                             for(j = -1; j <= 1; j = j + 1) 
                             begin
                                 // TODO I think this is right
-                                Gx = Gx + (regX[(i+1)*3+(j+1)] * Sobeldx[(i+1)*3+(j+1)]);
-                                Gy = Gy + (regX[(i+1)*3+(j+1)] * Sobeldy[(i+1)*3+(j+1)]);
+                                Gx = Gx + (regX[(i+1)*5+(j+1)] * Sobeldx[(i+1)*3+(j+1)]);
+                                Gy = Gy + (regX[(i+1)*5+(j+1)] * Sobeldy[(i+1)*3+(j+1)]);
                             end
                         end
                         IntSignal <= 2'b01;
