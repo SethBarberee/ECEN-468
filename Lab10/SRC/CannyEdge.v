@@ -40,8 +40,8 @@ reg 	[`DATA_WIDTH-1:0]	regX[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	regY[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	regZ[0:24];	// Index = Row*5+Col // Index <= [5][5]
 reg 	[`DATA_WIDTH-1:0]	gf[0:24];	// 5x5 Gaussian Filter
-reg 	[`DATA_WIDTH-1:0]	Sobeldx[0:8];	// 3x3 Sobel dx
-reg 	[`DATA_WIDTH-1:0]	Sobeldy[0:8];	// 3x3 Sobel dy
+integer  	Sobeldx[0:8];	// 3x3 Sobel dx
+integer  	Sobeldy[0:8];	// 3x3 Sobel dy
 
 // reg signed type can be used here to avoid warning while synthesis, also option +v2k should be used for simulation.
 
