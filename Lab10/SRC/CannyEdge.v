@@ -36,28 +36,28 @@ input 	[3:0]			dReadReg, dWriteReg;
 
 input				clk, rst_b;
 
-reg 	[`DATA_WIDTH-1:0]	regX[0:24];	// Index = Row*5+Col // Index <= [5][5]
-reg 	[`DATA_WIDTH-1:0]	regY[0:24];	// Index = Row*5+Col // Index <= [5][5]
-reg 	[`DATA_WIDTH-1:0]	regZ[0:24];	// Index = Row*5+Col // Index <= [5][5]
-reg 	[`DATA_WIDTH-1:0]	gf[0:24];	// 5x5 Gaussian Filter
+reg [`DATA_WIDTH-1:0] 	regX[0:24];	// Index = Row*5+Col // Index <= [5][5]
+reg [`DATA_WIDTH-1:0]	regY[0:24];	// Index = Row*5+Col // Index <= [5][5]
+reg [`DATA_WIDTH-1:0]	regZ[0:24];	// Index = Row*5+Col // Index <= [5][5]
+integer 	gf[0:24];	// 5x5 Gaussian Filter
 integer  	Sobeldx[0:8];	// 3x3 Sobel dx
 integer  	Sobeldy[0:8];	// 3x3 Sobel dy
 
 // reg signed type can be used here to avoid warning while synthesis, also option +v2k should be used for simulation.
 
-reg 	[`DATA_WIDTH-1:0]	Out_gf, Out_gradient, Out_direction, Out_bThres;
+reg signed 	[`DATA_WIDTH-1:0]	Out_gf, Out_gradient, Out_direction, Out_bThres;
 
 parameter 			dThresHigh = 15;
 parameter			dThresLow = 10;
 
 // Internal Signal;
-reg 		[31:0]		tpSum;
-reg		[1:0]		IntSignal;
-reg signed 	[31:0] 		Gx, Gy, fGx, fGy;
-reg signed	[1:0]		dx, dy;
+reg 	   [31:0]		tpSum;
+reg		   [1:0]		IntSignal;
+reg signed [31:0] 		Gx, Gy, fGx, fGy;
+reg signed [1:0]		dx, dy;
 
 integer signed i, j;
-integer index1, index2;
+integer  index1, index2;
 
 always @(clk or rst_b)
 begin
@@ -96,11 +96,6 @@ begin
 	if(!rst_b)
         begin
             IntSignal <= 2'b00;
-            tpSum <= 0;
-            Gx <= 0;
-            Gy <= 0;
-            fGx <= 0;
-            fGy <= 0;
             dx <= 0;
             dy <= 0;
             Out_gf <= 0;
@@ -217,13 +212,13 @@ begin
                         // Direction (Theta)
                         if(Gy < 0)
                         begin
-                            fGx <= -Gx;
-                            fGy <= -Gy;
+                            fGx = -Gx;
+                            fGy = -Gy;
                         end
                         else
                         begin
-                            fGx <= Gx;
-                            fGy <= Gy;
+                            fGx = Gx;
+                            fGy = Gy;
                         end
                         IntSignal <= 2'b11;
                     end
@@ -232,10 +227,10 @@ begin
                         // Edge Normal which is perpendicular to Edge Orientation
                         if(fGx >=0)
                         begin
-                            if(fGy <= (0.5 * fGx))
+                            if(fGy <= (fGx >> 1))
                                 // degree 0
                                 Out_direction <= 0;
-                            else if(fGy <= (2.5 * fGx))
+                            else if(fGy <= ((5 * fGx) >> 1))
                                 // degree 45
                                 Out_direction <= 45;
                             else
@@ -244,10 +239,10 @@ begin
                         end
                         else // if(fGx<0)
                         begin
-                            if(fGy <= (-0.5 * fGx))
+                            if(fGy <= ((-fGx) >> 1))
                                 // degree 0
                                 Out_direction <= 0;
-                            else if(fGy <= (-2.5 * fGx))
+                            else if(fGy <= ((-5 * fGx) >> 1))
                                 // degree 135
                                 Out_direction <= 135;
                             else
