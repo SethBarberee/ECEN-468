@@ -334,6 +334,7 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
 	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -469,6 +470,7 @@ module stimulus;
 		// -----------------------------------------------------------------------
 		dWriteReg = `WRITE_REGX;
 		OPMode = `MODE_SOBEL;
+		dReadReg = `REG_GRADIENT;
 		
 		for(i=0; i<dHeight; i=i+1)   begin
 			for(j=0; j<dWidth; j=j+1)   begin
@@ -511,7 +513,7 @@ module stimulus;
 		         		// *****************************************
 					// Insert your code here
 					// ...
-
+                                        
 
 					// *****************************************
 	            	         	release DataBus;
@@ -566,6 +568,8 @@ module stimulus;
 		$display("> 2.OutputGradient.bmp is created.\n");
 		
 		// Memory[4th Area] -> **Y
+		dReadReg = `REG_DIRECTION;
+                dWriteReg = `WRITE_REGY;
 		// GetMemoryData(1, DIBH.dHeight*DIBH.dWidth*3);	// BMP_DIRECTION
 	   	for(i=0; i<dHeight; i=i+1)   begin
 		   	for(j=0; j<dWidth; j=j+1)   begin
@@ -642,6 +646,8 @@ module stimulus;
 		// Memory[3rd Area] : NMS Image	
 		// -----------------------------------------------------------------------      
 		OPMode = `MODE_NMS;
+                dWriteReg = `WRITE_REGX;
+                dReadReg = `REG_NMS
 		for(i=0; i<dHeight; i=i+1)   begin
 			for(j=0; j<dWidth; j=j+1)   begin
 				//Do_3x3_NMS(i,j);
@@ -738,6 +744,8 @@ module stimulus;
 		// Memory[5hd Area] : Hysteresis Image	
 		// -----------------------------------------------------------------------        		
 		OPMode = `MODE_HYSTERESIS;
+		dReadReg = `REG_HYSTERESIS;
+                dWriteReg = `WRITE_REGX;
 		for(i=0; i<dHeight; i=i+1)   begin
 			for(j=0; j<dWidth; j=j+1)   begin
 				//Do_3x3_Hysteresis(i,j);
