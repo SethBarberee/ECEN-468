@@ -519,7 +519,8 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
                                                         // TODO verify dAddr
-                                                        dAddr = dHeight*dWidth*1+(k*dWidth+l);	
+                                                        //dAddr = dHeight*dWidth*1+((i-k)*dWidth+(j-l));	
+                                                        dAddr = (dHeight*dWidth) + ((i+(k-1))*dWidth+(j+(l-1)));	
                                                         //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
@@ -781,7 +782,8 @@ module stimulus;
 		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
-                                                        dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+                                                        //dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+                                                        dAddr = (dHeight * dWidth) + ((i+(k-1))*dWidth+(j+(l-1)));	
                                                         //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
@@ -804,7 +806,7 @@ module stimulus;
 		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
-                                                        dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+                                                        dAddr = (dHeight * dWidth * 2) + ((i+(k-1))*dWidth+(j+(l-1)));	
                                                         //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
@@ -995,7 +997,7 @@ module stimulus;
 		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
-	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+	                  				dAddr = (dWidth * dHeight * 2)+((i+(k-1))*dWidth+(j+(l-1)));	
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -1018,7 +1020,7 @@ module stimulus;
 		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
-	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+	                  				dAddr = (dWidth * dHeight * 3)+((i+(k-1))*dWidth+(j+(l-1)));	
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -1041,7 +1043,7 @@ module stimulus;
 		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
-	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+	                  				dAddr = (dWidth * dHeight * 4)+((i+(k-1))*dWidth+(j+(l-1)));	
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
