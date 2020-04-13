@@ -3,11 +3,12 @@ module test (a,b,y);
     output y;
 
     //nand #4 (y, a, b); // gate delay of 4
-    //nand #(3,5) (y, a, b); // rise of 3 and fall of 5
     nand(y, a, b);
 
     specify
-        (a,b => y) = (4);
+        (a,b => y) = (3,5); // rise/fall of 3/5
+        specparam
+        pathpulse$ = 2; // inertial delay of 2
     endspecify
 
 endmodule
