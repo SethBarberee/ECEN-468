@@ -882,17 +882,21 @@ module stimulus;
 					// Send_Pixel_to_Mem(i, j, data, dOffset) ---------
 	            			bWE = 0;	                     // Write Mode
 	            			bCE = 1;		             // Chip Disable
-	            			dAddr = dHeight*dWidth*2+(i*dWidth+j);	
-	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
-	            
-					// WRITE TO MEMORY  
-	            			force DataBus = tValue;   force AddrBus = AddressOut; 
-	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
-	            			#20;
+                            for(k=0; k<3; k=k+1)   begin
+                                for(l=0; l<3; l=l+1)   begin
+                                    dAddr = (dHeight * dWidth * 2) + ((i+(k-1))*dWidth+(j+(l-1)));	
+                                    AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+                        
+                            // WRITE TO MEMORY  
+                                    force DataBus = dBlockC3x3[k*3+l];   force AddrBus = AddressOut; 
+                                    #20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                                    #20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                                    #20;
+                                end
+                            end
 
 					// *****************************************
-	            	         	release DataBus;
+                            release DataBus;
             			end
 			end
 		end
