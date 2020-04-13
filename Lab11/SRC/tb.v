@@ -283,7 +283,6 @@ module stimulus;
                 #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
                 #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
                 #60 force AddrBus = 32'h20000004; // T_byte = 1;
-                #60 force AddrBus = 32'h20000000; // T_byte = 1;
 		// ***************************************** 
 		// -----------------------------------------------------------------------
 		// Applying Gaussian Filter
@@ -455,7 +454,6 @@ module stimulus;
                 #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
                 #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
                 #60 force AddrBus = 32'h20000004; // T_byte = 1;
-                #60 force AddrBus = 32'h20000000;
 		// *****************************************
 		// ----------------------------------------------------------------------- 
 		// -----------------------------------------------------------------------
@@ -508,18 +506,110 @@ module stimulus;
 		         		// *****************************************
 					// Insert your code here
 					// ... 
-                    // Read from Memory 
-	            			bWE = 1;   bCE = 1;   dAddr = 0;
-	            			dAddr = dHeight*dWidth*3+(i*dWidth+j);	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
-	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                            dBlock3x3[i * 5 + j] = DataBus;
-	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+               
+		         		// Read 3x3 block from Memory
+		         		for(k=0; k<2; k=k+1)   begin
+			         		for(l=0; l<2; l=l+1)   begin
+				         		//dBlock5x5[k*5+l]=Read_Pixel_from_Mem(i+(k-2),j+(l-2),0);	//IMAGE_ORIGIN
+		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
+	                  				bWE = 1;		// Read Mode
+                     					bCE = 1;		// Chip Disable
+                                                        // TODO verify dAddr
+                                                        dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	                  				force AddrBus = AddressOut;
+	                  
+							// Read Operation
+	                  				#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                     					#20 dBlock3x3[k*3+l] = DataBus;
+                     					#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                     					#20;
+                     					// -----------------------------------------
+			         		end
+		         		end
+		         		#20
+		         		#20 force DataBus = 8'hzz;		   force AddrBus = 32'h0000_0000;
+		         		#20 release DataBus;      		   release AddrBus;
 
-                    // TODO send to Canny
-                    // TODO read gradient/direction from Canny
-                    // TODO send pixel to memory
+		         		//Init_to_Canny();
+	            			bWE = 0;   bCE = 1;   bOPEnable = 1;
+	            			AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+               				release DataBus;      force AddrBus = AddressOut; #60;
+	
+		         		bWE = 0;
+		         		bCE = 1;
+		         		bOPEnable = 1;
+		         		
+					// Send 3x3 block to Canny
+		         		for(k=0; k<2; k=k+1)   begin
+			         		for(l=0; l<2; l=l+1)   begin
+				         		force DataBus = dBlock3x3[k*3+l];
+				         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+				         		force AddrBus = AddressOut;
+				         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+				         		#20 force AddrBus = AddressOut | (1<<`IDX_CANNY_bCE);    //bCE = 1;
+			         		end
+		         		end
+		         
+					// Operation Enable
+		         		#20	force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bOPEnable);   //bOPEnable = 0;
+		         		#80	force AddrBus = AddressOut | (1<<`IDX_CANNY_bOPEnable);    //bOPEnable = 1;
+		
+		         		// Read pixel from Canny 
+		         		k = 1; 	l = 1;	
+		         		bWE = 1;	bCE = 1;
+                                        dReadReg = `REG_GRADIENT;
+		         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+		         		release DataBus;      force AddrBus = AddressOut; #60;
+		         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+		         		#80 tGradient = DataBus;
+		         		#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+		         		#20;
+	
+                                        dReadReg = `REG_DIRECTION;
+		         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+		         		release DataBus;      force AddrBus = AddressOut; #60;
+		         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+		         		#80 tDirection = DataBus;
+		         		#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+		         		#20;
+
+		         		// Send pixel to Memory	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            			release DataBus;      force AddrBus = AddressOut; #60;
+	            			
+					// Send_Pixel_to_Mem(i, j, data, dOffset) ---------
+	            			bWE = 0;	                     // Write Mode
+	            			bCE = 1;		             // Chip Disable
+	            			dAddr = dHeight*dWidth*2+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            
+					// WRITE TO MEMORY  
+	            			force DataBus = tGradient;   force AddrBus = AddressOut; 
+	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+	            			#20;
+
+					// Send_Pixel_to_Mem(i, j, data, dOffset) ---------
+	            			bWE = 0;	                     // Write Mode
+	            			bCE = 1;		             // Chip Disable
+	            			dAddr = dHeight*dWidth*3+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            
+					// WRITE TO MEMORY  
+	            			force DataBus = tDirection;   force AddrBus = AddressOut; 
+	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+	            			#20;
+
+                                        
 					// *****************************************
 	            	         	release DataBus;
            			end
@@ -644,7 +734,6 @@ module stimulus;
                 #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
                 #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
                 #60 force AddrBus = 32'h20000004; // T_byte = 1;
-                #60 force AddrBus = 32'h20000000;
 		// *****************************************	 
 		// -----------------------------------------------------------------------
 		// Applying Non Maximum Suppression
@@ -680,22 +769,87 @@ module stimulus;
 	         		else begin
 		         		// *****************************************
 					// Insert your code here 
-                             // Read from Memory 
-	            			bWE = 1;   bCE = 1;   dAddr = 0;
-	            			dAddr = dHeight*dWidth*2+(i*dWidth+j);	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
-	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+               
+		         		// Read 5x5 block from Memory
+		         		for(k=0; k<5; k=k+1)   begin
+			         		for(l=0; l<5; l=l+1)   begin
+				         		//dBlock5x5[k*5+l]=Read_Pixel_from_Mem(i+(k-2),j+(l-2),0);	//IMAGE_ORIGIN
+		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
+	                  				bWE = 1;		// Read Mode
+                     					bCE = 1;		// Chip Disable
+	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	                  				force AddrBus = AddressOut;
+	                  
+							// Read Operation
+	                  				#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                     					#20 dBlock5x5[k*5+l] = DataBus;
+                     					#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                     					#20;
+                     					// -----------------------------------------
+			         		end
+		         		end
+		         		#20
+		         		#20 force DataBus = 8'hzz;		   force AddrBus = 32'h0000_0000;
+		         		#20 release DataBus;      		   release AddrBus;
 
-	            			dAddr = dHeight*dWidth*3+(i*dWidth+j);	
+		         		//Init_to_Canny();
+	            			bWE = 0;   bCE = 1;   bOPEnable = 1;
+	            			AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+               				release DataBus;      force AddrBus = AddressOut; #60;
+	
+		         		bWE = 0;
+		         		bCE = 1;
+		         		bOPEnable = 1;
+		         		
+					// Send 5x5 block to Canny
+		         		for(k=0; k<5; k=k+1)   begin
+			         		for(l=0; l<5; l=l+1)   begin
+				         		force DataBus = dBlock5x5[k*5+l];
+				         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+				         		force AddrBus = AddressOut;
+				         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+				         		#20 force AddrBus = AddressOut | (1<<`IDX_CANNY_bCE);    //bCE = 1;
+			         		end
+		         		end
+		         
+					// Operation Enable
+		         		#20	force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bOPEnable);   //bOPEnable = 0;
+		         		#80	force AddrBus = AddressOut | (1<<`IDX_CANNY_bOPEnable);    //bOPEnable = 1;
+		
+		         		// Read pixel from Canny 
+		         		k = 2; 	l = 2;	
+		         		bWE = 1;	bCE = 1;
+		         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+		         		release DataBus;      force AddrBus = AddressOut; #60;
+		         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+		         		#80 tValue = DataBus;
+		         		#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+		         		#20;
+	
+		         		// Send pixel to Memory	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
+	            			
+					// Send_Pixel_to_Mem(i, j, data, dOffset) ---------
+	            			bWE = 0;	                     // Write Mode
+	            			bCE = 1;		             // Chip Disable
+	            			dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            
+					// WRITE TO MEMORY  
+	            			force DataBus = tValue;   force AddrBus = AddressOut; 
 	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
 	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
-                    // TODO send to Canny
-                    // TODO read gradient/direction from Canny
-                    // TODO send pixel to memory
+	            			#20;
+
 					// *****************************************
 	            	         	release DataBus;
             			end
@@ -755,7 +909,6 @@ module stimulus;
                 #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
                 #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
                 #60 force AddrBus = 32'h20000004; // T_byte = 1;
-                #60 force AddrBus = 32'h20000000;
 		// *****************************************	
 		// -----------------------------------------------------------------------
 		// Applying Hysteresiis Thresholding
@@ -791,28 +944,87 @@ module stimulus;
 	         		else begin
 		         		// *****************************************
 					// Insert your code here 
-                            // Read from Memory 
-	            			bWE = 1;   bCE = 1;   dAddr = 0;
-	            			dAddr = dHeight*dWidth*2+(i*dWidth+j);	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
-	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                            dBlockA3x3[i * 5 + k] = DataBus;
-	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+               
+		         		// Read 5x5 block from Memory
+		         		for(k=0; k<5; k=k+1)   begin
+			         		for(l=0; l<5; l=l+1)   begin
+				         		//dBlock5x5[k*5+l]=Read_Pixel_from_Mem(i+(k-2),j+(l-2),0);	//IMAGE_ORIGIN
+		               				// Read_Pixel_from_Mem(i,j,dOffset); -------
+	                  				bWE = 1;		// Read Mode
+                     					bCE = 1;		// Chip Disable
+	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
+                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	                  				force AddrBus = AddressOut;
+	                  
+							// Read Operation
+	                  				#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                     					#20 dBlock5x5[k*5+l] = DataBus;
+                     					#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                     					#20;
+                     					// -----------------------------------------
+			         		end
+		         		end
+		         		#20
+		         		#20 force DataBus = 8'hzz;		   force AddrBus = 32'h0000_0000;
+		         		#20 release DataBus;      		   release AddrBus;
 
-	            			dAddr = dHeight*dWidth*3+(i*dWidth+j);	
+		         		//Init_to_Canny();
+	            			bWE = 0;   bCE = 1;   bOPEnable = 1;
+	            			AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
+               				release DataBus;      force AddrBus = AddressOut; #60;
+	
+		         		bWE = 0;
+		         		bCE = 1;
+		         		bOPEnable = 1;
+		         		
+					// Send 5x5 block to Canny
+		         		for(k=0; k<5; k=k+1)   begin
+			         		for(l=0; l<5; l=l+1)   begin
+				         		force DataBus = dBlock5x5[k*5+l];
+				         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+				         		force AddrBus = AddressOut;
+				         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+				         		#20 force AddrBus = AddressOut | (1<<`IDX_CANNY_bCE);    //bCE = 1;
+			         		end
+		         		end
+		         
+					// Operation Enable
+		         		#20	force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bOPEnable);   //bOPEnable = 0;
+		         		#80	force AddrBus = AddressOut | (1<<`IDX_CANNY_bOPEnable);    //bOPEnable = 1;
+		
+		         		// Read pixel from Canny 
+		         		k = 2; 	l = 2;	
+		         		bWE = 1;	bCE = 1;
+		         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
+		         		release DataBus;      force AddrBus = AddressOut; #60;
+		         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
+		         		#80 tValue = DataBus;
+		         		#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+		         		#20;
+	
+		         		// Send pixel to Memory	
+		         		//Init_to_Mem();
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
-	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                            dBlockB3x3[i * 5 + k] = DataBus;
-	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
-
-	            			dAddr = dHeight*dWidth*4+(i*dWidth+j);	
+	            			
+					// Send_Pixel_to_Mem(i, j, data, dOffset) ---------
+	            			bWE = 0;	                     // Write Mode
+	            			bCE = 1;		             // Chip Disable
+	            			dAddr = dHeight*dWidth*1+(i*dWidth+j);	
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
-	            			release DataBus;      force AddrBus = AddressOut; #60;
+	            
+					// WRITE TO MEMORY  
+	            			force DataBus = tValue;   force AddrBus = AddressOut; 
 	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                            dBlockC3x3[i * 5 + k] = DataBus;
 	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+	            			#20;
+                                
 					// *****************************************
 	            	         	release DataBus;
             			end
