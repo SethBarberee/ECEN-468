@@ -214,25 +214,25 @@ module stimulus;
 		// Original Image to Memory & Memory to test-bench
 		// -----------------------------------------------------------------------
 		
-        // Input Image **X -> Memory[1st Area] ----------------
-        // *****************************************
-        // Insert your code here
-        for(i=0; i<dHeight; i=i+1)   begin
-            for(j=0; j<dWidth; j=j+1)   begin
-                    // Send_Pixel_to_Mem(i, j, data, dOffset) --------
-                    bWE = 0;	                // Write Mode
-                    bCE = 1;			// Chip Disable
-                    dAddr = dWidth*dHeight+(i*dWidth+j);	
-                    AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
-                    // WRITE TO MEMORY  
-                    force DataBus = memX[i*dWidth+j];   force AddrBus = AddressOut; 
-                    // Write Operation
-                    #20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                    #20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
-                    #20;
-                    // -----------------------------------------------
-            end
-        end
+                // Input Image **X -> Memory[1st Area] ----------------
+                // *****************************************
+                // Insert your code here
+                for(i=0; i<dHeight; i=i+1)   begin
+                    for(j=0; j<dWidth; j=j+1)   begin
+                            // Send_Pixel_to_Mem(i, j, data, dOffset) --------
+                            bWE = 0;	                // Write Mode
+                            bCE = 1;			// Chip Disable
+                            dAddr = dWidth*dHeight+(i*dWidth+j);	
+                            AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+                            // WRITE TO MEMORY  
+                            force DataBus = memX[i*dWidth+j];   force AddrBus = AddressOut; 
+                            // Write Operation
+                            #20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                            #20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                            #20;
+                            // -----------------------------------------------
+                    end
+                end
 		// *****************************************
 		
 		// Memory[1st Area] -> **Y -----------------------------
@@ -243,7 +243,7 @@ module stimulus;
 		      		// Read_Pixel_from_Mem(i,j,dOffset);
 	         		bWE = 1;		// Read Mode
            			bCE = 1;		// Chip Disable
-                    dAddr = dWidth*dHeight+(i*dWidth+j);	
+                                dAddr = dWidth*dHeight+(i*dWidth+j);	
 	        		AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	         		force AddrBus = AddressOut;
 	         		// Read Operation
@@ -328,7 +328,6 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
 	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
-                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -773,7 +772,7 @@ module stimulus;
 	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	            			release DataBus;      force AddrBus = AddressOut; #60;
                
-		         		// Read 5x5 block from Memory
+		         		// Read 3x3 block from Memory
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
 				         		//dBlock5x5[k*5+l]=Read_Pixel_from_Mem(i+(k-2),j+(l-2),0);	//IMAGE_ORIGIN
@@ -841,7 +840,6 @@ module stimulus;
 		         		end
 
 					// Send 3x3 block to Canny
-                                        // TODO WRITE_REGY
                                         dWriteReg = `WRITE_REGY;
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
@@ -1019,7 +1017,6 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
 	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
-                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -1043,7 +1040,6 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
 	                  				dAddr = 0+((i+(k-2))*dWidth+(j+(l-2)));	
-                                                        //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
 	                  
@@ -1080,7 +1076,6 @@ module stimulus;
 		         		end
 		         
 					// Send 3x3 block to Canny
-                                        // TODO WRITE_REGY
                                         dWriteReg = `WRITE_REGY;
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
@@ -1093,7 +1088,6 @@ module stimulus;
 		         		end
 
                                         // Send 3x3 block to Canny
-                                        // TODO WRITE_REGZ
                                         dWriteReg = `WRITE_REGZ;
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
