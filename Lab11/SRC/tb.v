@@ -214,39 +214,36 @@ module stimulus;
 		// Original Image to Memory & Memory to test-bench
 		// -----------------------------------------------------------------------
 		
-      		// Input Image **X -> Memory[1st Area] ----------------
-         	// *****************************************
-		// Insert your code here
-		// TODO verify this
-			for(i=0; i<dHeight; i=i+1)   begin
-				for(j=0; j<dWidth; j=j+1)   begin
-	         			// Send_Pixel_to_Mem(i, j, data, dOffset) --------
-	         			bWE = 0;	                // Write Mode
-	         			bCE = 1;			// Chip Disable
-	         			dAddr = (i*dWidth+j);	
-	         			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
-	         			// WRITE TO MEMORY  
-	         			force DataBus = memLine[dAddr];   force AddrBus = AddressOut; 
-	         			// Write Operation
-	         			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-	         			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
-	         			#20;
-	         			// -----------------------------------------------
-				end
-			end
+        // Input Image **X -> Memory[1st Area] ----------------
+        // *****************************************
+        // Insert your code here
+        for(i=0; i<dHeight; i=i+1)   begin
+            for(j=0; j<dWidth; j=j+1)   begin
+                    // Send_Pixel_to_Mem(i, j, data, dOffset) --------
+                    bWE = 0;	                // Write Mode
+                    bCE = 1;			// Chip Disable
+                    dAddr = dWidth*dHeight+(i*dWidth+j);	
+                    AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+                    // WRITE TO MEMORY  
+                    force DataBus = memX[i*dWidth+j];   force AddrBus = AddressOut; 
+                    // Write Operation
+                    #20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+                    #20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
+                    #20;
+                    // -----------------------------------------------
+            end
+        end
 		// *****************************************
 		
 		// Memory[1st Area] -> **Y -----------------------------
 	  	// *****************************************
 		// Insert your code here
-		// ...
-                // TODO verify this
 	   	for(i=0; i<dHeight; i=i+1)   begin
 		   	for(j=0; j<dWidth; j=j+1)   begin
 		      		// Read_Pixel_from_Mem(i,j,dOffset);
 	         		bWE = 1;		// Read Mode
            			bCE = 1;		// Chip Disable
-	         		dAddr = (i*dWidth+j);	
+                    dAddr = dWidth*dHeight+(i*dWidth+j);	
 	        		AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	         		force AddrBus = AddressOut;
 	         		// Read Operation
@@ -256,7 +253,6 @@ module stimulus;
             			#20;
 		   	end
 	   	end
-
 		// *****************************************
 	
 		// WriteBMPOut(BMP_ORIGIN);		// -----------------------------------------
@@ -282,11 +278,12 @@ module stimulus;
  	  	// *****************************************
 		// Insert your code here
 		// ...
+                #60 force AddrBus = 32'h20000000; // Load_XMT_datareg  = 1
                 force DataBus = 8'h4E;
                 #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
                 #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
                 #60 force AddrBus = 32'h20000004; // T_byte = 1;
-                #60 force AddrBus = 32'h20000000;
+                #60 force AddrBus = 32'h20000000; // T_byte = 1;
 		// ***************************************** 
 		// -----------------------------------------------------------------------
 		// Applying Gaussian Filter
