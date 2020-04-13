@@ -511,8 +511,19 @@ module stimulus;
 		         		// *****************************************
 					// Insert your code here
 					// ...
-                                        
-
+                    
+                    // Init_to_Mem()
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
+	            			dAddr = 1 + dHeight*dWidth*1+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            			release DataBus;      force AddrBus = AddressOut; #60;
+                    // Read from Memory 
+	            			bWE = 1;   bCE = 1;   dAddr = 0;
+	            			dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            			release DataBus;      force AddrBus = AddressOut; #60;
+	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
 					// *****************************************
 	            	         	release DataBus;
            			end
@@ -672,9 +683,19 @@ module stimulus;
 	         		end
 	         		else begin
 		         		// *****************************************
-					// Insert your code here
-					// ...
-
+					// Insert your code here 
+                    // Init_to_Mem()
+	            			bWE = 0;   bCE = 1;   dAddr = 0;
+	            			dAddr = 1 + dHeight*dWidth*1+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            			release DataBus;      force AddrBus = AddressOut; #60;
+                    // Read from Memory 
+	            			bWE = 1;   bCE = 1;   dAddr = 0;
+	            			dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+	            			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
+	            			release DataBus;      force AddrBus = AddressOut; #60;
+	            			#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
+	            			#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
 
 					// *****************************************
 	            	         	release DataBus;
