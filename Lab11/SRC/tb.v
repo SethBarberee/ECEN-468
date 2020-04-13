@@ -519,7 +519,7 @@ module stimulus;
 	                  				bWE = 1;		// Read Mode
                      					bCE = 1;		// Chip Disable
                                                         // TODO verify dAddr
-                                                        dAddr = dHeight*dWidth*1+(i*dWidth+j);	
+                                                        dAddr = dHeight*dWidth*1+(k*dWidth+l);	
                                                         //AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(1<<5)+(1<<2)+(bWE<<1)+bCE;
 	                  				AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	                  				force AddrBus = AddressOut;
