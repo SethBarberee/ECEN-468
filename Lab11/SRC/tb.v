@@ -222,7 +222,8 @@ module stimulus;
                             // Send_Pixel_to_Mem(i, j, data, dOffset) --------
                             bWE = 0;	                // Write Mode
                             bCE = 1;			// Chip Disable
-                            dAddr = dWidth*dHeight+(i*dWidth+j);	
+                            //dAddr = dWidth*dHeight+(i*dWidth+j);	
+                            dAddr = (i*dWidth+(j));	
                             AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
                             // WRITE TO MEMORY  
                             force DataBus = memX[i*dWidth+j];   force AddrBus = AddressOut; 
@@ -243,7 +244,8 @@ module stimulus;
 		      		// Read_Pixel_from_Mem(i,j,dOffset);
 	         		bWE = 1;		// Read Mode
            			bCE = 1;		// Chip Disable
-                                dAddr = dWidth*dHeight+(i*dWidth+j);	
+                                //dAddr = dWidth*dHeight+(i*dWidth+j);	
+                                dAddr = (i*dWidth+(j));	
 	        		AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	         		force AddrBus = AddressOut;
 	         		// Read Operation
