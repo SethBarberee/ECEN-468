@@ -833,6 +833,7 @@ module stimulus;
 		         		bOPEnable = 1;
 		         		
 					// Send 3x3 block to Canny
+                                        dWriteReg = `WRITE_REGX;
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
 				         		force DataBus = dBlockA3x3[k*3+l];
@@ -1073,6 +1074,7 @@ module stimulus;
 		         		bOPEnable = 1;
 		         		
 					// Send 3x3 block to Canny
+                                        dWriteReg = `WRITE_REGX;
 		         		for(k=0; k<3; k=k+1)   begin
 			         		for(l=0; l<3; l=l+1)   begin
 				         		force DataBus = dBlockA3x3[k*3+l];
