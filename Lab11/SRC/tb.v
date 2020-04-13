@@ -218,13 +218,12 @@ module stimulus;
          	// *****************************************
 		// Insert your code here
 		// TODO verify this
-      		for(k=0; k<5; k=k+1) begin
 			for(i=0; i<dHeight; i=i+1)   begin
 				for(j=0; j<dWidth; j=j+1)   begin
 	         			// Send_Pixel_to_Mem(i, j, data, dOffset) --------
 	         			bWE = 0;	                // Write Mode
 	         			bCE = 1;			// Chip Disable
-	         			dAddr = k*dWidth*dHeight+(i*dWidth+j);	
+	         			dAddr = dHeight*dWidth+(i*dWidth+j);	
 	         			AddressOut = (IDMEM << 28)+(bCE << 19)+(bWE << 18)+dAddr;
 	         			// WRITE TO MEMORY  
 	         			force DataBus = memLine[dAddr];   force AddrBus = AddressOut; 
@@ -235,7 +234,6 @@ module stimulus;
 	         			// -----------------------------------------------
 				end
 			end
-		end                
 		// *****************************************
 		
 		// Memory[1st Area] -> **Y -----------------------------
@@ -284,11 +282,11 @@ module stimulus;
  	  	// *****************************************
 		// Insert your code here
 		// ...
-                DataBus = 8'h4E;
-                #60 AddrBus = 32'h2000_0001; // Load_XMT_datareg  = 1
-                #60 AddrBus = 32'h2000_0002; // Byte_ready = 1
-                #60 AddrBus = 32'h2000_0004; // T_byte = 1;
-                #60 AddrBus = 32'h2000_0000;
+                force DataBus = 8'h4E;
+                #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
+                #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
+                #60 force AddrBus = 32'h20000004; // T_byte = 1;
+                #60 force AddrBus = 32'h20000000;
 		// ***************************************** 
 		// -----------------------------------------------------------------------
 		// Applying Gaussian Filter
@@ -456,11 +454,11 @@ module stimulus;
 	  	// *****************************************
 		// Insert your code here
 		// ...
-                DataBus = 8'h47;
-                #60 AddrBus = 32'h2000_0001; // Load_XMT_datareg  = 1
-                #60 AddrBus = 32'h2000_0002; // Byte_ready = 1
-                #60 AddrBus = 32'h2000_0004; // T_byte = 1;
-                #60 AddrBus = 32'h2000_0000;
+                force DataBus = 8'h47;
+                #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
+                #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
+                #60 force AddrBus = 32'h20000004; // T_byte = 1;
+                #60 force AddrBus = 32'h20000000;
 		// *****************************************
 		// ----------------------------------------------------------------------- 
 		// -----------------------------------------------------------------------
@@ -635,11 +633,11 @@ module stimulus;
       	  	// *****************************************
 		// Insert your code here
 		// ...
-                DataBus = 8'h53;
-                #60 AddrBus = 32'h2000_0001; // Load_XMT_datareg  = 1
-                #60 AddrBus = 32'h2000_0002; // Byte_ready = 1
-                #60 AddrBus = 32'h2000_0004; // T_byte = 1;
-                #60 AddrBus = 32'h2000_0000;
+                force DataBus = 8'h53;
+                #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
+                #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
+                #60 force AddrBus = 32'h20000004; // T_byte = 1;
+                #60 force AddrBus = 32'h20000000;
 		// *****************************************	 
 		// -----------------------------------------------------------------------
 		// Applying Non Maximum Suppression
@@ -647,7 +645,7 @@ module stimulus;
 		// -----------------------------------------------------------------------      
 		OPMode = `MODE_NMS;
                 dWriteReg = `WRITE_REGX;
-                dReadReg = `REG_NMS
+                dReadReg = `REG_NMS;
 		for(i=0; i<dHeight; i=i+1)   begin
 			for(j=0; j<dWidth; j=j+1)   begin
 				//Do_3x3_NMS(i,j);
@@ -733,11 +731,11 @@ module stimulus;
        	  	// *****************************************
 		// Insert your code here
 		// ...
-                DataBus = 8'h48;
-                #60 AddrBus = 32'h2000_0001; // Load_XMT_datareg  = 1
-                #60 AddrBus = 32'h2000_0002; // Byte_ready = 1
-                #60 AddrBus = 32'h2000_0004; // T_byte = 1;
-                #60 AddrBus = 32'h2000_0000;
+                force DataBus = 8'h48;
+                #60 force AddrBus = 32'h20000001; // Load_XMT_datareg  = 1
+                #60 release DataBus; force AddrBus = 32'h20000002; // Byte_ready = 1
+                #60 force AddrBus = 32'h20000004; // T_byte = 1;
+                #60 force AddrBus = 32'h20000000;
 		// *****************************************	
 		// -----------------------------------------------------------------------
 		// Applying Hysteresiis Thresholding
