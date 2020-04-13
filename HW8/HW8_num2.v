@@ -2,14 +2,20 @@ module test (a,b,y);
     input a,b;
     output y;
 
-    nand #4 (y, a, b); // gate delay of 4
+    //nand #4 (y, a, b); // gate delay of 4
     //nand #(3,5) (y, a, b); // rise of 3 and fall of 5
+    nand(y, a, b);
+
+    specify
+        (a,b => y) = (4);
+    endspecify
 
 endmodule
 
 module run;
 
-    reg a,b,c;
+    reg a,b;
+    wire c;
 
     test test1(a,b,c);
 
@@ -25,6 +31,6 @@ module run;
     initial
     begin
         $dumpfile ("wave.dump");
-        $dumpvars (0, wave);
+        $dumpvars (0, run);
     end
 endmodule
