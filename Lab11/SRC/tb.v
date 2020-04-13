@@ -813,7 +813,7 @@ module stimulus;
 	                  
 							// Read Operation
 	                  				#20 force AddrBus = AddressOut & ~(1<<`IDX_MEM_bCE);   //bCE = 0;
-                     					#20 dBlockB3x3[k*5+l] = DataBus;
+                     					#20 dBlockB3x3[k*3+l] = DataBus;
                      					#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
                      					#20;
                      					// -----------------------------------------
