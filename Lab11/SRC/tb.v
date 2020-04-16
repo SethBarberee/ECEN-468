@@ -863,12 +863,13 @@ module stimulus;
 		
 		         		// Read pixel from Canny 
 		         		bWE = 1;	bCE = 1;
-		         		for(k=-1; k<2; k=k+1)   begin
-			         		for(l=-1; l<2; l=l+1)   begin
+                        dReadReg = `REG_NMS;
+		         		for(k= 0; k<3; k=k+1)   begin
+			         		for(l= 0; l<3; l=l+1)   begin
 				         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
-				         		release DataBus; force AddrBus = AddressOut; #60;
+				         		release DataBus; force AddrBus = AddressOut;
 				         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
-                                #80 dBlockC3x3[(k+1)*3+(l+1)] = DataBus;
+                                #80 dBlockC3x3[k*3+l] = DataBus;
 				         		#20 force AddrBus = AddressOut | (1<<`IDX_CANNY_bCE);    //bCE = 1;
                                 #20;
 			         		end
