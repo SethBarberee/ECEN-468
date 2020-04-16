@@ -1118,8 +1118,9 @@ module stimulus;
 		         		// Read pixel from Canny 
 		         		k = 1; 	l = 1;	
 		         		bWE = 1;	bCE = 1;
+                        dReadReg = `REG_HYSTERESIS;
 		         		AddressOut = (IDCANNY << 28)+(bOPEnable << 27)+(OPMode << 24)+(dWriteReg << 20)+(dReadReg << 16)+(k<<5)+(l<<2)+(bWE<<1)+bCE;
-		         		release DataBus;      force AddrBus = AddressOut; #60;
+		         		release DataBus;      force AddrBus = AddressOut;
 		         		#20 force AddrBus = AddressOut & ~(1<<`IDX_CANNY_bCE);   //bCE = 0;
 		         		#80 tValue = DataBus;
 		         		#20 force AddrBus = AddressOut | (1<<`IDX_MEM_bCE);    //bCE = 1;
