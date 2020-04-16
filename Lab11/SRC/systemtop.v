@@ -1,5 +1,5 @@
 `include "Arbiter.v"
-`include "SRAM.v"
+`include "virtSRAM.v"
 `include "UART_XMTR.v"
 `include "CannyEdge.v"
 `include "WRAP_SRAM.v"
